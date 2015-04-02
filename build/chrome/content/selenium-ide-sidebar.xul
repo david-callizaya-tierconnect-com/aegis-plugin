@@ -85,7 +85,21 @@ limitations under the License.
       <splitter id="suiteTreeSplitter" collapse="before" persist="state" hidden="true">
 		<grippy/>
       </splitter>
-      <tabbox id="tabbox" flex="3" height="300" persist="height width">
+        <vbox>
+          <tree id="commands" enableColumnDrag="false" hidecolumnpicker="true"
+                context="treeContextMenu" onselect="window.editor.treeView.selectCommand()"
+                ondblclick="goDoCommand('cmd_selenium_exec_command')" disableKeyNavigation="true">
+            <treecols hidden="true">
+                  <treecol id="command" label="&command.label;" width="80"/>
+                  <splitter class="tree-splitter" />
+                  <treecol id="target" label="&target.label;" flex="3" width="80"/>
+                  <splitter class="tree-splitter" />
+                  <treecol id="value" label="&value.label;" flex="3" width="80"/>
+            </treecols>
+            <treechildren ondraggesture="nsDragAndDrop.startDrag(event, commandsDragObserver);"/>
+          </tree>
+        </vbox>
+      <tabbox id="tabbox" flex="3" height="300" hidden="true" persist="height width">
         <tabs orient="horizontal" onselect="if (window.editor) { window.editor.tabSelected(selectedItem.id) }" id="viewTabs" hidden="true">
 	      <tab id="editorTab" label="&tableTab.label;" />
 	      <tab id="sourceTab" label="&sourceTab.label;" />
@@ -106,8 +120,7 @@ limitations under the License.
 	            <treechildren ondraggesture="nsDragAndDrop.startDrag(event, commandsDragObserver);"/>
 	          </tree>
 	          <separator class="thin"/>
-	          <!-- command editing -->
-	          <vbox id="commandDetail" persist="height">
+	          <vbox id="commandDetail" hidden="true" persist="height">
 	            <grid>
 		          <columns>
 		            <column flex="1"/>
