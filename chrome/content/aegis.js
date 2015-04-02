@@ -34,6 +34,13 @@ var aegis={
                     }
                     return aCommands;
                 }
+            },
+            main:{
+                reloadFrame:function(){
+                    var frame=aegis.editor.window.document.getElementById("aegisBottomPanel");
+                    frame.reload();
+                    aegis.injectTo(frame);
+                }
             }
         },
         onContentLoaded:function(contentWindow, isRootDocument){
@@ -48,6 +55,10 @@ var aegis={
             }
             return true;
         },
+        onLoadEditorIframe:function(browser){
+            console.log("---------------");
+            console.log(browser);
+        },
         onEditorLoaded:function(editor, contentWindow){
             var aegisBottomPanel=contentWindow.document.getElementById("aegisBottomPanel");
             if(aegisBottomPanel) {
@@ -59,11 +70,20 @@ var aegis={
         injectTo:function(contentWindow){
             try {
                 var document;
-                if(typeof contentWindow.contentDocument!="undefined"){
+                var chromeWindow;
+                if(typeof contentWindow.contentDocument!=="undefined"){
                     document=contentWindow.contentDocument;
                 }
-                if(typeof contentWindow.document!="undefined"){
+                if(typeof contentWindow.document!=="undefined"){
                     document=contentWindow.document;
+                }
+                chromeWindow = contentWindow;
+                if(typeof contentWindow.constructor!=="undefined"){
+                    if(typeof contentWindow.constructor.name==="string"){
+                        if(contentWindow.constructor.name==="XULElement"){
+                            chromeWindow = contentWindow._contentWindow;
+                        }
+                    }
                 }
                 var ee=document.createElement("b");
                 ee.id="a1c622d9c9d1a180f16481caef451589";
@@ -75,10 +95,11 @@ var aegis={
                                 me.interfaces[interface],
                                 arguments
                             );
-                        return Components.utils.cloneInto(
+                        var res1=Components.utils.cloneInto(
                             res,
-                            contentWindow
+                            chromeWindow
                         );
+                        return res1;
                         return res;
                     }
                 };
