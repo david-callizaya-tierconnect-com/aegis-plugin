@@ -48,14 +48,41 @@ var aegis={
              * Injects the dom element to do as a bridge
              * between the window and the plugin.
              */
+            console.log("---------------------------------------");
+            console.log(contentWindow.location.host);
             if(contentWindow.location.host==this.server.host) {
                 this.injectTo(contentWindow);
                 //disable recording on this page
                 return false;
+            } else {
+                console.log("******************************");
+                console.log("***  Inject DOM Inspector  ***");
+                console.log("***  url: "+contentWindow.location.href);
+                console.log("******************************");
+                DOMInjector.readInjectCssTo(
+                    contentWindow,
+                    'chrome://selenium-ide/content/DOM-inspector-master/acid-dom/css/acid_dom.css',
+                    function(window, document, nodes){
+                        while(nodes.length>0){
+                            document.body.appendChild(nodes[0]);
+                        }
+                        DOMInjector.readInjectJavascriptTo(
+                            contentWindow,
+                            'chrome://selenium-ide/content/DOM-inspector-master/acid-dom/js/acid_dom.js',
+                            function(window, document, nodes) {
+                                while(nodes.length>0){
+                                    window.eval(nodes[0].textContent);
+                                    document.body.appendChild(nodes[0]);
+                                }
+                            }
+                        );
+                    }
+                );
             }
             return true;
         },
         onLoadEditorIframe:function(browser){
+            //TODO: catch a subEditor frame's reload
             console.log("---------------");
             console.log(browser);
         },
@@ -103,9 +130,6 @@ var aegis={
                         return res;
                     }
                 };
-                /*ee.onclick=function(interface,fn){
-                    return me.interfaces[interface][fn];
-                };*/
                 document.body.appendChild(ee);
             } catch(ex) {
                 console.log(ex);
