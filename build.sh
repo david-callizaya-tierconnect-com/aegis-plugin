@@ -24,3 +24,5 @@ echo "Generating $APP_NAME.xpi..."
 zip -r ../$APP_NAME.xpi *
  
 cd "$ROOT_DIR"
+rm -rf $TMP_DIR
+

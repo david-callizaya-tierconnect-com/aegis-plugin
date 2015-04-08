@@ -155,6 +155,9 @@ Recorder.record = function(recorder, command, target, value) {
 }
 
 Recorder.prototype.record = function(command, target, value, insertBeforeLastCommand) {
+        ISeleniumController.notify("record", {
+            command:command, target:target, value:value
+        });
 	for (var i = 0; i < this.observers.length; i++) {
 		if (this.observers[i].recordingEnabled) {
 			this.observers[i].addCommand(command, target, value, this.window, insertBeforeLastCommand);
