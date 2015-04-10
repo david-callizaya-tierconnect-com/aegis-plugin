@@ -155,7 +155,9 @@ Recorder.record = function(recorder, command, target, value) {
 }
 
 Recorder.prototype.record = function(command, target, value, insertBeforeLastCommand) {
+        //by david
         ISeleniumController.notify("record", {
+            baseUrl:this.window.location.href,
             command:command, target:target, value:value
         });
 	for (var i = 0; i < this.observers.length; i++) {

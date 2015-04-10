@@ -1011,7 +1011,11 @@
 					// find corresponding node in the DOM view
 					var path = getElemPaths(target);
                                         //accesspoint by david
-                                        window.AEGIS.InspectorController.notify('select', {target:target, outlinedStyle: outlinedStyle, styleBackup: styleBackup} );
+                                        setTimeout( (function(target, outlinedStyle, styleBackup){
+                                            return function(){
+                                                window.AEGIS.InspectorController.notify('select', {target:target, outlinedStyle: outlinedStyle, styleBackup: styleBackup} );
+                                            };
+                                        })(target, outlinedStyle, styleBackup), 100 );
                                         var active = domView.querySelector('[data-js-path=\'' + JSON.stringify(path.jsPath) + '\']');
                                         
 					// activate it

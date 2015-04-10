@@ -223,7 +223,7 @@ function Editor(window) {
   //Samit: Enh: display a webpage on the first start (and also on locale change if the version string is localised)
   var versionString = Editor.getString('selenium-ide.version');
   if (!this.app.options.currentVersion || this.app.options.currentVersion != versionString) {
-    openTabOrWindow('http://code.google.com/p/selenium/wiki/SeIDEReleaseNotes');
+    //openTabOrWindow('http://code.google.com/p/selenium/wiki/SeIDEReleaseNotes');
     Preferences.setAndSave(this.app.options, 'currentVersion', versionString);
   }
 

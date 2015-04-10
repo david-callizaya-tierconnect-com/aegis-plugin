@@ -65,7 +65,7 @@ window.AEGIS.utils={
      * @param {type} xml
      * @returns {String}
      */
-    getXPathForElement:function(el, xml) {
+    getXPathForElement1:function(el, xml) {
         var xpath = '';
         var pos, tempitem2;
 
@@ -85,6 +85,17 @@ window.AEGIS.utils={
         }
         xpath = '/*'+"[name()='"+xml.documentElement.nodeName+"' and namespace-uri()='"+(el.namespaceURI===null?'':el.namespaceURI)+"']"+'/'+xpath;
         xpath = xpath.replace(/\/$/, '');
+        return xpath;
+    },
+    getXPathForElement:function( element )
+    {
+        var xpath = '';
+        for ( ; element && element.nodeType == 1; element = element.parentNode )
+        {
+            var id = $(element.parentNode).children(element.tagName).index(element) + 1;
+            id > 1 ? (id = '[' + id + ']') : (id = '');
+            xpath = '/' + element.tagName.toLowerCase() + id + xpath;
+        }
         return xpath;
     }
 };

@@ -13,6 +13,7 @@ window.AEGIS.InspectorController={
                 var outerHTMLWithStyle = data.target.outerHTML;
                 data.target.setAttribute('style', data.styleBackup);
                 Interface.notify("select", {
+                    baseUrl:data.target.ownerDocument.location.href,
                     xpath: xpath,
                     outerHTML: outerHTML,
                     outerHTMLWithStyle: outerHTMLWithStyle
