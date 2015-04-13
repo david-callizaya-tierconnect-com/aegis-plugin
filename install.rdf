@@ -12,7 +12,7 @@
         <em:homepageURL>http://www.google.com</em:homepageURL>
         <em:optionsURL>chrome://selenium-ide/content/optionsDialog.xul</em:optionsURL>
         <!-- em:updateURL>https://addons.seleniumhq.org/se-ide/update.rdf</em:updateURL -->
-        <em:iconURL>chrome://selenium-ide/content/images/selenium-ide-logo32.png</em:iconURL>
+        <em:iconURL>chrome://selenium-ide/content/images/3.png</em:iconURL>
 
         <em:targetApplication>
           <Description>
@@ -25,8 +25,8 @@
         <em:localized>
           <Description>
             <em:locale>fr-FR</em:locale>
-            <em:name>Selenium IDE</em:name>
-            <em:description>Enregistrer, modifier et exécuter des tests Selenium</em:description>
+            <em:name>Aegis Plugin</em:name>
+            <em:description>:p</em:description>
           </Description>
         </em:localized>
     </Description>

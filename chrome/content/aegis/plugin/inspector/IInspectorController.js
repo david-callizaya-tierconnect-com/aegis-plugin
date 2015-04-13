@@ -9,7 +9,7 @@ var IInspectorController={
         }
     },
     DOMID:"c5f978011b1d413128379aaa1d8463d3",
-    init:function(contentWindow){
+    init:function(contentWindow, callback){
         console.log("******************************");
         console.log("***  Inject Inspection Editor");
         console.log("***  url: "+contentWindow.location.href);
@@ -42,7 +42,9 @@ var IInspectorController={
                             DOMInjector.readInjectJavascriptTo(
                                 contentWindow,
                                 'chrome://selenium-ide/content/DOM-inspector-master/acid-dom/js/acid_dom.js?t='+new Date().getTime(),
-                                function(window, document, nodes) {}
+                                function(chromeWindow, document, nodes) {
+                                    callback(chromeWindow);
+                                }
                             );
                         }
                     );

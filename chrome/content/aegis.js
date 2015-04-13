@@ -7,8 +7,10 @@ var aegis={
         name:"AEGIS",
         version:"0.0.1",
         server:{
-            host:"localhost:8081"
+            host:"localhost:8081",
+            frontend:"localhost:8081",
         },
+        //container:document.getElementById("viewSeleniumIDESidebar").parentNode,
         editor:null,
         editors:[],
         interfaces:{
@@ -47,14 +49,40 @@ var aegis={
             /**
              * Injects the dom element to do as a bridge
              * between the window and the plugin.
+             * only for tabs
              */
             console.log("[onContentLoaded] "+contentWindow.location.href);
             if(contentWindow.location.host==this.server.host) {
-                this.injectTo(contentWindow);
+                this.injectTo(contentWindow, function(chromeWindow){
+                    chromeWindow.onfocus=function(){
+                        aegis.setContainerHeight(1);
+                    }
+                    chromeWindow.onblur=function(){
+                        //aegis.setContainerHeight(1);
+                    }
+                });
+                //disable recording on this page
+                return false;
+            } else if(contentWindow.location.host==this.server.frontend) {
+                this.injectTo(contentWindow, function(){
+                    chromeWindow.onfocus=function(chromeWindow){
+                        aegis.setContainerHeight(1);
+                    }
+                    chromeWindow.onblur=function(){
+                        //aegis.setContainerHeight(1);
+                    }
+                });
                 //disable recording on this page
                 return false;
             } else {
-                IInspectorController.init(contentWindow);
+                IInspectorController.init(contentWindow, function(chromeWindow){
+                    chromeWindow.onfocus=function(){
+                        aegis.setContainerHeight(400);
+                    }
+                    chromeWindow.onblur=function(){
+                        //aegis.setContainerHeight(1);
+                    }
+                });
             }
             return true;
         },
@@ -72,7 +100,7 @@ var aegis={
                 this.editor = editor;
             }
         },
-        injectTo:function(contentWindow){
+        injectTo:function(contentWindow, callback){
             try {
                 JavascriptAdapter.init(contentWindow, function(){
                     RecordingController.init(contentWindow, function(chromeWindow){
@@ -80,11 +108,21 @@ var aegis={
                     });
                     InspectionController.init(contentWindow, function(chromeWindow){
                         chromeWindow.eval("if(typeof bootAegis==='function'){ bootAegis(AEGIS); }");
+                        callback(chromeWindow)
                     });
                 });
                 
             } catch(ex) {
                 console.log(ex);
+            }
+        },
+        setContainerHeight:function(height){
+            var container=aegis.container;
+            if(typeof container==="undefined" || !container){
+                container=document.getElementById("viewSeleniumIDESidebar").parentNode;
+            }
+            if(typeof container!=="undefined" && container){
+                container.height=height;
             }
         }
     };

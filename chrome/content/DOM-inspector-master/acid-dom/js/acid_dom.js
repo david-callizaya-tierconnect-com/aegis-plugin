@@ -13,6 +13,9 @@
 	'use strict';
 	var delegatedEvents = [];
         var lookup;
+        var backlist = [
+        ];
+        window.outlineInspectionStyle = 'outline: 4px dashed red; opacity : 0.7; ';
 
     // Console compatibility shim.
 	function consoleShim() {
@@ -961,7 +964,7 @@
 			if (node) {
 				if (e.type === 'mouseover') {
 					styleBackup = node.getAttribute('style') || '';
-					node.setAttribute('style', 'outline: 1px dashed red; ' + styleBackup);
+					node.setAttribute('style', outlineInspectionStyle + styleBackup);
 				} else {
 					if (styleBackup === '') {
 						node.removeAttribute('style');
@@ -995,7 +998,7 @@
 				// handle lookup events
 				if (e.type === 'mouseover') {
 					styleBackup = target.getAttribute('style') || '';
-					target.setAttribute('style', 'outline: 1px dashed red; ' + styleBackup);
+					target.setAttribute('style', outlineInspectionStyle + styleBackup);
 				} else if (e.type === 'mouseout') {
 					target.setAttribute('style', styleBackup);
 				} else {

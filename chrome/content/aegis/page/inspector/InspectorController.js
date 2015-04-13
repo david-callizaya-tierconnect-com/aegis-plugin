@@ -9,9 +9,10 @@ window.AEGIS.InspectorController={
             function(data){
                 var xpath = window.AEGIS.utils.getXPathForElement(data.target, data.target.ownerDocument);
                 var outerHTML = data.target.outerHTML;
+                data.outlinedStyle = 'outline: 4px solid green; opacity : 0.7; '+data.styleBackup;
                 data.target.setAttribute('style', data.outlinedStyle);
                 var outerHTMLWithStyle = data.target.outerHTML;
-                data.target.setAttribute('style', data.styleBackup);
+                //data.target.setAttribute('style', data.styleBackup);
                 Interface.notify("select", {
                     baseUrl:data.target.ownerDocument.location.href,
                     xpath: xpath,

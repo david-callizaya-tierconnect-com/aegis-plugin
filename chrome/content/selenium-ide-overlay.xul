@@ -57,12 +57,12 @@ limitations under the License.
               insertbefore="sanitizeSeparator,prefSep"
               accesskey="N"
               class="menuitem-iconic"
-              image="chrome://selenium-ide/content/images/selenium-ide-logo16.png"/>
+              image="chrome://selenium-ide/content/images/16.png"/>
   </menupopup>
 
   <!-- Enh: Add Selenium IDE toolbar button -->
   <toolbarpalette id="BrowserToolbarPalette">
-    <toolbarbutton id="selenium-ide-button" label="Selenium IDE" class="toolbarbutton-1" tooltiptext="Selenium IDE" oncommand="SeleniumIDE.Loader.openRecorder();"/>
+    <toolbarbutton id="selenium-ide-button" label="Aegis Plugin" class="toolbarbutton-1" tooltiptext="Aegis Plugin" oncommand="SeleniumIDE.Loader.openRecorder();"/>
   </toolbarpalette>
 
   <!-- Samit: Enh: Add to the App menu Web developer popup in Firefox 4 -->
@@ -72,7 +72,7 @@ limitations under the License.
               key="key_toggleIDE"
               command="openRecorder"
               class="menuitem-iconic"
-              image="chrome://selenium-ide/content/images/selenium-ide-logo16.png"/>
+              image="chrome://selenium-ide/content/images/16.png"/>
   </menupopup>
 
   <menupopup id="appmenu_webDeveloper_popup">
@@ -81,7 +81,7 @@ limitations under the License.
               key="key_toggleIDE"
               command="openRecorder"
               class="menuitem-iconic"
-              image="chrome://selenium-ide/content/images/selenium-ide-logo16.png"/>
+              image="chrome://selenium-ide/content/images/16.png"/>
   </menupopup>
 
   <popup id="contentAreaContextMenu">
@@ -102,7 +102,7 @@ limitations under the License.
   <splitter collapse="before" resizeafter="farthest">
     <grippy/>
   </splitter>
- <groupbox flex="1" >
+ <vbox height="1" >
   <browser 
   		flex="1"
   		id="viewSeleniumIDESidebar"
@@ -113,8 +113,9 @@ limitations under the License.
          key="key_toggleSidebarIDE"
          src="chrome://selenium-ide/content/selenium-ide-sidebar.xul"
          command="openSidebarRecorder"
+         
          />
- </groupbox>
+ </vbox>
 
   <!--
   <keyset id="mainKeyset">

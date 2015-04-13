@@ -26,7 +26,14 @@ var DOMInjector = {
         DOMInjector.injectTo(contentWindow, function(window, document){
             var b=document.createElement("b");
             b.innerHTML=html;
-            callback(window, document, b.childNodes);
+            var f=function(){
+                if(typeof document.body==='undefined'){
+                    setTimeout(f,100);
+                } else {
+                    callback(window, document, b.childNodes);
+                }
+            };
+            f();
         })
     },
     /**
@@ -60,12 +67,30 @@ var DOMInjector = {
                 if(httpRequest.status===200){
                     var html='<script type="text/javascript">'+httpRequest.responseText+'</script>';
                     DOMInjector.injectHtmlTo(contentWindow, html, function(window, document, nodes) {
-                        while(nodes.length>0){
-                            window.eval(nodes[0].textContent);
-                            document.body.appendChild(nodes[0]);
-                        }
-                        if(typeof callback==="function") {
-                            callback(window, document, nodes);
+                        try{
+                            var i=0;
+                            while(nodes.length>i){
+                                try{
+                                    window.eval(nodes[i].textContent);
+                                } catch(exp) {
+                                    console.log("["+link+"] "+exp);
+                                    console.log(exp.stack);
+                                }
+                                try{
+                                    document.body.appendChild(nodes[i]);
+                                } catch(exp) {
+                                    console.log("["+link+"] "+exp);
+                                    console.log(exp.stack);
+                                    i++;
+                                }
+                            }
+                            if(typeof callback==="function") {
+                                callback(window, document, nodes);
+                            }
+                        } catch(e) {
+                            console.log(e);
+                            console.log(e.stack);
+                            console.trace();
                         }
                     });
                 }
@@ -91,6 +116,8 @@ var DOMInjector = {
         if (!httpRequest) {
           throw 'Giving up :( Cannot create an XMLHTTP instance';
         }
+        console.log("este es!!!");
+        console.trace();
         httpRequest.onreadystatechange = function(){
             //console.log("[onreadystatechange] "+httpRequest.readyState+' - '+httpRequest.status);
             callback(httpRequest);
