@@ -1,5 +1,5 @@
-<!ENTITY selenium-ide.name "CR24">
-<!ENTITY selenium-ide.version "0.1.0">
+<!ENTITY selenium-ide.name "Aegis Plugin">
+<!ENTITY selenium-ide.version "0.0.1">
 <!ENTITY selenium-ide.sidebar.title "&selenium-ide.name; &selenium-ide.version;">
 <!ENTITY selenium-ide.standalone.title "&selenium-ide.name; &selenium-ide.version;">
 

@@ -46,10 +46,10 @@ limitations under the License.
   <tabbox id="optionsTabbox" flex="1">
     <tabs id="optionsTabs" orient="horizontal">
       <tab label="&options.general.label;"/>
-      <tab label="&options.formats.label;"/>
+      <!-- tab label="&options.formats.label;"/>
       <tab label="Plugins"/>
       <tab label="Locator Builders"/>
-      <tab label="WebDriver"/>
+      <tab label="WebDriver"/ -->
     </tabs>
     <tabpanels id="general" flex="1">
       <tabpanel id="generalTab" orient="vertical">
