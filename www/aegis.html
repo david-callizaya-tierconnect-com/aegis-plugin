@@ -1,0 +1,296 @@
+<html>
+<head>
+    <link rel="stylesheet" href="bootstrap/theme/bootstrap.min.css">
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="knockout-3.3.0.js"></script>
+<style>
+@-webkit-keyframes redBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #ff00de,
+                   0 0 70px #ff00de,
+                   0 0 80px #ff00de,
+                   0 0 100px #ff00de,
+                   0 0 150px #ff00de;
+  }
+}
+@-moz-keyframes redBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #ff00de,
+                   0 0 70px #ff00de,
+                   0 0 80px #ff00de,
+                   0 0 100px #ff00de,
+                   0 0 150px #ff00de;
+  }
+}
+@-o-keyframes redBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #ff00de,
+                   0 0 70px #ff00de,
+                   0 0 80px #ff00de,
+                   0 0 100px #ff00de,
+                   0 0 150px #ff00de;
+  }
+}
+@keyframes redBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #ff00de,
+                   0 0 70px #ff00de,
+                   0 0 80px #ff00de,
+                   0 0 100px #ff00de,
+                   0 0 150px #ff00de;
+  }
+}
+
+.red-bright {
+  box-shadow: 0px 0px 16px rgb(255, 120, 120) !important;
+  -webkit-animation: 0.5s ease 0s alternate infinite running redBright; /* Safari 4+ */
+  -moz-animation:    0.5s ease 0s alternate infinite running redBright; /* Fx 5+ */
+  -o-animation:      0.5s ease 0s alternate infinite running redBright; /* Opera 12+ */
+  animation:         0.5s ease 0s alternate infinite running redBright; /* IE 10+, Fx 29+ */
+}
+
+@-webkit-keyframes yellowBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #ff00de,
+                   0 0 70px #ff00de,
+                   0 0 80px #ff00de,
+                   0 0 100px #ff00de,
+                   0 0 150px #ff00de;
+  }
+}
+@-moz-keyframes yellowBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #ff00de,
+                   0 0 70px #ff00de,
+                   0 0 80px #ff00de,
+                   0 0 100px #ff00de,
+                   0 0 150px #ff00de;
+  }
+}
+@-o-keyframes yellowBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #ff00de,
+                   0 0 70px #ff00de,
+                   0 0 80px #ff00de,
+                   0 0 100px #ff00de,
+                   0 0 150px #ff00de;
+  }
+}
+@keyframes yellowBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #ff00de,
+                   0 0 70px #ff00de,
+                   0 0 80px #ff00de,
+                   0 0 100px #ff00de,
+                   0 0 150px #ff00de;
+  }
+}
+
+.yellow-bright {
+  box-shadow: 0px 0px 16px #F39C12 !important;
+  -webkit-animation: 0.5s ease 0s alternate infinite running yellowBright; /* Safari 4+ */
+  -moz-animation:    0.5s ease 0s alternate infinite running yellowBright; /* Fx 5+ */
+  -o-animation:      0.5s ease 0s alternate infinite running yellowBright; /* Opera 12+ */
+  animation:         0.5s ease 0s alternate infinite running yellowBright; /* IE 10+, Fx 29+ */
+}
+
+.disabledButton{
+  opacity:0.7;
+}
+
+</style>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="javascript:void(0)" class="navbar-brand">AEGIS</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav ">
+
+          </ul>
+<form class="navbar-form navbar-right">
+<div class="btn-group"><button type="button" class="btn btn-primary"  onclick="aegis.runJob()">Publish</button>
+</div><div class="btn-group"><button type="button" class="btn btn-danger" data-bind="css:{'red-bright': isRecording(), disabledButton:!isRecording()}" onclick="aegis.toggle()">Recording</button>
+<button type="button" class="btn btn-warning" data-bind="css: {'yellow-bright': !isRecording(), disabledButton:isRecording()}" onclick="aegis.toggle()">Inspecting</button>
+</div>
+</form>
+
+        </div>
+
+      </div>
+    </div>
+<br /><br /><br /><div id="mainTabs" class="bs-component">
+<ul class="nav nav-tabs">
+  <li class=""><a href="#actionlog" data-toggle="tab">Inspection Log</a></li>
+  <li class="active"><a href="#records" data-toggle="tab">Recording Log</a></li>
+  <li class=""><a href="#debug" data-toggle="tab">Debug</a></li>
+
+</ul>
+<div class="tab-content">
+<!-- Inspection Log -->
+  <div class="tab-pane fade  in" id="actionlog">
+<table id="actionlogElement" class="table table-striped table-hover ">
+  <thead>
+    <tr data-bind="foreach: options.columns">
+        <th data-bind="text: header"></th>
+    </tr>
+  </thead>
+  <tbody data-bind="foreach: data">
+<!-- ko if: first -->
+      <tr class="info">
+          <td data-bind="text: baseUrl, attr:{colspan:$parent.options.columns.length}"></td>
+      </tr>
+<!-- /ko -->
+      <tr data-bind="foreach: $parent.options.columns">
+          <td data-bind="text: $parent[dataMember]"></td>
+      </tr>
+  </tbody>
+</table>
+<script type="text/javascript">
+$(function(){
+  var vm = {
+      options: {
+          columns: [/*{
+              header: 'Base Url',
+              dataMember: 'baseUrl'
+          }, */{
+              header: 'Type',
+              dataMember: 'type'
+          }, {
+              header: 'Target',
+              dataMember: 'target'
+          }, {
+              header: 'Actions',
+              dataMember: 'actions'
+          }]
+      },
+  
+      data: ko.observableArray([])
+  }
+;
+  ko.applyBindings(vm, document.getElementById("actionlogElement"));
+  window.actionlogKO=vm;
+});
+</script>
+  </div>
+<!-- Recording Log -->
+  <div class="tab-pane fade active in" id="records">
+<table id="recordsElement" class="table table-striped table-hover ">
+  <thead>
+    <tr data-bind="foreach: options.columns">
+        <th data-bind="text: header"></th>
+    </tr>
+  </thead>
+  <tbody data-bind="foreach: data">
+<!-- ko if: first -->
+      <tr class="info">
+          <td data-bind="text: baseUrl, attr:{colspan:$parent.options.columns.length}"></td>
+      </tr>
+<!-- /ko -->
+      <tr data-bind="foreach: $parent.options.columns">
+          <td data-bind="text: $parent[dataMember]"></td>
+      </tr>
+  </tbody>
+</table>
+<script type="text/javascript">
+$(function(){
+  var vm = {
+      options: {
+          columns: [/*{
+              header: 'Base Url',
+              dataMember: 'baseUrl'
+          }, */{
+              header: 'Command',
+              dataMember: 'command'
+          }, {
+              header: 'Target',
+              dataMember: 'target'
+          }, {
+              header: 'Value',
+              dataMember: 'value'
+          }]
+      },
+  
+      data: ko.observableArray([])
+  }
+;
+  ko.applyBindings(vm, document.getElementById("recordsElement"));
+  window.recordsKO=vm;
+});
+</script>
+  </div>
+<!-- Debug -->
+  <div class="tab-pane fade  in" id="debug">
+<textarea id="log"></textarea>
+<button type="button" onclick="listCommands()">list</button>
+<button type="button" onclick="AEGIS.IRecorder.toggleRecord()">Toggle Recorder</button>
+<button type="button" onclick="AEGIS.IInspector.toggleInspect()">Toggle Inspector</button>
+<script src="aegis.js"></script>
+<script>
+/*var log0=document.getElementById("log");
+function log(msg){
+  log0.value+=msg+"\n";
+}
+log("Hola Mundo");
+IRecorder.init(function(){
+  log("se cargo");
+});
+function listCommands(){
+  log(JSON.stringify( IRecorder.bridge.link("recorder","listCommands")() ));
+}*/
+
+</script>
+  </div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+/** navbar control **/
+var vm = {
+  isRecording:ko.observable(true),
+};
+ko.applyBindings(vm, document.getElementById("navbar-main"));
+</script>
+</body>
+</html>
