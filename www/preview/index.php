@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 <head>
     <link rel="stylesheet" href="../bootstrap/theme/bootstrap.min.css">
@@ -45,15 +48,17 @@ body {margin:50px 0px; padding:0px; background-color: #000000;color: #ffffff;}
 <br /><br /><br /><!--  initialize the TN3 when the DOM is ready -->
 <script type="text/javascript">
     $(document).ready(function() {
-      var images = [
+      var images = <?= ($imageList=@$_SESSION['cr24_images']) ?>;
+      /*[
         {"baseUrl":"http://www.bankofamerica.com","target":"//div/a[5]","imageUrl":"http://127.0.0.1:8081/cr24/preview/examples/images/ss/1.png"},
         {"baseUrl":"http://www.bankofamerica.com","target":"//div/a[5]","imageUrl":"http://127.0.0.1:8081/cr24/preview/examples/images/ss/1.png"}
-      ];
+      ];*/
 
       var $ol=$('.mygallery div ol');
       for(var i=0,l=images.length;i<l;i++){
         var baseUrl=images[i].baseUrl;
         var target=images[i].target;
+        var command=images[i].command;
         var imageUrl=images[i].imageUrl;
         var smallImageUrl=images[i].imageUrl;
         $ol.append('<li><h4>'+baseUrl+'</h4><div class="tn3 description">'+target+'</div><a href="'+imageUrl+'"><img width="35px" height="35px" src="'+smallImageUrl+'" /></a></li>');
@@ -96,8 +101,11 @@ body {margin:50px 0px; padding:0px; background-color: #000000;color: #ffffff;}
 <div id="content">
     <div class="mygallery">
 	<div class="tn3 album">
-	    <h4>Fixed Dimensions</h4>
-	    <div class="tn3 description">Images with fixed dimensions</div>
+            <?php if(empty($imageList)): ?>
+            <h4><img src="loading.gif" height="64px"> Initializing job</h4>
+            <?php endif; ?>
+	    <!-- h4>Fixed Dimensions</h4>
+	    <div class="tn3 description">Images with fixed dimensions</div -->
 	    <div class="tn3 thumb">examples/images/35x35/1.jpg</div>
 	    <ol>
 
@@ -105,7 +113,7 @@ body {margin:50px 0px; padding:0px; background-color: #000000;color: #ffffff;}
 	</div>
     </div>
     <div id="desc">
-	<p>Images toke in job's benchmark.</p>
+	<!-- p>Images toke in job's benchmark.</p -->
     </div>
 </div>
 

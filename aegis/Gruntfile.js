@@ -17,13 +17,30 @@ module.exports = function(grunt) {
         }]
       }
     },
+    concat: {
+      options: {
+        banner:'(function(){\n',
+        footer:'\n})();',
+        separator: '\n'
+      },
+      dist: {
+        //src: [/*'prod/target/classes/stjs.js',*/ 'prod/target/classes/com/**'],
+        src: [
+            'prod/target/classes/com/aegis/core/**',
+            'prod/target/classes/com/aegis/page/InspectorController.js',
+            'prod/target/classes/com/aegis/page/Aegis.js',
+        ],
+        dest: 'dist/aegis-page.js',
+        filter:'isFile'
+      },
+    },
     // Some typical JSHint options and globals
     jshint: {
       options: {
         curly: false, //st/js
         eqeqeq: true,
-        immed: true,
-        latedef: true,
+        immed: false,
+        latedef: false, //disabled because stjs define classes as 
         newcap: true,
         noarg: true,
         sub: true,
@@ -31,25 +48,17 @@ module.exports = function(grunt) {
         boss: true,
         eqnull: true,
         browser: true,
+        //asi: true,  //semicolon
         predef:{
             'module': true,
-            'stjs': true
+            'stjs': true,
+            'console':true
         }
       },
       files: [
         'Gruntfile.js',
-        'prod/target/classes/com/**'
+        'dist/aegis-page.js'
       ]
-    },
-    concat: {
-      options: {
-        separator: ';'
-      },
-      dist: {
-        src: ['prod/target/classes/stjs.js', 'prod/target/classes/com/**'],
-        dest: 'dist/aegis-page.js',
-        filter:'isFile'
-      },
     },
     uglify: {
       options: {
@@ -77,9 +86,13 @@ module.exports = function(grunt) {
 });
 
   // Load plugins here
-  grunt.loadNpmTasks('grunt-contrib');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-compress');
 
 // Define your tasks here
-  grunt.registerTask('default', ['copy', 'jshint', 'concat', 'uglify', 'compress']);
+  grunt.registerTask('default', ['copy', 'concat', 'jshint', 'uglify', 'compress']);
   
 };

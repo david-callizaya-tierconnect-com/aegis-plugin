@@ -8,7 +8,7 @@ var aegis={
         version:"0.0.1",
         server:{
             host:"10.100.0.207:8081",
-            frontend:"10.100.0.137:8080",
+            frontend:"10.100.0.81:78",
         },
         //container:document.getElementById("viewSeleniumIDESidebar").parentNode,
         editor:null,

@@ -21,8 +21,12 @@ var aegis={
   newCase:true,
   lastUrl:"",
   runJob:function(){
+    var baseUrl = typeof aegis.cases[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0].baseUrl==="undefined"?"":aegis.cases[0].recorder[0].baseUrl));
+    if(!baseUrl) {
+      baseUrl="https://www.bankofamerica.com/";
+    }
     var job={
-      "baseUrl":"https://www.bankofamerica.com/",
+      "baseUrl":baseUrl,
       "screen":{width:1800,height:760},
       "window":{width:1800,height:760},
       cases:aegis.cases
@@ -30,14 +34,27 @@ var aegis={
     document.getElementById("log").value=JSON.stringify(job);
     $.ajax({
       type: "POST",
-      url: "http://10.100.0.137:8080/myProjectSelenium/api/aegis/services",
+      url: "http://10.100.0.81:8080/myProjectSelenium/api/aegis/services",
       cache:false,
       data: JSON.stringify(job),
       contentType: "text/plain",
       crossDomain: true,
       dataType: "json",
       success: function (data, status, jqXHR) {
-        window.open(data.url, "_blank");
+        console.log(data);
+        $.ajax({
+          type: "get",
+          url: "http://10.100.0.207:8081/cr24/preview/setimages.php",
+          cache:false,
+          data: {"data":JSON.stringify(data)},
+          //contentType: "text/plain",
+          //crossDomain: true,
+          //dataType: "json",
+          success: function (data) {
+            console.log(data);
+            window.open("http://10.100.0.207:8081/cr24/preview/index.html", "_blank");
+          }
+        });
       },
       error: function (jqXHR, status) {
         // error handler
@@ -92,7 +109,7 @@ var aegis={
         aegis.currentCase.inspector.push({
           baseUrl: data.baseUrl,
           type: "include",
-          computedStyle: {},
+          //computedStyle: {},
           xpath: data.xpath,
           outerHTML: data.outerHTML,
           outerHTMLWithStyle: data.outerHTMLWithStyle
