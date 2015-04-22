@@ -16,7 +16,7 @@ var JavascriptAdapter = {
             var ee=document.createElement("b");
             ee.id=id;
             ee.style.display="none";
-            ee.onclick=(function(interface, context){ return function(fn){
+            ee.onblur=(function(interface, context){ return function(fn){
                 return function(){
                     var args=[];
                     for(var i=0,l=arguments.length;i<l;i++){
@@ -56,7 +56,7 @@ var JavascriptAdapter = {
             //Create Interface
             var functions=[];
             for(var fn in interface) if(typeof interface[fn]==="function"){
-                functions.push('"'+fn+'":ee.onclick("'+fn+'")');
+                functions.push('"'+fn+'":ee.onblur("'+fn+'")');
             }
             var localInterface='(function(){var ee=document.getElementById('+JSON.stringify(ee.id)+');'+
             'window.'+InterfaceName+'={'+functions.join(",")+'};'+

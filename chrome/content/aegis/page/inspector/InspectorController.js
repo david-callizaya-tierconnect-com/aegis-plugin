@@ -12,7 +12,8 @@ window.AEGIS.InspectorController={
                 data.outlinedStyle = 'outline: 4px solid green; opacity : 0.7; '+data.styleBackup;
                 data.target.setAttribute('style', data.outlinedStyle);
                 var outerHTMLWithStyle = data.target.outerHTML;
-                //data.target.setAttribute('style', data.styleBackup);
+                data.target.setAttribute('style', data.styleBackup);
+                window.AEGIS.Selector.mark(data.target);
                 Interface.notify("select", {
                     baseUrl:data.target.ownerDocument.location.href,
                     xpath: xpath,
@@ -25,10 +26,39 @@ window.AEGIS.InspectorController={
             window.AEGIS.InspectorController,
             "onToggleInspect",
             function(){
-                console.log("[InspectorController@page] onToggleInspect!!");
+                //console.log("[InspectorController@page] onToggleInspect!!");
+                window.AEGIS.Selector.clearMarks();
                 ADI.toggleLookup();
             }
         );
+        Interface.addEventListener(
+            window.AEGIS.InspectorController,
+            "onActivateLookup",
+            function(){
+                ADI.activateLookup();
+            }
+        );
+        Interface.addEventListener(
+            window.AEGIS.InspectorController,
+            "onSelectAll",
+            function(){
+                console.log("[InspectorController@page] onSelectAll!!");
+                AEGIS.InspectorController.selectAll();
+            }
+        );
+    },
+    selectAll:function(){
+        var allDivs=AEGIS.Selector.findNodes(document.body, []);
+        console.log("============= ALL DIVS ===================");
+        console.log(allDivs);
+        allDivs.forEach(function(target){
+            var data={
+                target:target, 
+                outlinedStyle: 'outline: 4px solid green; opacity : 0.7; '+target.getAttribute('style'), 
+                styleBackup: target.getAttribute('style')
+            };
+            AEGIS.InspectorController.notify('select', data);
+        });
     },
     listeners:[],
     addEventListener:function(obj,event,fn){

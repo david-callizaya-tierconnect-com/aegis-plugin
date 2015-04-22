@@ -8,6 +8,12 @@ var InspectionController={
         toggleInspect:function(){
             this.toggleInspect();
         },
+        selectAll:function(){
+            this.selectAll();
+        },
+        activateLookup:function(){
+            this.activateLookup();
+        },
         addEventListener:function(obj,event,fn){
             this.addEventListener(obj,event,fn);
         }
@@ -37,6 +43,12 @@ var InspectionController={
     },
     toggleInspect:function(){
         IInspectorController.toggleInspect();
+    },
+    selectAll:function(){
+        IInspectorController.selectAll();
+    },
+    activateLookup:function(){
+        IInspectorController.activateLookup();
     },
     //observer pattern
     listeners:[],

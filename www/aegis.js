@@ -18,7 +18,7 @@
 var aegis={
   cases:[
   ],
-  newCase:true,
+  newCase:false,
   lastUrl:"",
   runJob:function(){
     var baseUrl = typeof aegis.cases[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0].baseUrl==="undefined"?"":aegis.cases[0].recorder[0].baseUrl));
@@ -31,10 +31,11 @@ var aegis={
       "window":{width:1800,height:760},
       cases:aegis.cases
     };
+    console.log(job);
     document.getElementById("log").value=JSON.stringify(job);
     $.ajax({
       type: "POST",
-      url: "http://10.100.0.81:8080/myProjectSelenium/api/aegis/services",
+      url: "http://10.100.0.137:8080/myProjectSelenium/api/aegis/services",
       cache:false,
       data: JSON.stringify(job),
       contentType: "text/plain",
@@ -88,6 +89,9 @@ var aegis={
       $('#mainTabs a[href="#actionlog"]').tab('show'); 
     }
   },
+  selectAll:function(){
+    AEGIS.IInspector.selectAll();
+  },
   onselect:function(data){
     try{
       document.getElementById("log").value+="\n"+JSON.stringify(data);
@@ -102,7 +106,7 @@ var aegis={
       if(data.baseUrl!=aegis.lastUrl){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
       if(typeof last!=="undefined") {var s=last.first;last.first=null;}
       if(aegis.newCase || (JSON.stringify(last)!==JSON.stringify(next))){
-        setTimeout(function(){ AEGIS.IInspector.toggleInspect(); }, 1000);
+        setTimeout(function(){ AEGIS.IInspector.activateLookup(); }, 0);
         next.first=aegis.newCase;
         actionlogKO.data.push(next);
         aegis.newCase=false;
@@ -131,9 +135,8 @@ var aegis={
           target: data.target[data.target.length-1],
           value: data.value
         };
-        if(data.baseUrl!=aegis.lastUrl){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
+        if(aegis.lastUrl && (data.baseUrl!=aegis.lastUrl)){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
         if(typeof last!=="undefined") {var s=last.first;last.first=null;}
-        console.log(JSON.stringify(last) , JSON.stringify(next));
         if(aegis.newCase || (JSON.stringify(last)!==JSON.stringify(next))){
           next.first=aegis.newCase;
           if(aegis.newCase) {
@@ -154,6 +157,7 @@ var aegis={
     }
   }
 };
+aegis.startCase();
 function bootAegis(){
   AEGIS.IInspector.addEventListener(
     aegis,

@@ -2,7 +2,7 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
  xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
-        <em:id>{a6fd85ed-e919-4a43-a5af-8da18bda539f}</em:id>
+        <em:id>aegisplugin@aegis.com</em:id>
         <em:name>Aegis Plugin</em:name>
         <em:version>0.0.1</em:version>
         <em:creator>David</em:creator>
@@ -26,7 +26,7 @@
           <Description>
             <em:locale>fr-FR</em:locale>
             <em:name>Aegis Plugin</em:name>
-            <em:description>:p</em:description>
+            <em:description>.</em:description>
           </Description>
         </em:localized>
     </Description>

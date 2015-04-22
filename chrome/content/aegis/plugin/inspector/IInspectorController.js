@@ -37,6 +37,11 @@ var IInspectorController={
                     );
                     DOMInjector.readInjectJavascriptTo(
                         contentWindow,
+                        'chrome://selenium-ide/content/aegis/page/inspector/Selector.js?t='+new Date().getTime(),
+                        function(window, document, nodes){}
+                    );
+                    DOMInjector.readInjectJavascriptTo(
+                        contentWindow,
                         'chrome://selenium-ide/content/aegis/page/inspector/InspectorController.js?t='+new Date().getTime(),
                         function(window, document, nodes) {
                             DOMInjector.readInjectJavascriptTo(
@@ -56,6 +61,12 @@ var IInspectorController={
         console.log("[IInspectorController@plugin] onToggleInspect!!!");
         this.notify("onToggleInspect", {});
     },
+    selectAll:function(){
+        this.notify("onSelectAll", {});
+    },
+    activateLookup:function(){
+        this.notify("onActivateLookup", {});
+    },
     //OBSERVER PATTERN
     listeners:[],
     addEventListener:function(obj,event,fn){
@@ -73,14 +84,19 @@ var IInspectorController={
         );
     },
     notify:function(event, data){
-        this.listeners.forEach(function(item){
+        for(var i=0,l=this.listeners.length;i<l;i++){
+            var item=this.listeners[i];
             if(item.event===event){
                 try{
                     item.fn.call(item.obj, data);
                 }catch(ex){
+                    if(ex.message==="can't access dead object"){
+                        this.listeners.splice(i,1);
+                        i--;l--;
+                    }
                     console.log(ex);
                 }
             }
-        });
+        }
     }
 };

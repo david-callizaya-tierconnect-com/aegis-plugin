@@ -15,7 +15,7 @@
         var lookup;
         var backlist = [
         ];
-        window.outlineInspectionStyle = 'outline: 4px dashed red; opacity : 0.7; ';
+        window.outlineInspectionStyle = 'outline: 2px dashed red; opacity : 0.9; ';
 
     // Console compatibility shim.
 	function consoleShim() {
@@ -961,7 +961,7 @@
 				node = node.childNodes[path[i]];
 			}
 
-			if (node) {
+			if (node && node.className!=="aegis-selector-mark") {
 				if (e.type === 'mouseover') {
 					styleBackup = node.getAttribute('style') || '';
 					node.setAttribute('style', outlineInspectionStyle + styleBackup);
@@ -978,7 +978,10 @@
 		// Handles element lookup on page
 		function handleLookup(e) {
 			var target = e ? e.target : window.event.srcElement;
-
+                        if(target.className==="aegis-selector-mark"){
+                            return;
+                        }
+                        
 			if (target.className.indexOf('adi-menu-lookup') !== -1) {
 				// enable/disable interactive lookup
 				if (elemLookup) {
@@ -1013,12 +1016,6 @@
 					pauseEvent(e);
 					// find corresponding node in the DOM view
 					var path = getElemPaths(target);
-                                        //accesspoint by david
-                                        setTimeout( (function(target, outlinedStyle, styleBackup){
-                                            return function(){
-                                                window.AEGIS.InspectorController.notify('select', {target:target, outlinedStyle: outlinedStyle, styleBackup: styleBackup} );
-                                            };
-                                        })(target, outlinedStyle, styleBackup), 100 );
                                         var active = domView.querySelector('[data-js-path=\'' + JSON.stringify(path.jsPath) + '\']');
                                         
 					// activate it
@@ -1027,7 +1024,8 @@
 					}
 
 					// open the whole path in DOM view
-					var node = active.parentNode,
+                                        //disabled by David
+					/*var node = active.parentNode,
 						tmp;
 
 					if (node.querySelector('ul')) {
@@ -1052,7 +1050,13 @@
 						if (active.offsetTop >= wrap.clientHeight || active.offsetTop <= wrap.scrollTop) {
 							wrap.scrollTop = active.offsetTop - (Math.floor(wrap.clientHeight / 2));
 						}
-					}
+					}*/
+                                        //accesspoint by david
+                                        setTimeout( (function(target, outlinedStyle, styleBackup){
+                                            return function(){
+                                                window.AEGIS.InspectorController.notify('select', {target:target, outlinedStyle: outlinedStyle, styleBackup: styleBackup} );
+                                            };
+                                        })(target, outlinedStyle, styleBackup), 100 );
 				}
 			}
 		}
@@ -1149,6 +1153,13 @@
                         toggleLookup: function(){
                             //handleLookup({target:document.getElementsByClassName("adi-menu-lookup")[0]});
                             window.AEGIS.utils.fireEvent(document.getElementsByClassName("adi-menu-lookup")[0], "click");
+                        },
+                        activateLookup:function(){
+                            var btn=document.getElementsByClassName("adi-menu-lookup")[0];
+                            if(btn.className.indexOf('adi-active')>=0){
+                            } else {
+                                window.AEGIS.utils.fireEvent(document.getElementsByClassName("adi-menu-lookup")[0], "click");
+                            }
                         },
                         redrawDOM:function(){
                             drawDOM(document, domView.querySelector('.adi-tree-view'), true);

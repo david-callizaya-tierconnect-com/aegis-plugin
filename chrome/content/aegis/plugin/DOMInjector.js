@@ -48,7 +48,7 @@ var DOMInjector = {
         DOMInjector.makeGetRequest(window, link, function(httpRequest){
             if(httpRequest.readyState===4){
                 if(httpRequest.status===200){
-                    var html='<style type="text/css">'+httpRequest.responseText+'</style>';
+                    var html='<'+'style type="text/css">'+httpRequest.responseText+'<'+'/style>';
                     DOMInjector.injectHtmlTo(contentWindow, html, function(chromeWindow, document, nodes){
                         while(nodes.length>0){
                             document.body.appendChild(nodes[0]);
@@ -65,7 +65,7 @@ var DOMInjector = {
         DOMInjector.makeGetRequest(window, link, function(httpRequest){
             if(httpRequest.readyState===4){
                 if(httpRequest.status===200){
-                    var html='<script type="text/javascript">'+httpRequest.responseText+'</script>';
+                    var html='<'+'script type="text/javascript">'+httpRequest.responseText+'<'+'/script>';
                     DOMInjector.injectHtmlTo(contentWindow, html, function(window, document, nodes) {
                         try{
                             var i=0;
@@ -88,9 +88,7 @@ var DOMInjector = {
                                 callback(window, document, nodes);
                             }
                         } catch(e) {
-                            console.log(e);
                             console.log(e.stack);
-                            console.trace();
                         }
                     });
                 }
@@ -99,7 +97,7 @@ var DOMInjector = {
     },
     makeGetRequest:function(window, url, callback) {
         var httpRequest;
-        console.log("[ajax] "+url);
+        //console.log("[ajax] "+url);
         if (window.XMLHttpRequest) { // Mozilla, Safari, ...
           httpRequest = new XMLHttpRequest();
         } else if (window.ActiveXObject) { // IE
@@ -116,10 +114,7 @@ var DOMInjector = {
         if (!httpRequest) {
           throw 'Giving up :( Cannot create an XMLHTTP instance';
         }
-        console.log("este es!!!");
-        console.trace();
         httpRequest.onreadystatechange = function(){
-            //console.log("[onreadystatechange] "+httpRequest.readyState+' - '+httpRequest.status);
             callback(httpRequest);
         }
         httpRequest.open('GET', url);
