@@ -135,6 +135,12 @@ window.AEGIS.utils={
         else
             return getElementTreeXPath(element);
     },
+    getElementByXpath:function(path, ownerDocument) {
+        if(typeof ownerDocument==="undefined") {
+            ownerDocument=document;
+        }
+        return ownerDocument.evaluate(path, ownerDocument, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    },
     removeClass:function(d, className){
         d.classList.remove(className);
     },

@@ -76,7 +76,7 @@ window.AEGIS.Selector={
 	aa.style.backgroundColor="rgba(0,0,255,0.2)";
         */
     },
-    mark:function(pp1){
+    mark:function(pp1, selectionType){
 	var aa=document.createElement("span");
         aa.className="aegis-selector-mark";
 	document.body.appendChild(aa);

@@ -14,6 +14,12 @@ var ISeleniumController = {
     toggleRecord:function(){
         aegis.editor.toggleRecordingEnabled();
     },
+    activateRecord:function(){
+        aegis.editor.toggleRecordingEnabled(true);
+    },
+    inactivateRecord:function(){
+        aegis.editor.toggleRecordingEnabled(false);
+    },
     //OBSERVER PATTERN
     listeners:[],
     addEventListener:function(obj,event,fn){

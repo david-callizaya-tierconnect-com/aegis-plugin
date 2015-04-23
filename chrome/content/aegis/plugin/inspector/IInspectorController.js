@@ -67,6 +67,12 @@ var IInspectorController={
     activateLookup:function(){
         this.notify("onActivateLookup", {});
     },
+    inactivateLookup:function(){
+        this.notify("onInactivateLookup", {});
+    },
+    loadSelection:function(inspectorList){
+        this.notify("onLoadSelection", {inspectorList:inspectorList});
+    },
     //OBSERVER PATTERN
     listeners:[],
     addEventListener:function(obj,event,fn){

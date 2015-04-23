@@ -23,7 +23,10 @@ var aegis={
   runJob:function(){
     var baseUrl = typeof aegis.cases[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0].baseUrl==="undefined"?"":aegis.cases[0].recorder[0].baseUrl));
     if(!baseUrl) {
-      baseUrl="https://www.bankofamerica.com/";
+      baseUrl = typeof aegis.cases[0]==="undefined"?"":(typeof aegis.cases[0].inspector[0]==="undefined"?"":(typeof aegis.cases[0].inspector[0].baseUrl==="undefined"?"":aegis.cases[0].inspector[0].baseUrl));
+    }
+    if(!baseUrl) {
+      return;
     }
     var job={
       "baseUrl":baseUrl,
@@ -35,7 +38,7 @@ var aegis={
     document.getElementById("log").value=JSON.stringify(job);
     $.ajax({
       type: "POST",
-      url: "http://10.100.0.137:8080/myProjectSelenium/api/aegis/services",
+      url: "http://10.100.1.200:8080/myProjectSelenium/api/aegis/services",
       cache:false,
       data: JSON.stringify(job),
       contentType: "text/plain",
@@ -65,6 +68,11 @@ var aegis={
     });
   },
   startCase:function(){
+    if(typeof aegis.currentCase!=="undefined" && 
+        aegis.currentCase.recorder.length===0 &&
+        aegis.currentCase.inspector.length===0 ){
+      return;
+    }
     aegis.currentCase={
       recorder:[],
       inspector:[]
@@ -80,12 +88,15 @@ var aegis={
   },
   toggle:function(){
     aegis.newCase=true;
-    AEGIS.IRecorder.toggleRecord();
-    AEGIS.IInspector.toggleInspect();
     vm.isRecording(!vm.isRecording());
     if( vm.isRecording() ) {
+      AEGIS.IRecorder.activateRecord();
+      AEGIS.IInspector.inactivateInspect();
       $('#mainTabs a[href="#records"]').tab('show'); 
     } else {
+      AEGIS.IRecorder.inactivateRecord();
+      AEGIS.IInspector.activateInspect();
+      AEGIS.IInspector.loadSelection( aegis.currentCase.inspector );
       $('#mainTabs a[href="#actionlog"]').tab('show'); 
     }
   },
@@ -106,7 +117,7 @@ var aegis={
       if(data.baseUrl!=aegis.lastUrl){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
       if(typeof last!=="undefined") {var s=last.first;last.first=null;}
       if(aegis.newCase || (JSON.stringify(last)!==JSON.stringify(next))){
-        setTimeout(function(){ AEGIS.IInspector.activateLookup(); }, 0);
+        setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
         next.first=aegis.newCase;
         actionlogKO.data.push(next);
         aegis.newCase=false;
@@ -135,13 +146,20 @@ var aegis={
           target: data.target[data.target.length-1],
           value: data.value
         };
-        if(aegis.lastUrl && (data.baseUrl!=aegis.lastUrl)){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
+        if(aegis.lastUrl && (data.baseUrl!=aegis.lastUrl)){
+          aegis.lastUrl=data.baseUrl;
+          aegis.newCase=true;
+        }
         if(typeof last!=="undefined") {var s=last.first;last.first=null;}
         if(aegis.newCase || (JSON.stringify(last)!==JSON.stringify(next))){
           next.first=aegis.newCase;
-          if(aegis.newCase) {
+          /*if(aegis.newCase) {
+            aegis.startCase();
+          }*/
+          if(aegis.currentCase.inspector.length>0) {
             aegis.startCase();
           }
+            aegis.startCase();
           recordsKO.data.push(next);
           aegis.newCase=false;
           aegis.currentCase.recorder.push({

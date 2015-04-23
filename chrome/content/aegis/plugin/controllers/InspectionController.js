@@ -11,8 +11,14 @@ var InspectionController={
         selectAll:function(){
             this.selectAll();
         },
-        activateLookup:function(){
+        activateInspect:function(){
             this.activateLookup();
+        },
+        inactivateInspect:function(){
+            this.inactivateLookup();
+        },
+        loadSelection:function(inspectorList){
+            this.loadSelection(inspectorList);
         },
         addEventListener:function(obj,event,fn){
             this.addEventListener(obj,event,fn);
@@ -49,6 +55,12 @@ var InspectionController={
     },
     activateLookup:function(){
         IInspectorController.activateLookup();
+    },
+    inactivateLookup:function(){
+        IInspectorController.inactivateLookup();
+    },
+    loadSelection:function(inspectorList){
+        IInspectorController.loadSelection(inspectorList);
     },
     //observer pattern
     listeners:[],

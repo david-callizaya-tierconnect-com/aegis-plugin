@@ -40,10 +40,25 @@ window.AEGIS.InspectorController={
         );
         Interface.addEventListener(
             window.AEGIS.InspectorController,
+            "onInactivateLookup",
+            function(){
+                window.AEGIS.Selector.clearMarks();
+                ADI.inactivateLookup();
+            }
+        );
+        Interface.addEventListener(
+            window.AEGIS.InspectorController,
             "onSelectAll",
             function(){
-                console.log("[InspectorController@page] onSelectAll!!");
                 AEGIS.InspectorController.selectAll();
+            }
+        );
+        Interface.addEventListener(
+            window.AEGIS.InspectorController,
+            "onLoadSelection",
+            function(data){
+                console.log(data);
+                AEGIS.InspectorController.loadSelection(data.inspectorList);
             }
         );
     },
@@ -59,6 +74,17 @@ window.AEGIS.InspectorController={
             };
             AEGIS.InspectorController.notify('select', data);
         });
+    },
+    loadSelection:function(inspectorList){
+        var url=window.location.href;
+        window.AEGIS.Selector.clearMarks();
+        for(var i=0,l=inspectorList.length;i<l;i++){
+            var inspection=inspectorList[i];
+            if(inspection.baseUrl===url){
+                var dom=window.AEGIS.utils.getElementByXpath(inspection.xpath);
+                window.AEGIS.Selector.mark(dom, inspection.type);
+            }
+        }
     },
     listeners:[],
     addEventListener:function(obj,event,fn){

@@ -20,3 +20,7 @@ body.aegis-disabled-for-inspection a {
        pointer-events: none;
        cursor: default;
 }
+body.aegis-disabled-for-inspection input {
+       pointer-events: none;
+       cursor: default;
+}

@@ -3,6 +3,12 @@ var RecordingController = {
         toggleRecord:function(){
             this.toggleRecord();
         },
+        activateRecord:function(){
+            this.activateRecord();
+        },
+        inactivateRecord:function(){
+            this.inactivateRecord();
+        },
         addEventListener:function(obj,event,fn){
             this.addEventListener(obj,event,fn);
         }
@@ -32,6 +38,12 @@ var RecordingController = {
     },
     toggleRecord:function(){
         ISeleniumController.toggleRecord();
+    },
+    activateRecord:function(){
+        ISeleniumController.activateRecord();
+    },
+    inactivateRecord:function(){
+        ISeleniumController.inactivateRecord();
     },
     //observer pattern
     listeners:[],

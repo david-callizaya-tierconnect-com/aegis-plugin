@@ -1169,6 +1169,13 @@
                                 window.AEGIS.utils.fireEvent(document.getElementsByClassName("adi-menu-lookup")[0], "click");
                             }
                         },
+                        inactivateLookup:function(){
+                            var btn=document.getElementsByClassName("adi-menu-lookup")[0];
+                            if(btn.className.indexOf('adi-active')>=0){
+                                window.AEGIS.utils.fireEvent(document.getElementsByClassName("adi-menu-lookup")[0], "click");
+                            } else {
+                            }
+                        },
                         redrawDOM:function(){
                             drawDOM(document, domView.querySelector('.adi-tree-view'), true);
                         }
