@@ -78,7 +78,10 @@ window.AEGIS.Selector={
     },
     mark:function(pp1, selectionType){
 	var aa=document.createElement("span");
-        aa.className="aegis-selector-mark";
+        aa.className="aegis-selector-mark" + (
+                    (typeof selectionType!=="undefined" && 
+                    selectionType) ? (" aegis-selector-mark-"+selectionType) : ""
+                );
 	document.body.appendChild(aa);
 	this.moveDiv(aa, pp1);
     },

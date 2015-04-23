@@ -116,14 +116,14 @@ var aegis={
       };
       if(data.baseUrl!=aegis.lastUrl){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
       if(typeof last!=="undefined") {var s=last.first;last.first=null;}
-      if(aegis.newCase || (JSON.stringify(last)!==JSON.stringify(next))){
+      if(aegis.newCase || (JSON.stringify(last.target)!==JSON.stringify(next.target))){
         setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
         next.first=aegis.newCase;
         actionlogKO.data.push(next);
         aegis.newCase=false;
         aegis.currentCase.inspector.push({
           baseUrl: data.baseUrl,
-          type: "include",
+          type: Math.floor(Math.random()*2) ? "watch" : "ignore",
           //computedStyle: {},
           xpath: data.xpath,
           outerHTML: data.outerHTML,
