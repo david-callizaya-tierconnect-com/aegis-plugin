@@ -50,11 +50,13 @@ var DOMInjector = {
                 if(httpRequest.status===200){
                     var html='<'+'style type="text/css">'+httpRequest.responseText+'<'+'/style>';
                     DOMInjector.injectHtmlTo(contentWindow, html, function(chromeWindow, document, nodes){
+                        var refNodes=[];
                         while(nodes.length>0){
+                            refNodes.push(nodes[0]);
                             document.body.appendChild(nodes[0]);
                         }
                         if(typeof callback==="function") {
-                            callback(window, document, nodes);
+                            callback(window, document, refNodes);
                         }
                     });
                 }
@@ -69,6 +71,7 @@ var DOMInjector = {
                     DOMInjector.injectHtmlTo(contentWindow, html, function(window, document, nodes) {
                         try{
                             var i=0;
+                            var refNodes=[];
                             while(nodes.length>i){
                                 try{
                                     window.eval(nodes[i].textContent);
@@ -77,6 +80,7 @@ var DOMInjector = {
                                     console.log(exp.stack);
                                 }
                                 try{
+                                    refNodes.push(nodes[i]);
                                     document.body.appendChild(nodes[i]);
                                 } catch(exp) {
                                     console.log("["+link+"] "+exp);
@@ -85,7 +89,7 @@ var DOMInjector = {
                                 }
                             }
                             if(typeof callback==="function") {
-                                callback(window, document, nodes);
+                                callback(window, document, refNodes);
                             }
                         } catch(e) {
                             console.log(e.stack);

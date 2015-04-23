@@ -155,13 +155,11 @@ Recorder.record = function(recorder, command, target, value) {
 }
 
 Recorder.prototype.record = function(command, target, value, insertBeforeLastCommand) {
-        //by david
-        console.log("*************************************");
-        console.log(this.window,command,target);
-        console.trace();
-        console.log("*************************************");
         //recording exception: dom inspector button
-        if(target[0][0].match(/css=a.*(\.adi-menu-lookup)/)){
+        if(typeof target!=="undefined" && 
+                typeof target[0]!=="undefined" && 
+                typeof target[0][0]!=="undefined" && 
+                target[0][0].match(/css=a.*(\.adi-menu-lookup)/)){
         } else {
             ISeleniumController.notify("record", {
                 baseUrl:this.window.location.href,

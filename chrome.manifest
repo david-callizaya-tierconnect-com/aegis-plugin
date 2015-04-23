@@ -1,6 +1,7 @@
 # chrome.manifest for development
 content selenium-ide  chrome/content/
 content selenium-ide-platform chrome/content/ platform
+content aegis  chrome/content/
 
 overlay chrome://browser/content/browser.xul  chrome://selenium-ide/content/selenium-ide-overlay.xul
 

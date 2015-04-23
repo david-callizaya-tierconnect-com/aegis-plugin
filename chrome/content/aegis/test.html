@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+chrome://selenium-ide/content/aegis/test.html
+chrome://aegis/content/aegis/test.html
+-->
+<html>
+    <head>
+        <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.18.0.css">
+    </head>
+    <body>
+        <script src="http://code.jquery.com/qunit/qunit-1.18.0.js"></script>
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
+        <script src="chrome://aegis/content/aegis/plugin/DOMInjector.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        /***************************/
+        QUnit.test( "injectTo", function( assert ) {
+            DOMInjector.injectTo(
+                window, 
+                function(chromeWindow, thisDocument){
+                    assert.ok( true, "Correct callback" );
+                    assert.ok( window === chromeWindow, "Correct window" );
+                    assert.ok( window.document === thisDocument, "Correct document" );
+            });
+        });
+        QUnit.test( "injectHtmlTo", function( assert ) {
+            DOMInjector.injectHtmlTo(
+                window, 
+                "<style type='text/css'></style>",
+                function(chromeWindow, thisDocument, nodesToInject){
+                    assert.ok( true, "Correct callback" );
+                    assert.ok( nodesToInject.length>0, "nodes to be injected="+nodesToInject.length );
+                    thisDocument.body.appendChild(nodesToInject[0]);
+            });
+        });
+        QUnit.test( "readInjectCssTo", function( assert ) {
+            DOMInjector.readInjectCssTo(
+                window, 
+                "chrome://aegis/content/DOM-inspector-master/acid-dom/css/acid_dom.css",
+                function(chromeWindow, thisDocument, injectedNodes){
+                    assert.ok( true, "Correct callback" );
+                    assert.ok( injectedNodes.length>0, "injected styles="+injectedNodes.length );
+            });
+            assert.ok( true, "readInjectCssTo is asyncronous" );
+        });
+        QUnit.test( "readInjectJavascriptTo", function( assert ) {
+            DOMInjector.readInjectJavascriptTo(
+                window, 
+                "chrome://aegis/content/aegis/page/aegis.js",
+                function(chromeWindow, thisDocument, injectedNodes){
+                    assert.ok( true, "Correct callback" );
+                    assert.ok( injectedNodes.length>0, "injected scripts="+injectedNodes.length );
+                    assert.ok( typeof window.AEGIS==="object", "Correctly injected AEGIS object." );
+            });
+            assert.ok( true, "readInjectJavascriptTo is asyncronous" );
+        });
+        </script>
+    </body>
+</html>
