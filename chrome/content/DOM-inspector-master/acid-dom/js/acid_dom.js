@@ -961,16 +961,18 @@
 				node = node.childNodes[path[i]];
 			}
 
-			if (node && node.className!=="aegis-selector-mark") {
+			if (node && node.className.indexOf("aegis-selector-mark")===-1) {
 				if (e.type === 'mouseover') {
 					styleBackup = node.getAttribute('style') || '';
-					node.setAttribute('style', outlineInspectionStyle + styleBackup);
+					//node.setAttribute('style', outlineInspectionStyle + styleBackup);
+                                        window.AEGIS.Selector.focus(node);
 				} else {
 					if (styleBackup === '') {
-						node.removeAttribute('style');
+						//node.removeAttribute('style');
 					} else {
-						node.setAttribute('style', styleBackup);
+						//node.setAttribute('style', styleBackup);
 					}
+                                        window.AEGIS.Selector.hideFocus();
 				}
 			}
 		}
@@ -978,7 +980,7 @@
 		// Handles element lookup on page
 		function handleLookup(e) {
 			var target = e ? e.target : window.event.srcElement;
-                        if(target.className==="aegis-selector-mark"){
+                        if(target.className.indexOf("aegis-selector-mark")>=0){
                             return;
                         }
                         
@@ -990,26 +992,31 @@
 					removeEvent(document.body, 'mouseover', handleLookup, true);
 					removeEvent(document.body, 'mouseout', handleLookup, true);
 					removeEvent(document.body, 'click', handleLookup, true);
+                                        window.AEGIS.utils.removeClass(document.body, "aegis-disabled-for-inspection");
 				} else {
 					addClass(target, 'adi-active');
 					elemLookup = true;
 					addEventDelegate(document.body, 'mouseover', handleLookup, false, '*', true, 'adi-wrapper');
 					addEventDelegate(document.body, 'mouseout', handleLookup, false, '*', true, 'adi-wrapper');
 					addEventDelegate(document.body, 'click', handleLookup, false, '*', true, 'adi-wrapper');
+                                        window.AEGIS.utils.addClass(document.body, "aegis-disabled-for-inspection");
 				}
 			} else {
 				// handle lookup events
 				if (e.type === 'mouseover') {
 					styleBackup = target.getAttribute('style') || '';
-					target.setAttribute('style', outlineInspectionStyle + styleBackup);
+					//target.setAttribute('style', outlineInspectionStyle + styleBackup);
+                                        window.AEGIS.Selector.focus(target);
 				} else if (e.type === 'mouseout') {
-					target.setAttribute('style', styleBackup);
+					//target.setAttribute('style', styleBackup);
+                                        window.AEGIS.Selector.hideFocus();
 				} else {
 					elemLookup = false;
 					removeClass(menuView.querySelector('.adi-menu-lookup'), 'adi-active');
                                         //added by david
 					var outlinedStyle = target.getAttribute('style');
-					target.setAttribute('style', styleBackup);
+					//target.setAttribute('style', styleBackup);
+                                        window.AEGIS.Selector.hideFocus();
 					removeEvent(document.body, 'mouseover', handleLookup, true);
 					removeEvent(document.body, 'mouseout', handleLookup, true);
 					removeEvent(document.body, 'click', handleLookup, true);
@@ -1153,6 +1160,7 @@
                         toggleLookup: function(){
                             //handleLookup({target:document.getElementsByClassName("adi-menu-lookup")[0]});
                             window.AEGIS.utils.fireEvent(document.getElementsByClassName("adi-menu-lookup")[0], "click");
+                            var btn=document.getElementsByClassName("adi-menu-lookup")[0];
                         },
                         activateLookup:function(){
                             var btn=document.getElementsByClassName("adi-menu-lookup")[0];

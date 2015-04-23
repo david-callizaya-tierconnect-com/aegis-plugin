@@ -134,5 +134,11 @@ window.AEGIS.utils={
             return '//*[@id="' + element.id + '"]';
         else
             return getElementTreeXPath(element);
+    },
+    removeClass:function(d, className){
+        d.classList.remove(className);
+    },
+    addClass:function(d, className){
+        d.classList.add(className);
     }
 };

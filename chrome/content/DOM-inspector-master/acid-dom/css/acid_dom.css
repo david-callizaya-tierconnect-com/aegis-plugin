@@ -8,3 +8,15 @@ body{-webkit-animation:bugfix infinite 1s}@-webkit-keyframes bugfix{from{padding
     background-color:rgba(0, 255, 0, 0.2);
     pointer-events: none;
 }
+.aegis-selector-mark-focus{
+    z-index:10001;
+    box-shadow:0px 0px 4px rgb(0,0,255) inset;
+    outline:2px dotted rgb(0,0,255);
+    background-color:rgba(0, 0, 255, 0.1);
+    pointer-events: none;
+}
+
+body.aegis-disabled-for-inspection a {
+       pointer-events: none;
+       cursor: default;
+}
