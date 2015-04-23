@@ -29,7 +29,7 @@ chrome://aegis/content/aegis/test.html
         QUnit.test( "injectHtmlTo", function( assert ) {
             DOMInjector.injectHtmlTo(
                 window, 
-                "<style type='text/css'></style>",
+                "<h1>Injected html!!</h1>",
                 function(chromeWindow, thisDocument, nodesToInject){
                     assert.ok( true, "Correct callback" );
                     assert.ok( nodesToInject.length>0, "nodes to be injected="+nodesToInject.length );
