@@ -1,6 +1,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="bootstrap/theme/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/simple-sidebar.css">
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -135,6 +136,93 @@
 
 
 </style>
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+<div class="panel panel-default" style="bottom: 0px; position: absolute; margin-bottom: 0px; width: 100%; top: 61px;">
+
+  <div class="panel-body">
+<form id="actionSettings">
+<div class="row">
+  <div class=".col-xs-12 .col-md-12">
+    <input name="title" type="text" class="form-control" placeholder="Enter title"data-bind="value: title">
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="form-group">
+      <label class="control-label">Notifications:</label>
+      <div class="col-lg-10">
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="none" data-bind="checked: notification">
+            None
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="daily" data-bind="checked: notification">
+            Daily
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="weekly" data-bind="checked: notification">
+            Weekly
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="instant" data-bind="checked: notification">
+            Instant
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="form-group">
+      <label class="control-label">Action:</label>
+      <ul class="nav nav-pills nav-stacked">
+        <li data-bind="css:{active: action()==='watch'}"><a href="#" onclick="actionSettings.action('watch')">&lt;o&gt; Watch</a></li>
+        <li data-bind="css:{active: action()==='ignore'}"><a href="#" onclick="actionSettings.action('ignore')">&lt;/&gt; Ignore</a></li>
+      </ul>
+      <select id="userOrGroup" class="form-control" placeholder="User -or- Group" data-bind="value: userOrGroup">
+        <option>User -or- Group</option>
+        <option value="1">Hugo</option>
+        <option value="2">Iggy</option>
+        <option value="3">Luis</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-10 col-lg-offset-2">
+    <button id="confirmAction" type="button" class="btn btn-primary">Save</button>
+    <button id="cancelAction" type="reset" class="btn btn-default">Cancel</button>
+  </div>
+</div>
+</form>
+<script type="text/javascript">
+$(function(){
+  var vm = {
+    title: ko.observable(""),
+    notification: ko.observable("none"),
+    action: ko.observable("watch"),
+    userOrGroup: ko.observable("")
+  };
+  ko.applyBindings(vm, document.getElementById("actionSettings"));
+  window.actionSettings=vm;
+});
+</script>
+  </div>
+</div>
+
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -183,7 +271,7 @@
           <td data-bind="text: baseUrl, attr:{colspan:$parent.options.columns.length}"></td>
       </tr>
 <!-- /ko -->
-      <tr data-bind="foreach: $parent.options.columns">
+      <tr data-bind="click: $root.selectRow, css: { 'active': $root.currentSelectedRow() === $data }, foreach: $parent.options.columns">
           <td data-bind="text: $parent[dataMember]"></td>
       </tr>
   </tbody>
@@ -191,25 +279,34 @@
 <script type="text/javascript">
 $(function(){
   var vm = {
+      currentSelectedRow:ko.observable(),
+
       options: {
           columns: [/*{
               header: 'Base Url',
               dataMember: 'baseUrl'
           }, */{
-              header: 'Type',
+              header: 'Action Type',
               dataMember: 'type'
           }, {
-              header: 'Target',
-              dataMember: 'target'
+              header: 'Action Title',
+              dataMember: 'title'
           }, {
-              header: 'Actions',
-              dataMember: 'actions'
+              header: 'Notifications',
+              dataMember: 'notification'
+          }, {
+              header: 'User',
+              dataMember: 'userOrGroupTitle'
           }]
       },
   
-      data: ko.observableArray([])
-  }
-;
+      data: ko.observableArray([]),
+
+      selectRow:function(){
+        vm.currentSelectedRow(this);
+        aegis.onselectInspectionRow(this);
+      }
+  };
   ko.applyBindings(vm, document.getElementById("actionlogElement"));
   window.actionlogKO=vm;
 });
@@ -229,7 +326,7 @@ $(function(){
           <td data-bind="text: baseUrl, attr:{colspan:$parent.options.columns.length}"></td>
       </tr>
 <!-- /ko -->
-      <tr data-bind="foreach: $parent.options.columns">
+      <tr data-bind="click: $root.selectRow, css: { 'active': $root.currentSelectedRow() === $data }, foreach: $parent.options.columns">
           <td data-bind="text: $parent[dataMember]"></td>
       </tr>
   </tbody>
@@ -286,6 +383,12 @@ function listCommands(){
 
 </div>
 </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+
+    </div>
+
 
 <script type="text/javascript">
 /** navbar control **/

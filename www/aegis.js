@@ -51,9 +51,6 @@ var aegis={
           url: "http://10.100.0.207:8081/cr24/preview/setimages.php",
           cache:false,
           data: {"data":JSON.stringify(data)},
-          //contentType: "text/plain",
-          //crossDomain: true,
-          //dataType: "json",
           success: function (data) {
             console.log(data);
             window.open("http://10.100.0.207:8081/cr24/preview/index.html", "_blank");
@@ -100,8 +97,75 @@ var aegis={
       $('#mainTabs a[href="#actionlog"]').tab('show'); 
     }
   },
+  openEditAction:function(callback, cancelCallback){
+    actionSettings.title("");
+    actionSettings.notification("none");
+    actionSettings.action("watch");
+    actionSettings.userOrGroup("");
+    $('#wrapper').addClass("toggled");
+    $('#confirmAction').unbind("click").click(function(){
+      var userOrGroupTitle=$("#userOrGroup option:selected").text();
+      callback({
+        title:actionSettings.title(),
+        notification:actionSettings.notification(),
+        action:actionSettings.action(),
+        userOrGroup:actionSettings.userOrGroup(),
+        userOrGroupTitle:userOrGroupTitle
+      });
+    });
+    $('#cancelAction').unbind("click").click(cancelCallback);
+  },
+  editAction:function(extraData, callback, cancelCallback){
+    actionSettings.title(extraData.title);
+    actionSettings.notification(extraData.notification);
+    actionSettings.action(extraData.action);
+    actionSettings.userOrGroup(extraData.userOrGroup);
+    $('#wrapper').addClass("toggled");
+    $('#confirmAction').unbind("click").click(function(){
+      var userOrGroupTitle=$("#userOrGroup option:selected").text();
+      actionlogKO.currentSelectedRow(null);
+      callback({
+        title:actionSettings.title(),
+        notification:actionSettings.notification(),
+        action:actionSettings.action(),
+        userOrGroup:actionSettings.userOrGroup(),
+        userOrGroupTitle:userOrGroupTitle
+      });
+    });
+    $('#cancelAction').unbind("click").click(function(){
+      actionlogKO.currentSelectedRow(null);
+      cancelCallback();
+    });
+  },
+  closeEditAction:function(){
+    $('#wrapper').removeClass("toggled");
+  },
   selectAll:function(){
     AEGIS.IInspector.selectAll();
+  },
+  onselectInspectionRow:function(rowInspection){
+    aegis.editAction(rowInspection.inspection.extra, 
+    function(extraData){
+      rowInspection.title=extraData.title;
+      rowInspection.type=extraData.action;
+      rowInspection.notification=extraData.notification;
+      rowInspection.userOrGroup=extraData.userOrGroup;
+      rowInspection.userOrGroupTitle=extraData.userOrGroupTitle;
+
+      rowInspection.inspection.type=extraData.action;
+      rowInspection.inspection.extra=extraData;
+
+      //actionlogKO.data.valueHasMutated();
+      var rowI=actionlogKO.data.indexOf(rowInspection);
+      actionlogKO.data.splice(rowI,1);
+      actionlogKO.data.splice(rowI,0, rowInspection);
+
+      AEGIS.IInspector.loadSelection( aegis.currentCase.inspector );
+      aegis.closeEditAction();
+    }, 
+    function(){
+      aegis.closeEditAction();
+    });
   },
   onselect:function(data){
     try{
@@ -110,24 +174,39 @@ var aegis={
       var next = {
         first: null,
         baseUrl: data.baseUrl,
-        type: 'include',
+        type: "inspect",
         target: data.xpath,
         actions: ''
       };
       if(data.baseUrl!=aegis.lastUrl){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
       if(typeof last!=="undefined") {var s=last.first;last.first=null;}
       if(aegis.newCase || (JSON.stringify(last.target)!==JSON.stringify(next.target))){
-        setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
-        next.first=aegis.newCase;
-        actionlogKO.data.push(next);
-        aegis.newCase=false;
-        aegis.currentCase.inspector.push({
-          baseUrl: data.baseUrl,
-          type: Math.floor(Math.random()*2) ? "watch" : "ignore",
-          //computedStyle: {},
-          xpath: data.xpath,
-          outerHTML: data.outerHTML,
-          outerHTMLWithStyle: data.outerHTMLWithStyle
+        aegis.openEditAction(function(extraData){
+          var inspection={
+            baseUrl: data.baseUrl,
+            type: extraData.action,
+            computedStyle: data.computedStyle,
+            xpath: data.xpath,
+            extra:extraData,
+            outerHTML: data.outerHTML,
+            outerHTMLWithStyle: data.outerHTMLWithStyle
+          };
+          setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
+          next.first=aegis.newCase;
+          next.type=extraData.action;
+          next.title=extraData.title;
+          next.notification=extraData.notification;
+          next.userOrGroup=extraData.userOrGroup;
+          next.userOrGroupTitle=extraData.userOrGroupTitle;
+          next.inspection=inspection;
+          actionlogKO.data.push(next);
+          aegis.newCase=false;
+          aegis.currentCase.inspector.push(inspection);
+          AEGIS.IInspector.loadSelection( aegis.currentCase.inspector );
+          aegis.closeEditAction();
+        }, function(){
+          aegis.closeEditAction();
+          setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
         });
       }
       if(typeof last!=="undefined") {last.first=s;}

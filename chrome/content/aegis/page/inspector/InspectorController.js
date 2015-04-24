@@ -13,10 +13,17 @@ window.AEGIS.InspectorController={
                 data.target.setAttribute('style', data.outlinedStyle);
                 var outerHTMLWithStyle = data.target.outerHTML;
                 data.target.setAttribute('style', data.styleBackup);
-                window.AEGIS.Selector.mark(data.target);
+                //window.AEGIS.Selector.mark(data.target);
+                var offset=window.AEGIS.Selector.getOffset(data.target);
                 Interface.notify("select", {
                     baseUrl:data.target.ownerDocument.location.href,
                     xpath: xpath,
+                    computedStyle: {
+                        left:offset.left,
+                        top:offset.left,
+                        width:data.target.clientWidth,
+                        height:data.target.clientHeight
+                    },
                     outerHTML: outerHTML,
                     outerHTMLWithStyle: outerHTMLWithStyle
                 });
