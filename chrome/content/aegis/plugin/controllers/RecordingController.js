@@ -60,14 +60,20 @@ var RecordingController = {
         );
     },
     notify:function(event, data){
-        this.listeners.forEach(function(item){
+        for(var i=0,l=this.listeners.length;i<l;i++){
+            var item=this.listeners[i];
             if(item.event===event){
                 try{
                     item.fn.call(item.obj, data);
                 }catch(ex){
-                    console.log(ex);
+                    if(ex.message==="can't access dead object"){
+                        this.listeners.splice(i,1);
+                        i--;l--;
+                    } else {
+                        console.log(ex);
+                    }
                 }
             }
-        });
+        }
     }
 };

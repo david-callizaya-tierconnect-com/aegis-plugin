@@ -70,10 +70,12 @@ var aegis={
     aegis.newCase=true;
     vm.isRecording(!vm.isRecording());
     if( vm.isRecording() ) {
+      AEGIS.IController.setMode("recording");
       AEGIS.IRecorder.activateRecord();
       AEGIS.IInspector.inactivateInspect();
       $('#mainTabs a[href="#records"]').tab('show'); 
     } else {
+      AEGIS.IController.setMode("inspecting");
       AEGIS.IRecorder.inactivateRecord();
       AEGIS.IInspector.activateInspect();
       AEGIS.IInspector.loadSelection( aegis.currentCase.inspector );
@@ -260,6 +262,10 @@ var aegis={
     } catch(e) {
       console.log(e);
     }
+  },
+  onloadselection:function(){
+console.log("LOAD SELECTION@pluginPage", aegis.currentCase.inspector);
+    AEGIS.IInspector.loadSelection( aegis.currentCase.inspector );
   }
 };
 aegis.startCase();
@@ -273,5 +279,10 @@ function bootAegis(){
     aegis,
     "record",
     aegis.onrecord
+  );
+  AEGIS.IController.addEventListener(
+    aegis,
+    "loadSelected",
+    aegis.onloadselection
   );
 }

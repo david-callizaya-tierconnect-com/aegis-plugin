@@ -92,6 +92,7 @@ var DOMInjector = {
                                 callback(window, document, refNodes);
                             }
                         } catch(e) {
+                            console.log(e);
                             console.log(e.stack);
                         }
                     });

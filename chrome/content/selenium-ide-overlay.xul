@@ -28,6 +28,9 @@ limitations under the License.
   <script type="application/x-javascript" src="chrome://selenium-ide/content/aegis/plugin/controllers/InspectionController.js"/>
   <script type="application/x-javascript" src="chrome://selenium-ide/content/aegis/plugin/recorder/ISeleniumController.js"/>
   <script type="application/x-javascript" src="chrome://selenium-ide/content/aegis/plugin/controllers/RecordingController.js"/>
+  <script type="application/x-javascript" src="chrome://selenium-ide/content/aegis/plugin/controllers/MainController.js"/>
+  <script type="application/x-javascript" src="chrome://selenium-ide/content/aegis/plugin/window/PluginWindowManager.js"/>
+  <script type="application/x-javascript" src="chrome://selenium-ide/content/aegis/plugin/window/OtherWindowManager.js"/>
   <script type="application/x-javascript" src="chrome://selenium-ide/content/selenium-ide-overlay.js"/>
   <stringbundleset id="stringbundleset">
     <stringbundle id="selenium-ide-strings" src="chrome://selenium-ide/locale/selenium-ide.properties" />
