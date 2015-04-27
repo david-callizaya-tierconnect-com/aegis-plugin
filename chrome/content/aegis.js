@@ -6,10 +6,11 @@
 var aegis={
         name:"AEGIS",
         version:"0.0.1",
+        apikey:"9222668072e3fbe70026460d9470dad6",
         servers:{
             plugin:"10.100.0.244:8081",
             frontend:"10.100.0.81:78",
-            backend:"10.100.0.81:8080"
+            selenium:"10.100.0.137:8080"
         },
         mode:"recording",
         editor:null,

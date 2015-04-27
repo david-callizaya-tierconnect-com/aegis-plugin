@@ -1,5 +1,6 @@
 var aegis={
-  seleniumServer:"10.100.0.137:8080",
+//  seleniumServer:"10.100.0.137:8080",
+//  apikey:"",
   cases:[
   ],
   newCase:false,
@@ -23,6 +24,7 @@ var aegis={
       type: "POST",
       url: "http://"+aegis.seleniumServer+"/myProjectSelenium/api/aegis/services",
       cache:false,
+      headers: {"apikey": aegis.apikey},
       data: JSON.stringify(job),
       contentType: "text/plain",
       crossDomain: true,
@@ -285,4 +287,6 @@ function bootAegis(){
     "loadSelected",
     aegis.onloadselection
   );
+  aegis.seleniumServer=AEGIS.IController.getSeleniumServer();
+  aegis.apikey=AEGIS.IController.getApikey();
 }

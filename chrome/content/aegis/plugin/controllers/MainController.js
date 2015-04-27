@@ -1,10 +1,16 @@
 var MainController = {
     interface:{
         setMode:function(mode){
-            aegis.mode=mode;
+            this.setMode(mode);
         },
         getMode:function(){
-            return aegis.mode;
+            return this.getMode();
+        },
+        getApikey:function(){
+            return this.getApikey();
+        },
+        getSeleniumServer:function(){
+            return this.getSeleniumServer();
         },
         addEventListener:function(obj,event,fn){
             this.addEventListener(obj,event,fn);
@@ -25,6 +31,18 @@ var MainController = {
     },
     loadSelected:function(){
         this.notify("loadSelected", {});
+    },
+    getSeleniumServer:function(){
+        return aegis.servers.selenium;
+    },
+    setMode:function(mode){
+        aegis.mode=mode;
+    },
+    getMode:function(){
+        return aegis.mode;
+    },
+    getApikey:function(){
+        return aegis.apikey;
     },
     //observer pattern
     listeners:[],
