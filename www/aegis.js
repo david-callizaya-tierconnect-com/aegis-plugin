@@ -1,4 +1,5 @@
 var aegis={
+  seleniumServer:"10.100.0.137:8080",
   cases:[
   ],
   newCase:false,
@@ -20,7 +21,7 @@ var aegis={
     document.getElementById("log").value=JSON.stringify(job);
     $.ajax({
       type: "POST",
-      url: "http://10.100.1.200:8080/myProjectSelenium/api/aegis/services",
+      url: "http://"+aegis.seleniumServer+"/myProjectSelenium/api/aegis/services",
       cache:false,
       data: JSON.stringify(job),
       contentType: "text/plain",
@@ -152,7 +153,6 @@ var aegis={
   onselect:function(data){
     try{
       /* Find selection in current case*/
-      console.log("BUSCANDO!!");
       for(var i=0,l=aegis.currentCase.inspector.length;i<l;i++){
         if( (aegis.currentCase.inspector[i].baseUrl===data.baseUrl) &&
             (aegis.currentCase.inspector[i].xpath===data.xpath) ) 
@@ -169,8 +169,7 @@ var aegis={
           break;
         }
       }
-      //
-      console.log("ES NUEVO");
+      /* Insert new selection */
       document.getElementById("log").value+="\n"+JSON.stringify(data);
       var last = actionlogKO.data()[actionlogKO.data().length-1];
       var next = {
@@ -227,14 +226,17 @@ var aegis={
           baseUrl: data.baseUrl,
           command: data.command,
           target: data.target[data.target.length-1],
-          value: data.value
+          value: data.value,
+          user:"",
+          userName:"",
+          timestamp:new Date().getTime()
         };
         if(data.baseUrl!=aegis.lastUrl){
           aegis.lastUrl=data.baseUrl;
           aegis.newCase=true;
         }
         if(typeof last!=="undefined") {var s=last.first;last.first=null;}
-        if(aegis.newCase || (JSON.stringify(last)!==JSON.stringify(next))){
+        if(aegis.newCase || (JSON.stringify(last.baseUrl+last.command+last.target+last.value)!==JSON.stringify(next.baseUrl+next.command+next.target+next.value))){
           next.first=aegis.newCase;
           if(aegis.currentCase.inspector.length>0) {
             aegis.startCase();
@@ -246,7 +248,12 @@ var aegis={
             baseUrl: data.baseUrl,
             command: data.command,
             target: aegis.array2object(data.target, "xpath:attributes"),
-            value: data.value
+            value: data.value,
+            extra:{
+              user:next.user,
+              userName:next.userName,
+              timestamp:next.timestamp
+            }
           });
         }
         if(typeof last!=="undefined") {last.first=s;}

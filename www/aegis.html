@@ -240,8 +240,8 @@ $(function(){
 <form class="navbar-form navbar-right">
 <div class="btn-group"><button type="button" class="btn btn-primary"  onclick="aegis.runJob()">Publish</button>
 </div><div class="btn-group"><button type="button" class="btn btn-primary" data-bind="css:{disabled:isRecording()}" onclick="aegis.selectAll()">Select All</button>
-<button type="button" class="btn btn-danger" data-bind="css:{'red-bright': isRecording(), disabledButton:!isRecording()}" onclick="aegis.toggle()">Recording</button>
-<button type="button" class="btn btn-warning" data-bind="css: {'yellow-bright': !isRecording(), disabledButton:isRecording()}" onclick="aegis.toggle()">Inspecting</button>
+<button type="button" class="btn btn-danger" data-bind="css:{'red-bright': isRecording(), disabledButton:!isRecording()}" onclick="aegis.toggle()">Recording Active</button>
+<button type="button" class="btn btn-warning" data-bind="css: {'yellow-bright': !isRecording(), disabledButton:isRecording()}" onclick="aegis.toggle()">Inspecting Active</button>
 </div>
 </form>
 
@@ -251,12 +251,62 @@ $(function(){
     </div>
 <br /><br /><br /><div id="mainTabs" class="bs-component">
 <ul class="nav nav-tabs">
-  <li class="" ><a href="#actionlog" data-toggle="tab">Inspection Log</a></li>
   <li class="active" ><a href="#records" data-toggle="tab">Recording Log</a></li>
+  <li class="" ><a href="#actionlog" data-toggle="tab">Inspection Log</a></li>
   <li class="" ><a href="#debug" data-toggle="tab">Debug</a></li>
 
 </ul>
 <div class="tab-content">
+<!-- Recording Log -->
+  <div class="tab-pane fade active in" id="records">
+<table id="recordsElement" class="table table-striped table-hover ">
+  <thead>
+    <tr data-bind="foreach: options.columns">
+        <th data-bind="text: header"></th>
+    </tr>
+  </thead>
+  <tbody data-bind="foreach: data">
+<!-- ko if: first -->
+      <tr class="info">
+          <td data-bind="text: baseUrl, attr:{colspan:$parent.options.columns.length}"></td>
+      </tr>
+<!-- /ko -->
+      <tr data-bind="click: $root.selectRow, css: { 'active': $root.currentSelectedRow() === $data }, foreach: $parent.options.columns">
+          <td data-bind="text: $parent[dataMember]"></td>
+      </tr>
+  </tbody>
+</table>
+<script type="text/javascript">
+$(function(){
+  var vm = {
+      currentSelectedRow:ko.observable(),
+      options: {
+          columns: [/*{
+              header: 'Base Url',
+              dataMember: 'baseUrl'
+          }, */{
+              header: 'Command',
+              dataMember: 'command'
+          }, {
+              header: 'Target',
+              dataMember: 'target'
+          }, {
+              header: 'User',
+              dataMember: 'userName'
+          }, {
+              header: 'Timestamp',
+              dataMember: 'timestamp'
+          }]
+      },
+  
+      data: ko.observableArray([])
+  }
+;
+  ko.applyBindings(vm, document.getElementById("recordsElement"));
+  window.recordsKO=vm;
+});
+</script>
+  </div>
 <!-- Inspection Log -->
   <div class="tab-pane fade  in" id="actionlog">
 <table id="actionlogElement" class="table table-striped table-hover ">
@@ -309,56 +359,6 @@ $(function(){
   };
   ko.applyBindings(vm, document.getElementById("actionlogElement"));
   window.actionlogKO=vm;
-});
-</script>
-  </div>
-<!-- Recording Log -->
-  <div class="tab-pane fade active in" id="records">
-<table id="recordsElement" class="table table-striped table-hover ">
-  <thead>
-    <tr data-bind="foreach: options.columns">
-        <th data-bind="text: header"></th>
-    </tr>
-  </thead>
-  <tbody data-bind="foreach: data">
-<!-- ko if: first -->
-      <tr class="info">
-          <td data-bind="text: baseUrl, attr:{colspan:$parent.options.columns.length}"></td>
-      </tr>
-<!-- /ko -->
-      <tr data-bind="click: $root.selectRow, css: { 'active': $root.currentSelectedRow() === $data }, foreach: $parent.options.columns">
-          <td data-bind="text: $parent[dataMember]"></td>
-      </tr>
-  </tbody>
-</table>
-<script type="text/javascript">
-$(function(){
-  var vm = {
-      currentSelectedRow:ko.observable(),
-      options: {
-          columns: [/*{
-              header: 'Base Url',
-              dataMember: 'baseUrl'
-          }, */{
-              header: 'First',
-              dataMember: 'first'
-          }, {
-              header: 'Command',
-              dataMember: 'command'
-          }, {
-              header: 'Target',
-              dataMember: 'target'
-          }, {
-              header: 'Value',
-              dataMember: 'value'
-          }]
-      },
-  
-      data: ko.observableArray([])
-  }
-;
-  ko.applyBindings(vm, document.getElementById("recordsElement"));
-  window.recordsKO=vm;
 });
 </script>
   </div>
