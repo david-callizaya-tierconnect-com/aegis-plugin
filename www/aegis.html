@@ -189,7 +189,7 @@
         <li data-bind="css:{active: action()==='ignore'}"><a href="#" onclick="actionSettings.action('ignore')">&lt;/&gt; Ignore</a></li>
       </ul>
       <select id="userOrGroup" class="form-control" placeholder="User -or- Group" data-bind="value: userOrGroup">
-        <option>User -or- Group</option>
+        <option value="">User -or- Group</option>
         <option value="1">Hugo</option>
         <option value="2">Iggy</option>
         <option value="3">Luis</option>
@@ -334,11 +334,15 @@ $(function(){
 <script type="text/javascript">
 $(function(){
   var vm = {
+      currentSelectedRow:ko.observable(),
       options: {
           columns: [/*{
               header: 'Base Url',
               dataMember: 'baseUrl'
           }, */{
+              header: 'First',
+              dataMember: 'first'
+          }, {
               header: 'Command',
               dataMember: 'command'
           }, {

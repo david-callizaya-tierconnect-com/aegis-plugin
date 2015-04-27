@@ -1,20 +1,3 @@
-/*var IRecorder={
-  init:function(success){
-    var e=document.getElementById("a1c622d9c9d1a180f16481caef451589");
-    if(e) {
-      this.bridge={
-        link: e.onclick
-      };
-      success();
-    } else {
-      setTimeout(function(){IRecorder.init(success)},200);
-    }
-  },
-  start:function(){
-    this.connection.log("hello plugin");
-  }
-};
-*/
 var aegis={
   cases:[
   ],
@@ -34,7 +17,6 @@ var aegis={
       "window":{width:1800,height:760},
       cases:aegis.cases
     };
-    console.log(job);
     document.getElementById("log").value=JSON.stringify(job);
     $.ajax({
       type: "POST",
@@ -48,12 +30,12 @@ var aegis={
         console.log(data);
         $.ajax({
           type: "get",
-          url: "http://10.100.0.207:8081/cr24/preview/setimages.php",
+          url: "http://10.100.0.244:8081/cr24/preview/setimages.php",
           cache:false,
           data: {"data":JSON.stringify(data)},
           success: function (data) {
             console.log(data);
-            window.open("http://10.100.0.207:8081/cr24/preview/index.html", "_blank");
+            window.open("http://10.100.0.244:8081/cr24/preview/index.html", "_blank");
           }
         });
       },
@@ -169,6 +151,26 @@ var aegis={
   },
   onselect:function(data){
     try{
+      /* Find selection in current case*/
+      console.log("BUSCANDO!!");
+      for(var i=0,l=aegis.currentCase.inspector.length;i<l;i++){
+        if( (aegis.currentCase.inspector[i].baseUrl===data.baseUrl) &&
+            (aegis.currentCase.inspector[i].xpath===data.xpath) ) 
+        {
+          //find row of inspection
+          var array=actionlogKO.data();
+          for(var j=0,k=array.length;j<k;j++){
+            if( array[j].inspection===aegis.currentCase.inspector[i] ) {
+              setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
+              aegis.onselectInspectionRow( array[j] );
+              return;
+            }
+          }
+          break;
+        }
+      }
+      //
+      console.log("ES NUEVO");
       document.getElementById("log").value+="\n"+JSON.stringify(data);
       var last = actionlogKO.data()[actionlogKO.data().length-1];
       var next = {
@@ -192,7 +194,7 @@ var aegis={
             outerHTMLWithStyle: data.outerHTMLWithStyle
           };
           setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
-          next.first=aegis.newCase;
+          next.first=aegis.newCase;//actionlogKO.data.length===0?true:(actionlogKO.data[actionlogKO.data.length-1].baseUrl!==data.baseUrl);
           next.type=extraData.action;
           next.title=extraData.title;
           next.notification=extraData.notification;
@@ -208,6 +210,8 @@ var aegis={
           aegis.closeEditAction();
           setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
         });
+      } else {
+          setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
       }
       if(typeof last!=="undefined") {last.first=s;}
     } catch(e) {
@@ -225,16 +229,13 @@ var aegis={
           target: data.target[data.target.length-1],
           value: data.value
         };
-        if(aegis.lastUrl && (data.baseUrl!=aegis.lastUrl)){
+        if(data.baseUrl!=aegis.lastUrl){
           aegis.lastUrl=data.baseUrl;
           aegis.newCase=true;
         }
         if(typeof last!=="undefined") {var s=last.first;last.first=null;}
         if(aegis.newCase || (JSON.stringify(last)!==JSON.stringify(next))){
           next.first=aegis.newCase;
-          /*if(aegis.newCase) {
-            aegis.startCase();
-          }*/
           if(aegis.currentCase.inspector.length>0) {
             aegis.startCase();
           }

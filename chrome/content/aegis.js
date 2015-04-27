@@ -7,8 +7,9 @@ var aegis={
         name:"AEGIS",
         version:"0.0.1",
         server:{
-            host:"10.100.0.207:8081",
+            host:"10.100.0.244:8081",
             frontend:"10.100.0.81:78",
+            backend:"10.100.0.81:8080",
         },
         //container:document.getElementById("viewSeleniumIDESidebar").parentNode,
         editor:null,
@@ -41,7 +42,7 @@ var aegis={
                 reloadFrame:function(){
                     var frame=aegis.editor.window.document.getElementById("aegisBottomPanel");
                     frame.reload();
-                    aegis.injectTo(frame);
+                    aegis.injectTo(frame, function(){});
                 }
             }
         },
@@ -95,7 +96,7 @@ var aegis={
             var aegisBottomPanel=contentWindow.document.getElementById("aegisBottomPanel");
             contentWindow.ISeleniumController=ISeleniumController;
             if(aegisBottomPanel) {
-                this.injectTo(aegisBottomPanel);
+                this.injectTo(aegisBottomPanel, function(){});
                 this.editors.push(editor);
                 this.editor = editor;
             }

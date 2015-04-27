@@ -64,15 +64,12 @@ window.AEGIS.InspectorController={
             window.AEGIS.InspectorController,
             "onLoadSelection",
             function(data){
-                console.log(data);
                 AEGIS.InspectorController.loadSelection(data.inspectorList);
             }
         );
     },
     selectAll:function(){
         var allDivs=AEGIS.Selector.findNodes(document.body, []);
-        console.log("============= ALL DIVS ===================");
-        console.log(allDivs);
         allDivs.forEach(function(target){
             var data={
                 target:target, 

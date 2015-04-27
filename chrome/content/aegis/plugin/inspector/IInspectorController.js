@@ -76,8 +76,6 @@ var IInspectorController={
     //OBSERVER PATTERN
     listeners:[],
     addEventListener:function(obj,event,fn){
-        console.log("[IInspectorController.addEventListener@plugin] ",obj,event,fn);
-        console.trace();
         this.listeners.push({obj:obj,event:event,fn:fn});
     },
     removeEventListener:function(obj,event){
@@ -99,8 +97,9 @@ var IInspectorController={
                     if(ex.message==="can't access dead object"){
                         this.listeners.splice(i,1);
                         i--;l--;
+                    } else {
+                        console.log(ex);
                     }
-                    console.log(ex);
                 }
             }
         }

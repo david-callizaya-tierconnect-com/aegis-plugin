@@ -23,8 +23,6 @@ var ISeleniumController = {
     //OBSERVER PATTERN
     listeners:[],
     addEventListener:function(obj,event,fn){
-        console.log("[IInspectorController.addEventListener@plugin] ",obj,event,fn);
-        console.trace();
         this.listeners.push({obj:obj,event:event,fn:fn});
     },
     removeEventListener:function(obj,event){
