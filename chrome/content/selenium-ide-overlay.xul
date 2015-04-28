@@ -65,7 +65,7 @@ limitations under the License.
 
   <!-- Enh: Add Selenium IDE toolbar button -->
   <toolbarpalette id="BrowserToolbarPalette">
-    <!-- toolbarbutton id="selenium-ide-button" label="Aegis Plugin" class="toolbarbutton-1" tooltiptext="Aegis Plugin" oncommand="SeleniumIDE.Loader.openRecorder();"/ -->
+    <toolbarbutton id="selenium-ide-button" label="Aegis Plugin" class="toolbarbutton-1" tooltiptext="Aegis Plugin" oncommand="SeleniumIDE.Loader.openOptions();"/>
   </toolbarpalette>
 
   <!-- Samit: Enh: Add to the App menu Web developer popup in Firefox 4 -->

@@ -19,6 +19,7 @@ if (!this.SeleniumIDE) this.SeleniumIDE = {};
 SeleniumIDE.Preferences = {
   TEST_BRANCH: Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.selenium-ide.test."),
   branch: Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.selenium-ide."),
+  aegis: Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.aegis."),
 
   // use test branch for unit tests
   useTestBranch: function() {
@@ -135,6 +136,12 @@ SeleniumIDE.Preferences = {
         }
       }
     }
+  },
+  useAegis:function(){
+    this.branch = this.aegis;
+  },
+  useSelenium:function(){
+    this.branch = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.selenium-ide.");
   }
 };
 
@@ -174,6 +181,9 @@ SeleniumIDE.Preferences.DEFAULT_OPTIONS = {
   currentVersion: "",
   showHealthAlerts: "true",
   lastSavedTestCase: "",
-  lastSavedTestSuite: ""
+  lastSavedTestSuite: "",
+  
+  //aegis
+  apikey: "9222668072e3fbe70026460d9470dad6"
 };
 

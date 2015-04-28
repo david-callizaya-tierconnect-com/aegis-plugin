@@ -10,7 +10,7 @@
         <em:description>Record and Inspect</em:description>
         <em:type>2</em:type>
         <em:homepageURL>http://www.google.com</em:homepageURL>
-        <em:optionsURL>chrome://selenium-ide/content/optionsDialog.xul</em:optionsURL>
+        <em:optionsURL>chrome://selenium-ide/content/aegisOptions.xul</em:optionsURL>
         <!-- em:updateURL>https://addons.seleniumhq.org/se-ide/update.rdf</em:updateURL -->
         <em:iconURL>chrome://selenium-ide/content/images/3.png</em:iconURL>
 

@@ -3,14 +3,16 @@
  */
 
 /*AEGIS*/
+var aegisSettings=Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.aegis.");
 var aegis={
         name:"AEGIS",
         version:"0.0.1",
+        settings:aegisSettings,
         apikey:"9222668072e3fbe70026460d9470dad6",
         servers:{
-            plugin:"10.100.0.244:8081",
-            frontend:"10.100.0.81:78",
-            selenium:"10.100.0.137:8080"
+            plugin:"52.6.171.25",
+            frontend:"52.6.171.25:80",
+            selenium:"52.6.171.25:8080"
         },
         mode:"recording",
         editor:null,

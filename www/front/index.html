@@ -1,0 +1,220 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../bootstrap/theme/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/simple-sidebar.css">
+    <link rel="stylesheet" href="../bootstrap/css/font-awesome.min.css">
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../knockout-3.3.0.js"></script>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+<div class="panel panel-default" style="bottom: 0px; position: absolute; margin-bottom: 0px; width: 100%; top: 61px;">
+
+  <div class="panel-body">
+<form id="actionSettings">
+<div class="row">
+  <div class=".col-xs-12 .col-md-12">
+    <input name="title" type="text" class="form-control" placeholder="Enter title"data-bind="value: title">
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="form-group">
+      <label class="control-label">Notifications:</label>
+      <div class="col-lg-10">
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="none" data-bind="checked: notification">
+            None
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="daily" data-bind="checked: notification">
+            Daily
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="weekly" data-bind="checked: notification">
+            Weekly
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="instant" data-bind="checked: notification">
+            Instant
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="form-group">
+      <label class="control-label">Action:</label>
+      <ul class="nav nav-pills nav-stacked">
+        <li data-bind="css:{active: action()==='watch'}"><a href="#" onclick="actionSettings.action('watch')">&lt;o&gt; Watch</a></li>
+        <li data-bind="css:{active: action()==='ignore'}"><a href="#" onclick="actionSettings.action('ignore')">&lt;/&gt; Ignore</a></li>
+      </ul>
+      <select id="userOrGroup" class="form-control" placeholder="User -or- Group" data-bind="value: userOrGroup">
+        <option value="">User -or- Group</option>
+        <option value="1">Hugo</option>
+        <option value="2">Iggy</option>
+        <option value="3">Luis</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-10 col-lg-offset-2">
+    <button id="confirmAction" type="button" class="btn btn-primary">Save</button>
+    <button id="cancelAction" type="button" class="btn btn-default">Cancel</button>
+  </div>
+</div>
+</form>
+<script type="text/javascript">
+$(function(){
+  var vm = {
+    title: ko.observable(""),
+    notification: ko.observable("none"),
+    action: ko.observable("watch"),
+    userOrGroup: ko.observable("")
+  };
+  ko.applyBindings(vm, document.getElementById("actionSettings"));
+  window.actionSettings=vm;
+});
+</script>
+  </div>
+</div>
+
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="javascript:void(0)" class="navbar-brand">AEGIS</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav ">
+
+          </ul>
+<form class="navbar-form navbar-right">
+<div class="btn-group"></div><div class="btn-group"><a href="https://www.youtube.com/watch?v=zE5hS0kqBQ4" type="button" class="btn btn-primary" target="_blank">Extra</a>
+</div>
+</form>
+
+        </div>
+
+      </div>
+    </div>
+<br /><br /><br /><style>
+#page-content-wrapper {
+  padding: 0px;
+}
+.splash{
+  padding: 9em 0 2em;
+  background-color: #141d27;
+  background-image: url(background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  color: #fff;
+  text-align: center;
+  background-size: 100% auto;
+  min-height:450px;
+}
+.section-tout {
+  padding: 4em 0 3em;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  background-color: #eaf1f1;
+  color:black;
+}
+.section-tout .fa {
+  margin-right: .5em;
+}
+</style>
+    <div class="splash">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>AEGIS DEMO</h1>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="pageSettings" class="section-tout">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6 col-sm-6">
+            <h3><i class="fa fa-file-o"></i>Create Job</h3>
+            <p>Test the Aegis plugin to save a Job.</p>
+            <p data-bind="visible:!isAegisEnabled()" style="color:red;">Aegis plugin is required to save a job.</p>
+            <a class="btn btn-default" data-bind="css:{disabled:!isAegisEnabled()}" target="_blank" href="https://www.bankofamerica.com">Go</a>
+          </div>
+          <div class="col-lg-6 col-sm-6">
+            <h3><i class="fa fa-github"></i>Job Preview</h3>
+            <p>View last job's execution.</p>
+            <a class="btn btn-default" target="_blank" href="http://52.6.171.25/cr24/preview/index.html">View</a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-sm-6">
+            <h3><i class="fa fa-cogs"></i>Aegis Plugin</h3>
+            <p>Install the Aegis plugin.</p>
+            <a class="btn btn-default" href="/cr24/plugins/aegis.0.0.2.xpi">Install</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<script type="text/javascript">
+$(function(){
+  var vm = {
+    isAegisEnabled: ko.observable(false)
+  };
+  ko.applyBindings(vm, document.getElementById("pageSettings"));
+  window.pageSettings=vm;
+});
+/**
+ * AEGIS BOOT
+ */
+function bootAegis(){
+  window.pageSettings.isAegisEnabled(true);
+}
+</script>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+
+    </div>
+
+
+<script type="text/javascript">
+/** navbar control **/
+var vm = {
+
+};
+ko.applyBindings(vm, document.getElementById("navbar-main"));
+</script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 var aegis={
 //  seleniumServer:"10.100.0.137:8080",
 //  apikey:"",
+  previewServer:"52.6.171.25",
   cases:[
   ],
   newCase:false,
@@ -20,32 +21,33 @@ var aegis={
       cases:aegis.cases
     };
     document.getElementById("log").value=JSON.stringify(job);
+    aegis.apikey=AEGIS.IController.getApikey();
     $.ajax({
       type: "POST",
-      url: "http://"+aegis.seleniumServer+"/myProjectSelenium/api/aegis/services",
+      url: "http://"+aegis.seleniumServer+"/aegis24-1.0-POC/api/aegis/services",
       cache:false,
-      headers: {"apikey": aegis.apikey},
+      /*beforeSend: function (request)
+      {
+          request.setRequestHeader("apikey", aegis.apikey);
+      },*/
       data: JSON.stringify(job),
       contentType: "text/plain",
       crossDomain: true,
       dataType: "json",
       success: function (data, status, jqXHR) {
-        console.log(data);
         $.ajax({
           type: "get",
-          url: "http://10.100.0.244:8081/cr24/preview/setimages.php",
+          url: "http://"+aegis.previewServer+"/cr24/preview/setimages.php",
           cache:false,
           data: {"data":JSON.stringify(data)},
           success: function (data) {
-            console.log(data);
-            window.open("http://10.100.0.244:8081/cr24/preview/index.html", "_blank");
+            window.open("http://"+aegis.previewServer+"/cr24/preview/index.html", "_blank");
           }
         });
       },
       error: function (jqXHR, status) {
-        // error handler
         console.log(jqXHR);
-        alert('fail' + status.code);
+        alert('Fail. ' + status);
       }
     });
   },

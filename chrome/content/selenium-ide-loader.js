@@ -26,6 +26,10 @@ SeleniumIDE.Loader.openRecorder = function() {
 	toOpenWindowByType('global:selenium-ide','chrome://selenium-ide/content/selenium-ide.xul');
 }
 
+SeleniumIDE.Loader.openOptions = function() {
+	toOpenWindowByType('global:selenium-ide','chrome://aegis/content/aegisOptions.xul');
+}
+
 SeleniumIDE.Loader.getTopEditor = function() {
 	var editors = this.getEditors();
 	if (editors.length > 0) {
