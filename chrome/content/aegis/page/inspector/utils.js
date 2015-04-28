@@ -109,8 +109,8 @@ window.AEGIS.utils={
             for (; element && element.nodeType == 1; element = element.parentNode)  {
                 var index = 0;
                 // EXTRA TEST FOR ELEMENT.ID
-                if (element && element.id) {
-                    paths.splice(0, 0, '/*[@id="' + element.id + '"]');
+                if (element && element.getAttribute('id')) {
+                    paths.splice(0, 0, '/*[@id="' + element.getAttribute('id') + '"]');
                     break;
                 }
 
@@ -130,9 +130,9 @@ window.AEGIS.utils={
 
             return paths.length ? "/" + paths.join("/") : null;
         };
-        if (element && element.id)
-            return '//*[@id="' + element.id + '"]';
-        else
+        if (element && element.getAttribute('id')) {
+            return '//*[@id="' + element.getAttribute('id') + '"]';
+        } else
             return getElementTreeXPath(element);
     },
     getElementByXpath:function(path, ownerDocument) {

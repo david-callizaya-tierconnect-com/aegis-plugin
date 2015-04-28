@@ -25,7 +25,8 @@ window.AEGIS.InspectorController={
                         height:data.target.clientHeight
                     },
                     outerHTML: outerHTML,
-                    outerHTMLWithStyle: outerHTMLWithStyle
+                    outerHTMLWithStyle: outerHTMLWithStyle,
+                    fromSelectAll:(typeof data.fromSelectAll!=="undefined" ? data.fromSelectAll : false)
                 });
             }
         );
@@ -70,13 +71,18 @@ window.AEGIS.InspectorController={
     },
     selectAll:function(){
         var allDivs=AEGIS.Selector.findNodes(document.body, []);
+        var tmo = 0;
         allDivs.forEach(function(target){
             var data={
                 target:target, 
                 outlinedStyle: 'outline: 4px solid green; opacity : 0.7; '+target.getAttribute('style'), 
-                styleBackup: target.getAttribute('style')
+                styleBackup: target.getAttribute('style'),
+                fromSelectAll:true
             };
-            AEGIS.InspectorController.notify('select', data);
+            tmo+=10;
+            setTimeout((function(data){return function(){
+                AEGIS.InspectorController.notify('select', data);
+            };})(data),tmo);
         });
     },
     loadSelection:function(inspectorList){
@@ -86,7 +92,11 @@ window.AEGIS.InspectorController={
             var inspection=inspectorList[i];
             if(inspection.baseUrl===url){
                 var dom=window.AEGIS.utils.getElementByXpath(inspection.xpath);
-                window.AEGIS.Selector.mark(dom, inspection.type);
+                if(dom) {
+                    window.AEGIS.Selector.mark(dom, inspection.type);
+                } else {
+                    console.log("selected element not found: ", inspection.xpath);
+                }
             }
         }
     },

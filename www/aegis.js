@@ -84,23 +84,39 @@ var aegis={
       $('#mainTabs a[href="#actionlog"]').tab('show'); 
     }
   },
-  openEditAction:function(callback, cancelCallback){
-    actionSettings.title("");
-    actionSettings.notification("none");
-    actionSettings.action("watch");
-    actionSettings.userOrGroup("");
-    $('#wrapper').addClass("toggled");
-    $('#confirmAction').unbind("click").click(function(){
-      var userOrGroupTitle=$("#userOrGroup option:selected").text();
-      callback({
-        title:actionSettings.title(),
-        notification:actionSettings.notification(),
-        action:actionSettings.action(),
-        userOrGroup:actionSettings.userOrGroup(),
-        userOrGroupTitle:userOrGroupTitle
+  openEditAction:function(fromSelectAll, callback, cancelCallback){
+    /*autoSetInspectionValues*/
+    if(fromSelectAll){
+      try{
+        aegis.autoSetInspectionValues.doit();
+        var userOrGroupTitle="";//$("#userOrGroup option:selected").text();
+        callback({
+          title:actionSettings.title(),
+          notification:actionSettings.notification(),
+          action:actionSettings.action(),
+          userOrGroup:actionSettings.userOrGroup(),
+          userOrGroupTitle:userOrGroupTitle
+        });
+      } catch(ee){
+      }
+    } else {
+      actionSettings.title("");
+      actionSettings.notification("none");
+      actionSettings.action("watch");
+      actionSettings.userOrGroup("");
+      $('#wrapper').addClass("toggled");
+      $('#confirmAction').unbind("click").click(function(){
+        var userOrGroupTitle=$("#userOrGroup option:selected").text();
+        callback({
+          title:actionSettings.title(),
+          notification:actionSettings.notification(),
+          action:actionSettings.action(),
+          userOrGroup:actionSettings.userOrGroup(),
+          userOrGroupTitle:userOrGroupTitle
+        });
       });
-    });
-    $('#cancelAction').unbind("click").click(cancelCallback);
+      $('#cancelAction').unbind("click").click(cancelCallback);
+    }
   },
   editAction:function(extraData, callback, cancelCallback){
     actionSettings.title(extraData.title);
@@ -166,7 +182,9 @@ var aegis={
           for(var j=0,k=array.length;j<k;j++){
             if( array[j].inspection===aegis.currentCase.inspector[i] ) {
               setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
-              aegis.onselectInspectionRow( array[j] );
+              if(!data.fromSelectAll){
+                aegis.onselectInspectionRow( array[j] );
+              }
               return;
             }
           }
@@ -186,7 +204,7 @@ var aegis={
       if(data.baseUrl!=aegis.lastUrl){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
       if(typeof last!=="undefined") {var s=last.first;last.first=null;}
       if(aegis.newCase || (JSON.stringify(last.target)!==JSON.stringify(next.target))){
-        aegis.openEditAction(function(extraData){
+        aegis.openEditAction(data.fromSelectAll, function(extraData){
           var inspection={
             baseUrl: data.baseUrl,
             type: extraData.action,
@@ -266,8 +284,18 @@ var aegis={
     }
   },
   onloadselection:function(){
-console.log("LOAD SELECTION@pluginPage", aegis.currentCase.inspector);
     AEGIS.IInspector.loadSelection( aegis.currentCase.inspector );
+  },
+  autoSetInspectionValues:{
+    enabled:false,
+    counter:0,
+    doit:function(){
+      this.counter++;
+      actionSettings.title("Action-"+this.counter);
+      actionSettings.notification("none");
+      actionSettings.action("watch");
+      actionSettings.userOrGroup("");
+    }
   }
 };
 aegis.startCase();

@@ -6,10 +6,17 @@ window.AEGIS.Selector={
 		//Requisito: que la visibilidad del nodo padre sea verificada y sea true
 		return true;
 	}
+        if(elem.className.indexOf("aegis-selector-mark")>=0) {
+            return false;
+        }
 	var style=getComputedStyle(elem);
+        if(!style) {
+            //elements like script
+            return false;
+        }
 	return !(style.display=="none" || style.visibility=="hidden" || style.position=="fixed");
 //this disable also elements with position=fixed in chrome
-	return elem.offsetParent != null;
+//	return elem.offsetParent != null;
 //	return !(elem.offsetWidth === 0 && elem.offsetHeight === 0) /*&& (elem.offsetWidth > 8 && elem.offsetHeight > 8)*/;
     },
     isBigEnough:function(elem){
@@ -56,7 +63,7 @@ window.AEGIS.Selector={
 			this.findNodes(cc[i], comps);
 		}
 	} else {
-		console.log("hidden:", cc[i]);
+		//console.log("hidden:", cc[i]);
 	}
 	return comps;
     },

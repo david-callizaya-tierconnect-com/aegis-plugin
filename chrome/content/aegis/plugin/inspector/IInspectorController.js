@@ -58,7 +58,6 @@ var IInspectorController={
         });
     },
     toggleInspect:function(){
-        console.log("[IInspectorController@plugin] onToggleInspect!!!");
         this.notify("onToggleInspect", {});
     },
     selectAll:function(){
