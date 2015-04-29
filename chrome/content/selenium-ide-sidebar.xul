@@ -78,7 +78,7 @@ limitations under the License.
     <browser 
         flex="1"
         id="aegisBottomPanel"
-        src="http://52.6.171.25/cr24/aegis.html"
+        src="http://localhost:8081/cr24/aegis.html"
          />
     <hbox width="100" persist="height width" height="10">
       <vbox id="suitePane" persist="height width" hidden="true"/>

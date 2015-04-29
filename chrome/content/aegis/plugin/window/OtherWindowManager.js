@@ -5,10 +5,12 @@ var OtherWindowManager=function(){
             contentWindow.document.body.style.opacity="0.5";
         }
         IInspectorController.init(contentWindow, function(chromeWindow){
-            chromeWindow.onfocus=function(){
-                aegis.showPanel();
-            }
-            chromeWindow.onblur=function(){
+            if(isRootDocument){
+                chromeWindow.onfocus=function(){
+                    aegis.showPanel();
+                }
+                chromeWindow.onblur=function(){
+                }
             }
             contentWindow.document.body.style.opacity="1";
             

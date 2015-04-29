@@ -118,9 +118,10 @@ var aegis={
         });
       });
       $('#cancelAction').unbind("click").click(cancelCallback);
+      $('#removeAction').hide();
     }
   },
-  editAction:function(extraData, callback, cancelCallback){
+  editAction:function(inspection, extraData, callback, cancelCallback){
     actionSettings.title(extraData.title);
     actionSettings.notification(extraData.notification);
     actionSettings.action(extraData.action);
@@ -141,15 +142,41 @@ var aegis={
       actionlogKO.currentSelectedRow(null);
       cancelCallback();
     });
+    $('#removeAction').show();
+    $('#removeAction').unbind("click").click(function(){
+      aegis.removeInspection(inspection);
+      cancelCallback();
+    });
   },
   closeEditAction:function(){
     $('#wrapper').removeClass("toggled");
+  },
+  removeInspection:function(inspection){
+      /* Find selection in current case*/
+      for(var i=0,l=aegis.currentCase.inspector.length;i<l;i++){
+        if( (aegis.currentCase.inspector[i].baseUrl===inspection.baseUrl) &&
+            (aegis.currentCase.inspector[i].xpath===inspection.xpath) ) 
+        {
+          //find row of inspection
+          var array=actionlogKO.data();
+          for(var j=0,k=array.length;j<k;j++){
+            if( array[j].inspection===aegis.currentCase.inspector[i] ) {
+              setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
+              actionlogKO.data.splice(j,1);
+              aegis.currentCase.inspector.splice(i,1);
+              AEGIS.IInspector.loadSelection( aegis.currentCase.inspector );
+              return;
+            }
+          }
+          break;
+        }
+      }
   },
   selectAll:function(){
     AEGIS.IInspector.selectAll();
   },
   onselectInspectionRow:function(rowInspection){
-    aegis.editAction(rowInspection.inspection.extra, 
+    aegis.editAction(rowInspection.inspection, rowInspection.inspection.extra, 
     function(extraData){
       rowInspection.title=extraData.title;
       rowInspection.type=extraData.action;
@@ -205,7 +232,7 @@ var aegis={
       };
       if(data.baseUrl!=aegis.lastUrl){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
       if(typeof last!=="undefined") {var s=last.first;last.first=null;}
-      if(aegis.newCase || (JSON.stringify(last.target)!==JSON.stringify(next.target))){
+      if(aegis.newCase || (typeof last==="undefined") || (JSON.stringify(last.target)!==JSON.stringify(next.target))){
         aegis.openEditAction(data.fromSelectAll, function(extraData){
           var inspection={
             baseUrl: data.baseUrl,

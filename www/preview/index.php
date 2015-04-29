@@ -48,7 +48,7 @@ body {margin:50px 0px; padding:0px; background-color: #000000;color: #ffffff;}
 <br /><br /><br /><!--  initialize the TN3 when the DOM is ready -->
 <script type="text/javascript">
     $(document).ready(function() {
-      var images = <?= ($imageList=@$_SESSION['cr24_images']) ?>;
+      var images = <?php echo ($imageList=@$_SESSION['cr24_images']); ?>;
       /*[
         {"baseUrl":"http://www.bankofamerica.com","target":"//div/a[5]","imageUrl":"http://127.0.0.1:8081/cr24/preview/examples/images/ss/1.png"},
         {"baseUrl":"http://www.bankofamerica.com","target":"//div/a[5]","imageUrl":"http://127.0.0.1:8081/cr24/preview/examples/images/ss/1.png"}
