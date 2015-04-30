@@ -941,6 +941,13 @@ Editor.prototype.playCurrentTestCase = function (next, index, total) {
       };
       self.getUserLog().info("Test case " + testCase.testResult.summary);
       self.app.notify("testCasePlayDone", testCase);
+        //by David
+        try{
+            window.parent.aegis.onPlayDone(testCase, testCase.testResult);
+        } catch(ee) {
+            console.log(ee);
+            console.log(ee.stack);
+        }
     } else {
       self.getUserLog().error("current test case not found");
       self.log.error("current test case not found");

@@ -12,6 +12,15 @@ var MainController = {
         getSeleniumServer:function(){
             return this.getSeleniumServer();
         },
+        loadJob:function(job, callback){
+            return this.loadJob(job, callback);
+        },
+        nextCase:function(callback){
+            return this.nextCase(callback);
+        },
+        notify:function(event,data){
+            this.notify(event,data);
+        },
         addEventListener:function(obj,event,fn){
             this.addEventListener(obj,event,fn);
         }
@@ -43,6 +52,27 @@ var MainController = {
     },
     getApikey:function(){
         return aegis.apikey;
+    },
+    loadJob:function(job,callback){
+        ISeleniumController.loadJob(job, function(){
+            console.log("***** Job loaded *****");
+            console.log("***** initialicing case *****");
+            ISeleniumController.doCase(function(job, currentCase){
+                console.log("***** case initialized *****");
+                IInspectorController.loadSelection(job.cases[currentCase].inspector);
+                if(typeof callback==="function"){
+                    callback(currentCase);
+                }
+            });
+        });
+    },
+    nextCase:function(callback){
+        ISeleniumController.doCase(function(job, currentCase){
+            IInspectorController.loadSelection(job.cases[currentCase].inspector);
+            if(typeof callback==="function"){
+                callback(currentCase);
+            }
+        });
     },
     //observer pattern
     listeners:[],

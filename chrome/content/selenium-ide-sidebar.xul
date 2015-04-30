@@ -81,12 +81,12 @@ limitations under the License.
         src="http://localhost:8081/cr24/aegis.html"
          />
     <hbox width="100" persist="height width" height="10">
-      <vbox id="suitePane" persist="height width" hidden="true"/>
+      <vbox id="suitePane" persist="height width" height="10" hidden="false"/>
       <splitter id="suiteTreeSplitter" collapse="before" persist="state" hidden="true">
 		<grippy/>
       </splitter>
-        <vbox>
-          <tree id="commands" enableColumnDrag="false" hidecolumnpicker="true"
+        <vbox height="2">
+          <tree id="commands" height="2" enableColumnDrag="false" hidecolumnpicker="true"
                 context="treeContextMenu" onselect="window.editor.treeView.selectCommand()"
                 ondblclick="goDoCommand('cmd_selenium_exec_command')" disableKeyNavigation="true">
             <treecols hidden="true">
@@ -99,7 +99,7 @@ limitations under the License.
             <treechildren ondraggesture="nsDragAndDrop.startDrag(event, commandsDragObserver);"/>
           </tree>
         </vbox>
-      <tabbox id="tabbox" flex="3" height="300" hidden="true" persist="height width">
+      <tabbox id="tabbox" flex="3" height="10" hidden="true" persist="height width">
         <tabs orient="horizontal" onselect="if (window.editor) { window.editor.tabSelected(selectedItem.id) }" id="viewTabs" hidden="true">
 	      <tab id="editorTab" label="&tableTab.label;" />
 	      <tab id="sourceTab" label="&sourceTab.label;" />
@@ -120,7 +120,7 @@ limitations under the License.
 	            <treechildren ondraggesture="nsDragAndDrop.startDrag(event, commandsDragObserver);"/>
 	          </tree>
 	          <separator class="thin"/>
-	          <vbox id="commandDetail" hidden="true" persist="height">
+	          <vbox id="commandDetail" hidden="false" persist="height">
 	            <grid>
 		          <columns>
 		            <column flex="1"/>

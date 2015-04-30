@@ -10,9 +10,9 @@ var aegis={
         settings:aegisSettings,
         apikey:"9222668072e3fbe70026460d9470dad6",
         servers:{
-            plugin:"52.6.171.25",
-            frontend:"52.6.171.25:80",
-            selenium:"52.6.171.25:8080"
+            plugin:"localhost:8081",
+            frontend:"localhost:80",
+            selenium:"localhost:8080"
         },
         mode:"recording",
         editor:null,
@@ -56,6 +56,15 @@ var aegis={
                 this.editors.push(editor);
                 this.editor = editor;
             }
+        },
+        onPlayDone:function(seleniumJob, result){
+            if(typeof this.waitPlayDoneFn==="function"){
+                this.waitPlayDoneFn(seleniumJob, result);
+            }
+        },
+        waitPlayDoneFn:function(seleniumJob, result){},
+        waitPlayDone:function(fn){
+            this.waitPlayDoneFn=fn;
         },
         showPanel:function(){
             var height=this.getContainerHeight();

@@ -239,10 +239,12 @@ $(function(){
 
           </ul>
 <form class="navbar-form navbar-right">
-<div class="btn-group"><button type="button" class="btn btn-primary"  onclick="aegis.runJob()">Publish</button>
-</div><div class="btn-group"><button type="button" class="btn btn-primary" data-bind="css:{disabled:isRecording()}" onclick="aegis.selectAll()">Select All</button>
-<button type="button" class="btn btn-danger" data-bind="css:{'red-bright': isRecording(), disabledButton:!isRecording()}" onclick="aegis.toggle()">Recording Active</button>
-<button type="button" class="btn btn-warning" data-bind="css: {'yellow-bright': !isRecording(), disabledButton:isRecording()}" onclick="aegis.toggle()">Inspecting Active</button>
+<div class="btn-group"><button type="button" class="btn btn-warning" data-bind="visible: !isEditing()" onclick="justDoIt()">Load Job</button>
+<button type="button" class="btn btn-primary" data-bind="visible: !isEditing()" onclick="aegis.runJob()">Publish</button>
+</div><div class="btn-group"><button type="button" class="btn btn-primary" data-bind="css:{disabled:isRecording()}, visible: !isEditing()" onclick="aegis.selectAll()">Select All</button>
+<button type="button" class="btn btn-danger" data-bind="css:{'red-bright': isRecording(), disabledButton:!isRecording()}, visible: !isEditing()" onclick="aegis.toggle()">Recording Active</button>
+<button type="button" class="btn btn-warning" data-bind="css: {'yellow-bright': !isRecording(), disabledButton:isRecording()}, visible: !isEditing()" onclick="aegis.toggle()">Inspecting Active</button>
+<button type="button" class="btn btn-warning" data-bind="visible: isEditing()" onclick="aegis.nextCase()">Next Inspection</button>
 </div>
 </form>
 
@@ -399,6 +401,7 @@ function listCommands(){
 /** navbar control **/
 var vm = {
   isRecording:ko.observable(true),
+  isEditing:ko.observable(false)
 };
 ko.applyBindings(vm, document.getElementById("navbar-main"));
 </script>
