@@ -7,6 +7,12 @@ var aegis={
   ],
   newCase:false,
   lastUrl:"",
+  config:{},
+  init:function(config){
+    if(typeof config==="object"){
+      aegis.config=config;
+    }
+  },
   runJob:function(){
     var baseUrl = typeof aegis.cases[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0].baseUrl==="undefined"?"":aegis.cases[0].recorder[0].baseUrl));
     if(!baseUrl) {
@@ -392,229 +398,14 @@ var aegis={
       aegis.currentCase=aegis.cases[currentCase];
     });
   },
-  onDoLoadJob:function(){
-    justDoIt();
+  onDoLoadJob:function(job){
+    aegis.loadJob(job);
+  },
+  onDoNewJob:function(){
+    aegis.newJob("");
   }
 };
 aegis.newJob("");
-
-function justDoIt(){
-  var TheJob={
-    "baseUrl": "https://www.bankofamerica.com/",
-    "screen": {
-        "width": "1800",
-        "height": "760"
-    },
-    "window": {
-        "width": "1800",
-        "height": "760"
-    },
-    "cases": [
-        {
-            "recorder": [],
-            "inspector": [
-                {
-                    "baseUrl": "https://www.bankofamerica.com/",
-                    "extra": {
-                        "title": "",
-                        "notification": "none",
-                        "userOrGroup": "",
-                        "userOrGroupTitle": "",
-                        "action": "watch"
-                    },
-                    "type": "watch",
-                    "xpath": "//*[@id=\"hp-section-4\"]/div/div[2]/div/div/div[2]/p",
-                    "outerHTML": "<p>If you're a homeowner struggling with your loan payments, you may want to learn about our home loan assistance programs. Bank of America is committed to helping homeowners and is a participant in the national mortgage settlement agreement.</p>",
-                    "outerHTMLWithStyle": "<p style=\"outline: 4px solid green; opacity : 0.7; \">If you're a homeowner struggling with your loan payments, you may want to learn about our home loan assistance programs. Bank of America is committed to helping homeowners and is a participant in the national mortgage settlement agreement.</p>",
-                    "computedStyle": null
-                },
-                {
-                    "baseUrl": "https://www.bankofamerica.com/",
-                    "extra": {
-                        "title": "",
-                        "notification": "none",
-                        "userOrGroup": "",
-                        "userOrGroupTitle": "",
-                        "action": "ignore"
-                    },
-                    "type": "ignore",
-                    "xpath": "//*[@id=\"hp-section-4\"]/div/div[2]/div/div/div[3]/ul/li[2]",
-                    "outerHTML": "<li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_DOJSettlement\" href=\"http://homeloanhelp.bankofamerica.com/en/doj-settlement.html\" class=\"style-link guillemet-right\">Learn about the Department of Justice settlement&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li>",
-                    "outerHTMLWithStyle": "<li style=\"outline: 4px solid green; opacity : 0.7; \">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_DOJSettlement\" href=\"http://homeloanhelp.bankofamerica.com/en/doj-settlement.html\" class=\"style-link guillemet-right\">Learn about the Department of Justice settlement&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li>",
-                    "computedStyle": null
-                },
-                {
-                    "baseUrl": "https://www.bankofamerica.com/",
-                    "extra": {
-                        "title": "",
-                        "notification": "none",
-                        "userOrGroup": "",
-                        "userOrGroupTitle": "",
-                        "action": "watch"
-                    },
-                    "type": "watch",
-                    "xpath": "//*[@id=\"hp-section-4\"]/div/div[2]/div/div",
-                    "outerHTML": "<div class=\"flex-content-section\"> \n         \t\t\t\n         \t\t\t\n         \t\t\t\t\t \n         \t\t\t\t\t\t\n\t             \t\t\t\t\t<div class=\"header-row\">\n\t\t\t\t\t\t\t\t\t\t <h2>Need help with your home loan payments?</h2>\n\t\t\t\t\t\t\t\t\t\t <div class=\"clearboth\"></div>\n\t\t\t\t\t\t\t\t\t</div>\n               \t\t\t\t\t\n               \t\t\t\t\t\t<div class=\"paragraph-row\">                     \n                  \t\t\t\t\t\t<p style=\"\">If you're a homeowner struggling with your loan payments, you may want to learn about our home loan assistance programs. Bank of America is committed to helping homeowners and is a participant in the national mortgage settlement agreement.</p>\n                  \t\t\t\t\t\t<div class=\"clearboth\"></div>\n               \t\t\t\t\t\t</div>\n       \t\t\t\t\t\n       \t\t\t\t\t             \t\t\t\t\t\t               \t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"list-row\">\t\t\t\t\t\t\t\t\t\t\t           \n\t\t\t\t\t\t\t\t\t<ul>                \n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_homeLoanAssistance\" href=\"http://homeloanhelp.bankofamerica.com/en/index.html?cm_sp=Cre-LoanModification-_-Home%20Loan%20Assistance%20Q4%202012-_-MI14LT0001_Dialogue%20Zone%202_LearnMoreLAH\" class=\"style-link guillemet-right\">Learn more about home loan assistance&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li> \t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<li style=\"\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_DOJSettlement\" href=\"http://homeloanhelp.bankofamerica.com/en/doj-settlement.html\" class=\"style-link guillemet-right\">Learn about the Department of Justice settlement&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li> \t\n\t\t\t\t\t\t\t\t\t</ul>                            \n\t\t\t\t\t\t\t</div>\n    \t\t\t\t</div>",
-                    "outerHTMLWithStyle": "<div style=\"outline: 4px solid green; opacity : 0.7; \" class=\"flex-content-section\"> \n         \t\t\t\n         \t\t\t\n         \t\t\t\t\t \n         \t\t\t\t\t\t\n\t             \t\t\t\t\t<div class=\"header-row\">\n\t\t\t\t\t\t\t\t\t\t <h2>Need help with your home loan payments?</h2>\n\t\t\t\t\t\t\t\t\t\t <div class=\"clearboth\"></div>\n\t\t\t\t\t\t\t\t\t</div>\n               \t\t\t\t\t\n               \t\t\t\t\t\t<div class=\"paragraph-row\">                     \n                  \t\t\t\t\t\t<p style=\"\">If you're a homeowner struggling with your loan payments, you may want to learn about our home loan assistance programs. Bank of America is committed to helping homeowners and is a participant in the national mortgage settlement agreement.</p>\n                  \t\t\t\t\t\t<div class=\"clearboth\"></div>\n               \t\t\t\t\t\t</div>\n       \t\t\t\t\t\n       \t\t\t\t\t             \t\t\t\t\t\t               \t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"list-row\">\t\t\t\t\t\t\t\t\t\t\t           \n\t\t\t\t\t\t\t\t\t<ul>                \n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_homeLoanAssistance\" href=\"http://homeloanhelp.bankofamerica.com/en/index.html?cm_sp=Cre-LoanModification-_-Home%20Loan%20Assistance%20Q4%202012-_-MI14LT0001_Dialogue%20Zone%202_LearnMoreLAH\" class=\"style-link guillemet-right\">Learn more about home loan assistance&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li> \t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<li style=\"\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_DOJSettlement\" href=\"http://homeloanhelp.bankofamerica.com/en/doj-settlement.html\" class=\"style-link guillemet-right\">Learn about the Department of Justice settlement&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li> \t\n\t\t\t\t\t\t\t\t\t</ul>                            \n\t\t\t\t\t\t\t</div>\n    \t\t\t\t</div>",
-                    "computedStyle": null
-                },
-                {
-                    "baseUrl": "https://www.bankofamerica.com/",
-                    "extra": {
-                        "title": "",
-                        "notification": "none",
-                        "userOrGroup": "",
-                        "userOrGroupTitle": "",
-                        "action": "ignore"
-                    },
-                    "type": "ignore",
-                    "xpath": "//*[@id=\"hp-section-4\"]/div/div/div/div/div[2]/p",
-                    "outerHTML": "<p>Earn cash back with the BankAmericard Cash Rewards credit card – 1% on purchases, 2% at grocery stores and 3% on gas (up to $1500 in grocery/gas quarterly spend) with No Annual Fee and No Changing Categories.</p>",
-                    "outerHTMLWithStyle": "<p style=\"outline: 4px solid green; opacity : 0.7; \">Earn cash back with the BankAmericard Cash Rewards credit card – 1% on purchases, 2% at grocery stores and 3% on gas (up to $1500 in grocery/gas quarterly spend) with No Annual Fee and No Changing Categories.</p>",
-                    "computedStyle": null
-                }
-            ]
-        },
-        {
-            "recorder": [
-                {
-                    "baseUrl": "https://www.bankofamerica.com/",
-                    "command": "click",
-                    "target": {
-                        "id": null,
-                        "name": null,
-                        "css": "css=a.first.select",
-                        "link": "link=Banking menu. Press Enter to access submenu. To move through items press up or down arrow.",
-                        "dom:name": null,
-                        "xpath:attributes": null,
-                        "xpath:idRelative": "//div[@id='hp-section-2']/form/ul/li/a",
-                        "dom:index": null,
-                        "xpath:position": "//form/ul/li/a",
-                        "xpath:link": null,
-                        "xpath:href": "xpath=(//a[contains(@href, 'javascript:void(0);')])[3]",
-                        "xpath:img": null
-                    },
-                    "extra": {
-                        "user": "",
-                        "notification": "userName",
-                        "": "",
-                        "timestamp": "1430426050169"
-                    },
-                    "value": ""
-                }
-            ],
-            "inspector": []
-        },
-        {
-            "recorder": [
-                {
-                    "baseUrl": "https://www.bankofamerica.com/",
-                    "command": "click",
-                    "target": {
-                        "id": null,
-                        "name": "name=online_banking",
-                        "css": "css=a[name=\"online_banking\"]",
-                        "link": "link=Online Banking",
-                        "dom:name": null,
-                        "xpath:attributes": "//a[@name='online_banking']",
-                        "xpath:idRelative": "//div[@id='pm-submenu-first']/div/a[5]",
-                        "dom:index": null,
-                        "xpath:position": "//a[5]",
-                        "xpath:link": "//a[contains(text(),'Online Banking')]",
-                        "xpath:href": "//a[contains(@href, '/onlinebanking/online-banking.go')]",
-                        "xpath:img": null
-                    },
-                    "extra": {
-                        "user": "",
-                        "notification": "userName",
-                        "": "",
-                        "timestamp": "1430426050169"
-                    },
-                    "value": ""
-                }
-            ],
-            "inspector": [
-                {
-                    "baseUrl": "https://www.bankofamerica.com/onlinebanking/online-banking.go",
-                    "extra": {
-                        "title": "",
-                        "notification": "none",
-                        "userOrGroup": "",
-                        "userOrGroupTitle": "",
-                        "action": "ignore"
-                    },
-                    "type": "ignore",
-                    "xpath": "/html/body/div/div/div/div[8]/div[2]/div[7]/div[2]/img",
-                    "outerHTML": "<img src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/OLB/mobile-banking-2.png\" alt=\"Mobile Banking\">",
-                    "outerHTMLWithStyle": "<img style=\"outline: 4px solid green; opacity : 0.7; \" src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/OLB/mobile-banking-2.png\" alt=\"Mobile Banking\">",
-                    "computedStyle": null
-                },
-                {
-                    "baseUrl": "https://www.bankofamerica.com/onlinebanking/online-banking.go",
-                    "extra": {
-                        "title": "",
-                        "notification": "none",
-                        "userOrGroup": "",
-                        "userOrGroupTitle": "",
-                        "action": "ignore"
-                    },
-                    "type": "ignore",
-                    "xpath": "/html/body/div/div/div/div[8]/div[2]/div[7]/div/div/p",
-                    "outerHTML": "<p>Access your Bank of America accounts straight from your mobile device. Check your balance, deposit checks<a name=\"fnote4\" href=\"#footnote4\"><span class=\"ada-hidden\">Footnote </span><sup>4</sup></a>, pay bills, transfer money<a name=\"fnote2\" href=\"#footnote2\"><span class=\"ada-hidden\">Footnote </span><sup>2</sup></a> and get cash-back deals<a name=\"fnote5\" href=\"#footnote5\"><span class=\"ada-hidden\">Footnote </span><sup>5</sup></a> whether you’re at home or on the go. Bank on your schedule with <a title=\"Mobile Banking\" name=\"mobile\" href=\"/online-banking/mobile.go\" target=\"_self\">Mobile Banking</a><a name=\"fnote6\" href=\"#footnote6\"><span class=\"ada-hidden\">Footnote </span><sup>6</sup></a> and get the convenience and security of Online Banking from almost anywhere.</p>",
-                    "outerHTMLWithStyle": "<p style=\"outline: 4px solid green; opacity : 0.7; \">Access your Bank of America accounts straight from your mobile device. Check your balance, deposit checks<a name=\"fnote4\" href=\"#footnote4\"><span class=\"ada-hidden\">Footnote </span><sup>4</sup></a>, pay bills, transfer money<a name=\"fnote2\" href=\"#footnote2\"><span class=\"ada-hidden\">Footnote </span><sup>2</sup></a> and get cash-back deals<a name=\"fnote5\" href=\"#footnote5\"><span class=\"ada-hidden\">Footnote </span><sup>5</sup></a> whether you’re at home or on the go. Bank on your schedule with <a title=\"Mobile Banking\" name=\"mobile\" href=\"/online-banking/mobile.go\" target=\"_self\">Mobile Banking</a><a name=\"fnote6\" href=\"#footnote6\"><span class=\"ada-hidden\">Footnote </span><sup>6</sup></a> and get the convenience and security of Online Banking from almost anywhere.</p>",
-                    "computedStyle": null
-                },
-                {
-                    "baseUrl": "https://www.bankofamerica.com/onlinebanking/online-banking.go",
-                    "extra": {
-                        "title": "",
-                        "notification": "none",
-                        "userOrGroup": "",
-                        "userOrGroupTitle": "",
-                        "action": "ignore"
-                    },
-                    "type": "ignore",
-                    "xpath": "/html/body/div/div/div/div[8]/div[2]/div[5]/div",
-                    "outerHTML": "<div class=\"ipc-col ipc-left-col\">\n           \t\t\t \t<img src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/financial-planning-tools1.png\" alt=\"Online Financial Planning Tools\">\n       \t\t </div>",
-                    "outerHTMLWithStyle": "<div style=\"outline: 4px solid green; opacity : 0.7; \" class=\"ipc-col ipc-left-col\">\n           \t\t\t \t<img src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/financial-planning-tools1.png\" alt=\"Online Financial Planning Tools\">\n       \t\t </div>",
-                    "computedStyle": null
-                },
-                {
-                    "baseUrl": "https://www.bankofamerica.com/onlinebanking/online-banking.go",
-                    "extra": {
-                        "title": "",
-                        "notification": "none",
-                        "userOrGroup": "",
-                        "userOrGroupTitle": "",
-                        "action": "ignore"
-                    },
-                    "type": "ignore",
-                    "xpath": "/html/body/div/div/div/div[8]/div[2]/div[7]",
-                    "outerHTML": "<div class=\"ipc-section ipc-alt-section extra-shadow-below\">\n\t\t\t<div class=\"ipc-col ipc-left-col\">\n        \t\t\t\t<div class=\"ipc-main-content\">\n               \t\t\t\t<div class=\"ipc-header h-100\">\n                 \t\t\t\t<div class=\"ipc-icon ipc-mobile_banking ipc-inactive\"></div>\n                 \t\t\t\t<h2 class=\"cnx-light\" data-font=\"#!\" id=\"mobile-banking\"><span>Mobile Banking</span></h2>\n                  \t\t\t\t<div class=\"clearboth\"></div>\n               \t\t\t\t</div>\n              \t\t\t\t<p style=\"\">Access your Bank of America accounts straight from your mobile device. Check your balance, deposit checks<a name=\"fnote4\" href=\"#footnote4\"><span class=\"ada-hidden\">Footnote </span><sup>4</sup></a>, pay bills, transfer money<a name=\"fnote2\" href=\"#footnote2\"><span class=\"ada-hidden\">Footnote </span><sup>2</sup></a> and get cash-back deals<a name=\"fnote5\" href=\"#footnote5\"><span class=\"ada-hidden\">Footnote </span><sup>5</sup></a> whether you’re at home or on the go. Bank on your schedule with <a title=\"Mobile Banking\" name=\"mobile\" href=\"/online-banking/mobile.go\" target=\"_self\">Mobile Banking</a><a name=\"fnote6\" href=\"#footnote6\"><span class=\"ada-hidden\">Footnote </span><sup>6</sup></a> and get the convenience and security of Online Banking from almost anywhere.</p>\n            \t\t\t</div>\n       \t\t </div>\n        \t<div class=\"ipc-col\">\n\t\t\t\t\t<img style=\"\" src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/OLB/mobile-banking-2.png\" alt=\"Mobile Banking\">\n\t\t\t\t   \n        \t</div>\n            <div class=\"clearboth\"></div>\n    \t</div>",
-                    "outerHTMLWithStyle": "<div style=\"outline: 4px solid green; opacity : 0.7; \" class=\"ipc-section ipc-alt-section extra-shadow-below\">\n\t\t\t<div class=\"ipc-col ipc-left-col\">\n        \t\t\t\t<div class=\"ipc-main-content\">\n               \t\t\t\t<div class=\"ipc-header h-100\">\n                 \t\t\t\t<div class=\"ipc-icon ipc-mobile_banking ipc-inactive\"></div>\n                 \t\t\t\t<h2 class=\"cnx-light\" data-font=\"#!\" id=\"mobile-banking\"><span>Mobile Banking</span></h2>\n                  \t\t\t\t<div class=\"clearboth\"></div>\n               \t\t\t\t</div>\n              \t\t\t\t<p style=\"\">Access your Bank of America accounts straight from your mobile device. Check your balance, deposit checks<a name=\"fnote4\" href=\"#footnote4\"><span class=\"ada-hidden\">Footnote </span><sup>4</sup></a>, pay bills, transfer money<a name=\"fnote2\" href=\"#footnote2\"><span class=\"ada-hidden\">Footnote </span><sup>2</sup></a> and get cash-back deals<a name=\"fnote5\" href=\"#footnote5\"><span class=\"ada-hidden\">Footnote </span><sup>5</sup></a> whether you’re at home or on the go. Bank on your schedule with <a title=\"Mobile Banking\" name=\"mobile\" href=\"/online-banking/mobile.go\" target=\"_self\">Mobile Banking</a><a name=\"fnote6\" href=\"#footnote6\"><span class=\"ada-hidden\">Footnote </span><sup>6</sup></a> and get the convenience and security of Online Banking from almost anywhere.</p>\n            \t\t\t</div>\n       \t\t </div>\n        \t<div class=\"ipc-col\">\n\t\t\t\t\t<img style=\"\" src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/OLB/mobile-banking-2.png\" alt=\"Mobile Banking\">\n\t\t\t\t   \n        \t</div>\n            <div class=\"clearboth\"></div>\n    \t</div>",
-                    "computedStyle": null
-                },
-                {
-                    "baseUrl": "https://www.bankofamerica.com/onlinebanking/online-banking.go",
-                    "extra": {
-                        "title": "",
-                        "notification": "none",
-                        "userOrGroup": "",
-                        "userOrGroupTitle": "",
-                        "action": "watch"
-                    },
-                    "type": "watch",
-                    "xpath": "/html/body/div/div/div/div[8]/div[2]/div[5]",
-                    "outerHTML": "<div class=\"ipc-section ipc-alt-section\">\n\t\t\t<div style=\"\" class=\"ipc-col ipc-left-col\">\n           \t\t\t \t<img src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/financial-planning-tools1.png\" alt=\"Online Financial Planning Tools\">\n       \t\t </div>\n        \t<div class=\"ipc-col\">\n\t        \t\t<div class=\"ipc-main-content\">\n               \t\t\t<div class=\"ipc-header h-100\">\n                  \t\t\t<div class=\"ipc-icon ipc-budget_and_track ipc-inactive\"></div>\n                 \t\t\t<h2 class=\"cnx-light\" data-font=\"#!\" id=\"budget-and-track\"><span>Budget and track</span></h2>\n                 \t\t\t<div class=\"clearboth\"></div>\n               \t\t\t</div>\n              \t\t\t<p>From a single site, you can set up budgets, get organized for tax season and track spending in all your accounts, even at other financial institutions<a name=\"fnote3\" href=\"#footnote3\"><span class=\"ada-hidden\">Footnote </span><sup>3</sup></a>. Sign into your <a title=\"Financial Management Tools\" name=\"financial-management-tools\" href=\"/onlinebanking/financial-management-tools.go\" target=\"_self\">all accounts dashboard</a> for easy accounts access and comparison so you never have to hop from site to site again.</p>\n           \t\t\t </div>        \n        \t</div>\n            <div class=\"clearboth\"></div>\n    \t</div>",
-                    "outerHTMLWithStyle": "<div style=\"outline: 4px solid green; opacity : 0.7; \" class=\"ipc-section ipc-alt-section\">\n\t\t\t<div style=\"\" class=\"ipc-col ipc-left-col\">\n           \t\t\t \t<img src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/financial-planning-tools1.png\" alt=\"Online Financial Planning Tools\">\n       \t\t </div>\n        \t<div class=\"ipc-col\">\n\t        \t\t<div class=\"ipc-main-content\">\n               \t\t\t<div class=\"ipc-header h-100\">\n                  \t\t\t<div class=\"ipc-icon ipc-budget_and_track ipc-inactive\"></div>\n                 \t\t\t<h2 class=\"cnx-light\" data-font=\"#!\" id=\"budget-and-track\"><span>Budget and track</span></h2>\n                 \t\t\t<div class=\"clearboth\"></div>\n               \t\t\t</div>\n              \t\t\t<p>From a single site, you can set up budgets, get organized for tax season and track spending in all your accounts, even at other financial institutions<a name=\"fnote3\" href=\"#footnote3\"><span class=\"ada-hidden\">Footnote </span><sup>3</sup></a>. Sign into your <a title=\"Financial Management Tools\" name=\"financial-management-tools\" href=\"/onlinebanking/financial-management-tools.go\" target=\"_self\">all accounts dashboard</a> for easy accounts access and comparison so you never have to hop from site to site again.</p>\n           \t\t\t </div>        \n        \t</div>\n            <div class=\"clearboth\"></div>\n    \t</div>",
-                    "computedStyle": null
-                }
-            ]
-        }
-    ]
-  };
-  aegis.loadJob(TheJob);
-}
 
 function bootAegis(){
   AEGIS.IInspector.addEventListener(
@@ -636,6 +427,11 @@ function bootAegis(){
     aegis,
     "loadjob",
     aegis.onDoLoadJob
+  );
+  AEGIS.IController.addEventListener(
+    aegis,
+    "newjob",
+    aegis.onDoNewJob
   );
   aegis.seleniumServer=AEGIS.IController.getSeleniumServer();
   aegis.apikey=AEGIS.IController.getApikey();

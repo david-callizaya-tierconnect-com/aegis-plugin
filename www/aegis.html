@@ -239,7 +239,7 @@ $(function(){
 
           </ul>
 <form class="navbar-form navbar-right">
-<div class="btn-group"><button type="button" class="btn btn-warning" data-bind="visible: !isEditing()" onclick="justDoIt()">Load Job</button>
+<div class="btn-group"><button type="button" class="btn btn-warning" data-bind="visible: false" onclick="justDoIt()">Load Job</button>
 <button type="button" class="btn btn-primary" data-bind="visible: !isEditing()" onclick="aegis.runJob()">Publish</button>
 </div><div class="btn-group"><button type="button" class="btn btn-primary" data-bind="css:{disabled:isRecording()}, visible: !isEditing()" onclick="aegis.selectAll()">Select All</button>
 <button type="button" class="btn btn-danger" data-bind="css:{'red-bright': isRecording(), disabledButton:!isRecording()}, visible: !isEditing()" onclick="aegis.toggle()">Recording Active</button>

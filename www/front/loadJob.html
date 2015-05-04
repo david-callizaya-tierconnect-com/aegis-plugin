@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <style>
+      body{background-image: url("ajax-loader.gif");
+      background-repeat: no-repeat;
+      background-position: center center;
+      height: 100%;
+      background-color: black;}
+    </style>
+    <script>
+      try{
+        console.log(window.opener);
+        console.log(window.opener.aegis.onLoadJobOpen.toString());
+        window.opener.aegis.onLoadJobOpen();
+      } catch(e){
+      }
+    </script>
+  </head>
+</html>
