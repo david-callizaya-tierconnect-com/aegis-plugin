@@ -55,10 +55,10 @@ var MainController = {
     },
     loadJob:function(job,callback){
         ISeleniumController.loadJob(job, function(){
-            console.log("***** Job loaded *****");
-            console.log("***** initialicing case *****");
+            //console.log("***** Job loaded *****");
+            //console.log("***** initialicing case *****");
             ISeleniumController.doCase(function(job, currentCase){
-                console.log("***** case initialized *****");
+                //console.log("***** case initialized *****");
                 IInspectorController.loadSelection(job.cases[currentCase].inspector);
                 if(typeof callback==="function"){
                     callback(currentCase);
