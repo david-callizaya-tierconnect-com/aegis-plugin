@@ -386,7 +386,7 @@ var aegis={
       aegis.toggle();
     }
     AEGIS.IController.loadJob(job, function(currentCase){
-      console.log("TERMINO DE CARGAR JOB");
+      //console.log("TERMINO DE CARGAR JOB");
       aegis.currentCase=aegis.cases[currentCase];
     });
   },
@@ -405,7 +405,6 @@ var aegis={
     aegis.newJob("");
   }
 };
-aegis.newJob("");
 
 function bootAegis(){
   AEGIS.IInspector.addEventListener(
@@ -435,4 +434,5 @@ function bootAegis(){
   );
   aegis.seleniumServer=AEGIS.IController.getSeleniumServer();
   aegis.apikey=AEGIS.IController.getApikey();
+  aegis.newJob("");
 }

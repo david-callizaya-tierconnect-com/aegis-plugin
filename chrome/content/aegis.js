@@ -12,7 +12,8 @@ var aegis={
         servers:{
             plugin:"localhost:8081",
             frontend:"localhost:80",
-            selenium:"localhost:8080"
+            selenium:"10.100.1.200:8080",
+            aegis:"aegis"
         },
         mode:"recording",
         editor:null,
@@ -24,6 +25,9 @@ var aegis={
              * between the window and the plugin.
              * only for tabs
              */
+            if(contentWindow.location.protocol==="chrome:"){
+                return false;
+            }
             for(var i in aegis.servers) {
                 if(typeof aegis.servers[i]==="string"){
                     if(contentWindow.location.host===aegis.servers[i]){

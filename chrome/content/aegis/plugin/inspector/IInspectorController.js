@@ -10,11 +10,12 @@ var IInspectorController={
     },
     DOMID:"c5f978011b1d413128379aaa1d8463d3",
     init:function(contentWindow, callback){
-        console.log("******************************");
-        console.log("***  Inject Inspection Editor");
-        console.log("***  url: "+contentWindow.location.href);
-        console.log("******************************");
-        //Init communication channel with page
+        //console.log("******************************");
+        //console.log("***  Inject Inspection Editor");
+        //console.log("***  url: "+contentWindow.location.href);
+        //console.log("******************************");
+        
+        //Initialize communication channel with page
         JavascriptAdapter.init(contentWindow, function(){
             JavascriptAdapter.injectInterfaceTo(
                 contentWindow, 
@@ -88,17 +89,17 @@ var IInspectorController={
     },
     notify:function(event, data){
         for(var i=0,l=this.listeners.length;i<l;i++){
-            var item=this.listeners[i];
-            if(item.event===event){
-                try{
+            try{
+                var item=this.listeners[i];
+                if(item.event===event){
                     item.fn.call(item.obj, data);
-                }catch(ex){
-                    if(ex.message==="can't access dead object"){
-                        this.listeners.splice(i,1);
-                        i--;l--;
-                    } else {
-                        console.log(ex);
-                    }
+                }
+            }catch(ex){
+                if(ex.message==="can't access dead object"){
+                    this.listeners.splice(i,1);
+                    i--;l--;
+                } else {
+                    console.log(ex);
                 }
             }
         }
