@@ -16,31 +16,8 @@ chrome://aegis/content/aegis/test.html
         <div id="qunit-fixture"></div>
         <script src="chrome://aegis/content/aegis.js" type="text/javascript"></script>
         <script src="chrome://aegis/content/aegis/plugin/recorder/ISeleniumController.js" type="text/javascript"></script>
+        <script src="SeleniumMock.js" type="text/javascript"></script>
         <script type="text/javascript">
-        /*** Selenium Recorder Mock Object ****/
-        aegis.editor={
-            testIsRecording:true,
-            toggleRecordingEnabled:function(enable){
-                if(typeof enable==="undefined") {
-                    enable=!this.testIsRecording;
-                }
-                this.testIsRecording=enable;
-            },
-            currentTestCase:{
-                commands:[],
-                setCommands:function(commands){
-                    console.log("[setCommands]", commands);
-                    this.commands=commands;
-                }
-            },
-            getTestCase:function(){
-                return this.currentTestCase;
-            },
-            playCurrentTestCase:function(){
-                console.log("[playCurrentTestCase]", arguments);
-                aegis.onPlayDone(this.currentTestCase, {});
-            }
-        };
         /***************************/
         QUnit.test( "toggleRecord", function( assert ) {
             var before;

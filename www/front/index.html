@@ -191,6 +191,16 @@ $(function(){
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-lg-6 col-sm-6">
+            <h3><i class="fa fa-cogs"></i>Unit Tests</h3>
+            <p>Run the Unit Tests.</p>
+            <p data-bind="visible:!isAegisEnabled()" style="color:red;">Aegis plugin is required to run the unit tests.</p>
+            <p>For security reasons, please copy and paste the link to the url bar to execute the test.</p>
+            <a href="chrome://aegis/content/aegis/test.html" target="_blank">chrome://aegis/content/aegis/test.html</a>
+          </div>
+        </div>
+
       </div>
     </div>
 <script type="text/javascript" src="http://localhost:8081/cr24/aegis.connector.js"></script>

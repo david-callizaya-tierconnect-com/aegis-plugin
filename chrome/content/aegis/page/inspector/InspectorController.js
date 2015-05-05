@@ -96,6 +96,10 @@ window.AEGIS.InspectorController={
                     window.AEGIS.Selector.mark(dom, inspection.type);
                 } else {
                     console.log("selected element not found: ", inspection.xpath);
+                    //Wait 1s and try again
+                    setTimeout((function(dom, type){
+                        return function(){window.AEGIS.Selector.mark(dom, type);};
+                    })(dom, inspection.type), 1000);
                 }
             }
         }

@@ -399,6 +399,7 @@ var aegis={
     });
   },
   onDoLoadJob:function(job){
+console.log(job);
     aegis.loadJob(job);
   },
   onDoNewJob:function(){

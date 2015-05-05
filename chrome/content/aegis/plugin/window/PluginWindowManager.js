@@ -1,4 +1,10 @@
 var PluginWindowManager=function(){
+    /**
+     * Initializes the plugin inside the "plugin" window
+     * @param {type} contentWindow
+     * @param {type} callback
+     * @returns {undefined}
+     */
     this.init=function(contentWindow, callback){
         try {
             var me=this;
@@ -20,6 +26,11 @@ var PluginWindowManager=function(){
             console.log(ex);
         }
     };
+    /**
+     * Loads the current state into the "plugin" window
+     * @param {type} chromeWindow
+     * @returns {undefined}
+     */
     this.loadState=function(chromeWindow){
         
     };

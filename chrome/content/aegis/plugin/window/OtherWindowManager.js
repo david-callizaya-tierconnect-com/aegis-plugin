@@ -1,4 +1,11 @@
 var OtherWindowManager=function(){
+    /**
+     * Initializes the plugin inside the "other" window
+     * @param {type} contentWindow
+     * @param {type} isRootDocument
+     * @param {type} callback
+     * @returns {undefined}
+     */
     this.init=function(contentWindow, isRootDocument, callback){
         var me=this;
         if(isRootDocument){
@@ -18,6 +25,11 @@ var OtherWindowManager=function(){
             callback(chromeWindow);
         });
     };
+    /**
+     * Loads the current state into the "other" window
+     * @param {type} chromeWindow
+     * @returns {undefined}
+     */
     this.loadState=function(chromeWindow){
         if(aegis.mode==="recording"){
             

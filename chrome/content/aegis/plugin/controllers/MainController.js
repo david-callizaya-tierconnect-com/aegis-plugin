@@ -26,6 +26,12 @@ var MainController = {
         }
     },
     DOMID:"9222668072e3fbe70026460d9470dad6",
+    /**
+     * Initialize the plugin main controller
+     * @param {type} contentWindow
+     * @param {type} callback
+     * @returns {undefined}
+     */
     init:function(contentWindow, callback){
         JavascriptAdapter.injectInterfaceTo(
             contentWindow,
@@ -38,27 +44,51 @@ var MainController = {
             }
         );
     },
+    /**
+     * Loads the selected DOM elements
+     * @returns {undefined}
+     */
     loadSelected:function(){
         this.notify("loadSelected", {});
     },
+    /**
+     * Get the configured selenium server hostname:port
+     * @returns {String}
+     */
     getSeleniumServer:function(){
         return aegis.servers.selenium;
     },
+    /**
+     * Set the plugin's mode (recording|inspecting)
+     * @param {string} mode : recording or inspecting
+     * @returns {undefined}
+     */
     setMode:function(mode){
         aegis.mode=mode;
     },
+    /**
+     * Get the plugin's mode (recording|inspecting)
+     * @returns {string}
+     */
     getMode:function(){
         return aegis.mode;
     },
+    /**
+     * Get the configured apikey
+     * @returns {String}
+     */
     getApikey:function(){
         return aegis.apikey;
     },
+    /**
+     * Load a Job Object
+     * @param {object} job
+     * @param {function} callback
+     * @returns {undefined}
+     */
     loadJob:function(job,callback){
         ISeleniumController.loadJob(job, function(){
-            //console.log("***** Job loaded *****");
-            //console.log("***** initialicing case *****");
             ISeleniumController.doCase(function(job, currentCase){
-                //console.log("***** case initialized *****");
                 IInspectorController.loadSelection(job.cases[currentCase].inspector);
                 if(typeof callback==="function"){
                     callback(currentCase);
@@ -66,6 +96,11 @@ var MainController = {
             });
         });
     },
+    /**
+     * Go to the next inspection case defined in the Job.
+     * @param {function} callback
+     * @returns {undefined}
+     */
     nextCase:function(callback){
         ISeleniumController.doCase(function(job, currentCase){
             IInspectorController.loadSelection(job.cases[currentCase].inspector);
