@@ -78,8 +78,14 @@ limitations under the License.
     <browser 
         flex="1"
         id="aegisBottomPanel"
-        src="http://localhost:8081/cr24/aegis.html"
+        src="about:blank"
          />
+    <script type="text/javascript">
+        (function(){
+            var aegisBottomPanel=document.getElementById("aegisBottomPanel");
+            aegisBottomPanel.setAttribute('src','http://'+window.parent.aegis.servers.plugin+'/cr24/aegis.html');
+        })();
+    </script>
     <hbox width="100" persist="height width" height="10">
       <vbox id="suitePane" persist="height width" height="10" hidden="false"/>
       <splitter id="suiteTreeSplitter" collapse="before" persist="state" hidden="true">

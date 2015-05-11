@@ -12,6 +12,9 @@ var MainController = {
         getSeleniumServer:function(){
             return this.getSeleniumServer();
         },
+        getPluginServer:function(){
+            return this.getPluginServer();
+        },
         loadJob:function(job, callback){
             return this.loadJob(job, callback);
         },
@@ -57,6 +60,13 @@ var MainController = {
      */
     getSeleniumServer:function(){
         return aegis.servers.selenium;
+    },
+    /**
+     * Get the configured plugin server hostname:port
+     * @returns {String}
+     */
+    getPluginServer:function(){
+        return aegis.servers.plugin;
     },
     /**
      * Set the plugin's mode (recording|inspecting)

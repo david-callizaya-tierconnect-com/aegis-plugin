@@ -1,8 +1,5 @@
 var aegis={
-//  seleniumServer:"10.100.0.137:8080",
-//  apikey:"",
-//  previewServer:"52.6.171.25",
-  previewServer:"localhost:8081",
+//  previewServer:"localhost:8081",
   cases:[
   ],
   newCase:false,
@@ -44,9 +41,9 @@ var aegis={
       dataType: "json",
       success: function (data, status, jqXHR) {
         $.ajax({
-          type: "get",
+          type: "post",
           url: "http://"+aegis.previewServer+"/cr24/preview/setimages.php",
-          cache:false,
+          //cache:false,
           data: {"data":JSON.stringify(data)},
           success: function (data) {
             window.open("http://"+aegis.previewServer+"/cr24/preview/index.html", "_blank");
@@ -104,7 +101,7 @@ var aegis={
           title:actionSettings.title(),
           notification:actionSettings.notification(),
           action:actionSettings.action(),
-          userOrGroup:actionSettings.userOrGroup(),
+          userOrGroup:parseInt(actionSettings.userOrGroup()),
           userOrGroupTitle:userOrGroupTitle
         });
       } catch(ee){
@@ -121,7 +118,7 @@ var aegis={
           title:actionSettings.title(),
           notification:actionSettings.notification(),
           action:actionSettings.action(),
-          userOrGroup:actionSettings.userOrGroup(),
+          userOrGroup:parseInt(actionSettings.userOrGroup()),
           userOrGroupTitle:userOrGroupTitle
         });
       });
@@ -142,7 +139,7 @@ var aegis={
         title:actionSettings.title(),
         notification:actionSettings.notification(),
         action:actionSettings.action(),
-        userOrGroup:actionSettings.userOrGroup(),
+        userOrGroup:parseInt(actionSettings.userOrGroup()),
         userOrGroupTitle:userOrGroupTitle
       });
     });
@@ -399,7 +396,6 @@ var aegis={
     });
   },
   onDoLoadJob:function(job){
-console.log(job);
     aegis.loadJob(job);
   },
   onDoNewJob:function(){
@@ -434,6 +430,7 @@ function bootAegis(){
     aegis.onDoNewJob
   );
   aegis.seleniumServer=AEGIS.IController.getSeleniumServer();
+  aegis.previewServer=AEGIS.IController.getPluginServer();
   aegis.apikey=AEGIS.IController.getApikey();
   aegis.newJob("");
 }

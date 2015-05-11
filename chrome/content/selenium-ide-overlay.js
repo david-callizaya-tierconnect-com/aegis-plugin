@@ -278,7 +278,7 @@ SeleniumIDE.Overlay.init = function() {
   addEventListener('load', function() {
     removeEventListener('load', arguments.callee, false);
     Application.getExtensions(function (extensions) {
-      var extension = extensions.get('{a6fd85ed-e919-4a43-a5af-8da18bda539f}');
+      var extension = extensions.get('aegisplugin@aegis.com');
       if (extension.firstRun) {
         if (!document.getElementById('selenium-ide-button')) {
           var toolbar = document.getElementById('nav-bar');

@@ -47,6 +47,16 @@ limitations under the License.
           <textbox id="apikey" multiline="false" oninput="validate()" size="33" maxlength="32"/>
           <label id="apikeyError" value="" class="error"/>
         </hbox>
+        <description>&options.aegis.pluginServer;</description>
+        <hbox align="center">
+          <textbox id="pluginServer" multiline="false" oninput="validate()" size="33" maxlength="255"/>
+          <label id="pluginServerError" value="" class="error"/>
+        </hbox>
+        <description>&options.aegis.backendServer;</description>
+        <hbox align="center">
+          <textbox id="backendServer" multiline="false" oninput="validate()" size="33" maxlength="255"/>
+          <label id="backendServerError" value="" class="error"/>
+        </hbox>
       </tabpanel>
     </tabpanels>
   </tabbox>

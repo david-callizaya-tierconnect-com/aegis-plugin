@@ -8,11 +8,27 @@ var aegis={
         name:"AEGIS",
         version:"0.0.1",
         settings:aegisSettings,
-        apikey:"9222668072e3fbe70026460d9470dad6",
+        apikey:aegisSettings.prefHasUserValue("apikey")?aegisSettings.getCharPref("apikey"):"9222668072e3fbe70026460d9470dad6",
         servers:{
-            plugin:"localhost:8081",
-            frontend:"localhost:80",
-            selenium:"10.100.1.200:8080",
+            /**
+             * Plugin web resources
+             * @type String
+             */
+            plugin:aegisSettings.prefHasUserValue("pluginServer")?aegisSettings.getCharPref("pluginServer"):"52.6.174.63",
+            /**
+             * Front end
+             * @type String
+             */
+            frontend:aegisSettings.prefHasUserValue("frontendServer")?aegisSettings.getCharPref("frontendServer"):"localhost:8080",
+            /**
+             * Selenium WebDriver Server
+             * @type String
+             */
+            selenium:aegisSettings.prefHasUserValue("backendServer")?aegisSettings.getCharPref("backendServer"):"52.6.174.63:8080",
+            /**
+             * chrome://aegis plugin resources
+             * @type String
+             */
             aegis:"aegis"
         },
         mode:"recording",
