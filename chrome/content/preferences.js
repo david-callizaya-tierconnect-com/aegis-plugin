@@ -185,7 +185,7 @@ SeleniumIDE.Preferences.DEFAULT_OPTIONS = {
   
   //aegis
   apikey: "9222668072e3fbe70026460d9470dad6",
-  pluginServer: "52.6.174.63",
-  backendServer: "52.6.174.63:8080"
+  pluginServer: "52.6.171.25",
+  backendServer: "52.6.171.25:8080"
 };
 

@@ -14,7 +14,7 @@ var aegis={
              * Plugin web resources
              * @type String
              */
-            plugin:aegisSettings.prefHasUserValue("pluginServer")?aegisSettings.getCharPref("pluginServer"):"52.6.174.63",
+            plugin:aegisSettings.prefHasUserValue("pluginServer")?aegisSettings.getCharPref("pluginServer"):"52.6.171.25",
             /**
              * Front end
              * @type String
@@ -24,7 +24,7 @@ var aegis={
              * Selenium WebDriver Server
              * @type String
              */
-            selenium:aegisSettings.prefHasUserValue("backendServer")?aegisSettings.getCharPref("backendServer"):"52.6.174.63:8080",
+            selenium:aegisSettings.prefHasUserValue("backendServer")?aegisSettings.getCharPref("backendServer"):"52.6.171.25:8080",
             /**
              * chrome://aegis plugin resources
              * @type String
