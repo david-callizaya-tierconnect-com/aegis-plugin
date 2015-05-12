@@ -41,7 +41,9 @@ var ISeleniumController = {
         this.job=job;
         this.runRecord(
                 [
-                    {type:"command","command":"open",lastURL:job.baseUrl,target:"/",value:""}
+                    {type:"command","command":"open",lastURL:job.baseUrl,target:"/",value:""},
+                    {type:"command","command":"waitForPageToLoad",lastURL:job.baseUrl,target:"5000",value:""},
+                    {type:"command","command":"pause",lastURL:job.baseUrl,target:"5000",value:""}
                 ],
                 function(seleniumJob, result){
                     ISeleniumController.currentCase=-1;
@@ -53,6 +55,10 @@ var ISeleniumController = {
      * Forward to the next case
      */
     doCase:function(callback){
+        console.log("*********************************************");
+        console.log("doCase");
+        console.log(this.currentCase+1,this.job.cases.length);
+        console.log("*********************************************");
         if(this.job.cases.length<=this.currentCase+1){
             return;
         }
@@ -116,6 +122,23 @@ var ISeleniumController = {
                 console.log(ee.stack);
             }
         },
+        castCommands:function(array){
+            var arrayCommands=[];
+            if(typeof Command==="function"){
+                console.log("*************************************");
+                console.log("EXISTE");
+                console.log("*************************************");
+            } else if(typeof window.parent.Command==="function"){
+                console.log("*************************************");
+                console.log("EXISTE EN PADRE");
+                console.log("*************************************");
+                var Command=window.parent.Command;
+            }
+            for(var i=0,l=array.length;i<l;i++){
+                arrayCommands.push( new aegis.editor.window.Command(array[i].command, array[i].target, array[i].value) );
+            }
+            return arrayCommands;
+        },
         /**
          * Run a Selenium test case
          * @returns {undefined}
@@ -123,11 +146,11 @@ var ISeleniumController = {
         runSelenium:function(){
             if(!ISeleniumController.running && ISeleniumController.runQueue.length>0){
                 var run=ISeleniumController.runQueue.shift();
-                aegis.editor.getTestCase().setCommands(run.commands);
-                //console.log("Runnig:", run.commands);
+                aegis.editor.getTestCase().setCommands(ISeleniumController.castCommands(run.commands));
+                console.log("Runnig:", run.commands);
                 ISeleniumController.running=true;
                 if(run.commands.length===0){
-                    //console.log("Done 0:");
+                    console.log("Done 0:");
                     ISeleniumController.running=false;
                     try{
                         run.callback(null, null);
@@ -138,7 +161,7 @@ var ISeleniumController = {
                     ISeleniumController.runSelenium();
                 } else {
                     aegis.waitPlayDone(function(job, result){
-                        //console.log("Done:", job, result);
+                        console.log("Done:", job, result);
                         ISeleniumController.running=false;
                         try{
                             run.callback(job, result);

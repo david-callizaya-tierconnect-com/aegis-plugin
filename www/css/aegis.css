@@ -1,0 +1,197 @@
+/*!
+ * Aegis Theme
+ * Copyright 2015 Vito Paredes
+ * Based on Bootstrap
+*/
+body {
+  font-family: "Open Sans",sans-serif;
+  font-size: 13px;
+  background-color: #717171;
+}
+.navbar-default {
+  background-color: #D6D6D6;
+}
+
+/*Tabs*/
+.nav-tabs>li>a {
+  color: #575757;
+  margin-right: 0;
+  line-height: 1.0;
+  background: #E8E8E8;
+  border: 1px solid #717171;
+  border-radius:0;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+  color: #575757;
+  border: 1px solid #fff;
+  background-color: #fff;
+  border-bottom-color: transparent;
+  cursor: default;
+    -moz-transition: background-color 300ms linear;
+    -webkit-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+.nav-tabs>li>a:hover {
+  border-color: #464545 #464545 #464545;
+}
+.nav>li>a:hover, .nav>li>a:focus {
+  -moz-transition: background-color 300ms linear;
+  -webkit-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+  text-decoration: none;
+  background-color: #F5F5F5;
+}
+
+.tab-content{
+	background:#fff;
+	padding: 10px;
+	  height: 150px;
+  overflow: auto;
+	}
+/*Nav bar form*/	
+.navbar-form {
+padding:0;
+}
+/*Buttons*/
+.btn-group .btn+.btn, .btn-group .btn+.btn-group, .btn-group .btn-group+.btn, .btn-group .btn-group+.btn-group {
+  margin-left: 10px;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+  outline: thin dotted;
+  outline: 0 auto -webkit-focus-ring-color;
+  outline-offset: 0;
+}
+.btn {
+  font-size: 14px;
+  padding: 6px 10px;
+  border: 1px solid transparent; 
+  border-radius: 0;
+  -moz-transition: background-color 300ms linear;
+  -webkit-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+  text-align:left;
+  white-space: inherit;
+  width: 165px;
+}
+.btn-primary {
+  color: #ffffff;
+  background-color: #575757;
+  border-color: #575757;
+}
+.btn-primary:hover {
+  color: #575757;
+  background-color: rgba(255,0,0,0);
+  border-color: #575757;
+}
+.btn-danger {
+  color: #ffffff;
+  background-color: #BD362F;
+  border-color: #BD362F;
+}
+.btn-danger:hover {
+  color: #BD362F;
+  background-color: rgba(255,0,0,0);
+  border-color: #BD362F;
+}
+.red-bright {
+  box-shadow: 0px 0px 16px rgb(255, 66, 66) !important;
+  -webkit-animation: 1s ease 0s alternate infinite running redBright;
+  -moz-animation: 1s ease 0s alternate infinite running redBright;
+  -o-animation: 1s ease 0s alternate infinite running redBright;
+  animation: 1s ease 0s alternate infinite running redBright;
+}
+
+.btn-warning {
+  color: #ffffff;
+  background-color: #f39c12;
+  border-color: #f39c12;
+}
+.btn-warning:hover {
+  color: #f39c12;
+  background-color: rgba(255,0,0,0);
+  border-color: #f39c12;
+}
+
+.btn-success {
+  color: #ffffff;
+  background-color: #72AF46;
+  border-color: #72AF46;
+}
+.btn-success:hover {
+  color: #72AF46;
+  background-color: rgba(255,0,0,0);
+  border-color: #72AF46;
+}
+
+.btn-info {
+  color: #ffffff;
+  background-color: #466BAF;
+  border-color: #466BAF;
+}
+.btn-info:hover {
+  color: #466BAF;
+  background-color: rgba(255,0,0,0);
+  border-color: #466BAF;
+}
+
+.btn-success:active,.btn-success:focus{
+  color: #ffffff;
+  background-color: #72AF46;
+  border-color: #72AF46;
+}
+
+.blue-bright {
+  box-shadow: 0px 0px 16px #466BAF !important;
+  -webkit-animation: 0.5s ease 0s alternate infinite running #466BAF;
+  -moz-animation: 0.5s ease 0s alternate infinite running #466BAF;
+  -o-animation: 0.5s ease 0s alternate infinite running #466BAF;
+  animation: 0.5s ease 0s alternate infinite running #466BAF;
+}
+
+
+.btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled.focus, .btn-primary[disabled].focus, fieldset[disabled] .btn-primary.focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active {
+  background-color: #888;
+  border-color: #888;
+}
+.navbar {
+  min-height: 0;
+}
+.b-side{
+	margin-top:60px;
+	}
+.fa {
+  line-height: inherit;
+}
+/*Table*/
+.table {
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+thead{
+	background:#F1F1F1;
+	color:#585858;
+	font-weight:900;
+	}
+tbody{
+	color:#585858;
+	}
+tr{
+    border-top: 1px solid #ddd;
+	}
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: #fafafa;
+}
+.table-hover>tbody>tr:hover {
+  background-color: #464646;
+  color:#fff;
+}
+
+@media (min-width: 768px){
+.navbar-right {
+  margin-right: 0!important;
+}
+}

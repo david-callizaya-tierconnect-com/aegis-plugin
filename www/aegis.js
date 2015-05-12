@@ -388,6 +388,8 @@ var aegis={
     });
   },
   nextCase:function(){
+console.log("nextCase@aegis.js grande");
+    console.log(aegis.cases.indexOf(aegis.currentCase), aegis.cases.length-1);
     if(aegis.cases.indexOf(aegis.currentCase)===aegis.cases.length-1){
       return;
     }
@@ -396,9 +398,18 @@ var aegis={
     });
   },
   onDoLoadJob:function(job){
+    //AEGIS.IController.openWindow("http://"+aegis.previewServer+"/cr24/front/loadJob.html");
+    $('#wrapper').removeClass("toggled");
+    if( !vm.isRecording() ) {
+      aegis.toggle();
+    }
     aegis.loadJob(job);
   },
   onDoNewJob:function(){
+    $('#wrapper').removeClass("toggled");
+    if( !vm.isRecording() ) {
+      aegis.toggle();
+    }
     aegis.newJob("");
   }
 };

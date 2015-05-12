@@ -97,13 +97,19 @@ var MainController = {
      * @returns {undefined}
      */
     loadJob:function(job,callback){
+        IInspectorController.inactivateLookup();
         ISeleniumController.loadJob(job, function(){
-            ISeleniumController.doCase(function(job, currentCase){
-                IInspectorController.loadSelection(job.cases[currentCase].inspector);
-                if(typeof callback==="function"){
-                    callback(currentCase);
-                }
-            });
+            //IInspectorController.waitForNoAjax(
+            //    function(){
+                    console.log("ENTRO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    IInspectorController.inactivateLookup();
+                    ISeleniumController.doCase(function(job, currentCase){
+                        IInspectorController.loadSelection(job.cases[currentCase].inspector);
+                        if(typeof callback==="function"){
+                            callback(currentCase);
+                        }
+                    });
+            //    });
         });
     },
     /**
@@ -112,6 +118,7 @@ var MainController = {
      * @returns {undefined}
      */
     nextCase:function(callback){
+        IInspectorController.inactivateLookup();
         ISeleniumController.doCase(function(job, currentCase){
             IInspectorController.loadSelection(job.cases[currentCase].inspector);
             if(typeof callback==="function"){

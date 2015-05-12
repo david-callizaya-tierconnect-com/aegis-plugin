@@ -146,5 +146,65 @@ window.AEGIS.utils={
     },
     addClass:function(d, className){
         d.classList.add(className);
+    },
+    ajaxListener:{
+        callback: function () {
+            // this.method :the ajax method used
+            // this.url    :the url of the requested script (including query string, if any) (urlencoded) 
+            // this.data   :the data sent, if any ex: foo=bar&a=b (urlencoded)
+            AEGIS.utils.ajaxListener.checkNoAjax();
+        },
+        calls:0,
+        minWait:1000,
+        queue:[],
+        waitForNoAjax:function(fn){
+            if(typeof fn==="function"){
+                console.log("REGISTERED WAITING FOR NO AJAX @utils!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", fn.toString());
+                this.queue.push(fn);
+            }
+            this.checkNoAjax();
+        },
+        checkNoAjax:function(){
+            if(this.calls===0){
+                setTimeout(function(){
+                    if(AEGIS.utils.ajaxListener.calls===0){
+                        console.log("FUCK YEAH NO AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",AEGIS.utils.ajaxListener.queue);
+                        for(var i=0,l=AEGIS.utils.ajaxListener.queue.length;i<l;i++){
+                            AEGIS.utils.ajaxListener.queue[i]();
+                        }
+                        AEGIS.utils.ajaxListener.queue.length=0;
+                    }
+                }, AEGIS.utils.ajaxListener.minWait);
+            }
+        }
     }
 };
+(function(){
+    var s_ajaxListener = AEGIS.utils.ajaxListener;
+    s_ajaxListener.tempOpen = XMLHttpRequest.prototype.open;
+    s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;
+
+    XMLHttpRequest.prototype.open = function(a,b) {
+      if (!a) var a='';
+      if (!b) var b='';
+      s_ajaxListener.tempOpen.apply(this, arguments);
+      s_ajaxListener.method = a;  
+      s_ajaxListener.url = b;
+      if (a.toLowerCase() == 'get') {
+        s_ajaxListener.data = b.split('?');
+        s_ajaxListener.data = s_ajaxListener.data[1];
+      }
+      s_ajaxListener.calls++;
+    }
+
+    XMLHttpRequest.prototype.send = function(a,b) {
+      if (!a) var a='';
+      if (!b) var b='';
+      s_ajaxListener.tempSend.apply(this, arguments);
+      if(s_ajaxListener.method.toLowerCase() == 'post') {
+          s_ajaxListener.data = a;
+      }
+      s_ajaxListener.calls--;
+      s_ajaxListener.callback();
+    }
+})();
