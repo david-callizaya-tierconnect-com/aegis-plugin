@@ -147,13 +147,16 @@
 
   <div class="panel-body">
 <form id="actionSettings">
-<div class="row">
-  <div class=".col-xs-12 .col-md-12">
+<div class="row show-grid">
+
+  <div class="col-xs-12 col-md-12">
     <input name="title" type="text" class="form-control" placeholder="Enter title"data-bind="value: title">
+     <div class="separator"></div>
   </div>
+ 
 </div>
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-6">
+<div class="row show-grid">
+  <div class="col-xs-12 col-sm-5 col-md-5">
     <div class="form-group">
       <label class="control-label">Notifications:</label>
       <div class="col-lg-10">
@@ -184,12 +187,12 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-6 col-md-6">
+  <div class="col-xs-12 col-sm-5 col-md-5">
     <div class="form-group">
       <label class="control-label">Action:</label>
       <ul class="nav nav-pills nav-stacked">
-        <li data-bind="css:{active: action()==='watch'}"><a href="#" onclick="actionSettings.action('watch')">&lt;o&gt; Watch</a></li>
-        <li data-bind="css:{active: action()==='ignore'}"><a href="#" onclick="actionSettings.action('ignore')">&lt;/&gt; Ignore</a></li>
+        <li data-bind="css:{active: action()==='watch'}"><a href="#" onClick="actionSettings.action('watch')"><i class="fa fa-eye"></i> Watch</a></li>
+        <li data-bind="css:{active: action()==='ignore'}"><a href="#" onClick="actionSettings.action('ignore')"><i class="fa fa-eye-slash"></i> Ignore</a></li>
       </ul>
       <select id="userOrGroup" class="form-control" placeholder="User -or- Group" data-bind="value: userOrGroup">
         <option value="">User -or- Group</option>
@@ -201,10 +204,10 @@
   </div>
 </div>
 <div class="form-group">
-  <div class="col-lg-10 col-lg-offset-2">
-    <button id="confirmAction" type="button" class="btn btn-primary">Save</button>
-    <button id="cancelAction" type="button" class="btn btn-default">Cancel</button>
-    <button id="removeAction" type="button" class="btn btn-warning">Remove</button>
+  <div class="btn-group">
+    <button id="confirmAction" type="button" class="btn btn-primary">Save <i class="fa fa-check pull-right"></i></button>
+    <button id="cancelAction" type="button" class="btn btn-primary">Cancel <i class="fa fa-times pull-right"></i></button>
+    <button id="removeAction" type="button" class="btn btn-warning">Remove <i class="fa fa-minus pull-right"></i></button>
   </div>
 </div>
 </form>
@@ -374,20 +377,27 @@ function listCommands(){
     </div>
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
+    <div class="navbar-form navbar-left">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+    </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav ">
 
           </ul>
 <form class="navbar-form navbar-left">
-<div class="btn-group"><button type="button" class="btn btn-danger" data-bind="css:{'red-bright': isRecording(), disabledButton:!isRecording()}, visible: !isEditing()" onclick="aegis.toggle()">Recording Active <i class="fa fa-dot-circle-o pull-right"></i></button>
+<div class="btn-group">
+<button type="button" class="btn btn-danger" data-bind="css:{'red-bright': isRecording(), disabledButton:!isRecording()}, visible: !isEditing()" onclick="aegis.toggle()">Recording Active <i class="fa fa-dot-circle-o pull-right"></i></button>
 <button type="button" class="btn btn-info" data-bind="css: {'yellow-bright': !isRecording(), disabledButton:isRecording()}, visible: !isEditing()" onclick="aegis.toggle()">Inspecting Active <i class="fa fa-search pull-right"></i></button>
+
 </div>
 </form>
 <form class="navbar-form navbar-right">
-<div class="btn-group"><button type="button" class="btn btn-warning" data-bind="visible: false" onclick="justDoIt()">Load Job</button>
+<div class="btn-group">
+<button type="button" class="btn btn-warning" data-bind="visible: false" onclick="justDoIt()">Load Job</button>
 <button type="button" class="btn btn-success" data-bind="visible: !isEditing()" onclick="aegis.runJob()">Publish <i class="fa fa-check-circle-o pull-right"></i></button>
 <button type="button" class="btn btn-primary" data-bind="css:{disabled:isRecording()}, visible: !isEditing()" onclick="aegis.selectAll()">Select All <i class="fa fa-check-square-o pull-right"></i></button>
 <button type="button" class="btn btn-warning" data-bind="visible: isEditing()" onclick="aegis.nextCase()">Next Inspection</button>
+
 </div>
 </form>
 

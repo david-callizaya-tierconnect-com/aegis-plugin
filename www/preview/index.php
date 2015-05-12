@@ -38,7 +38,11 @@ body {margin:50px 0px; padding:0px; background-color: #000000;color: #ffffff;}
 
           </ul>
 <form class="navbar-form navbar-right">
-<div class="btn-group"></div><div class="btn-group"></div>
+<div class="btn-group">
+
+</div><div class="btn-group">
+
+</div>
 </form>
 
         </div>
