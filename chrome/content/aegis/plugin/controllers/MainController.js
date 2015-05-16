@@ -101,7 +101,7 @@ var MainController = {
         ISeleniumController.loadJob(job, function(){
             //IInspectorController.waitForNoAjax(
             //    function(){
-                    console.log("ENTRO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    //console.log("ENTRO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     IInspectorController.inactivateLookup();
                     ISeleniumController.doCase(function(job, currentCase){
                         IInspectorController.loadSelection(job.cases[currentCase].inspector);

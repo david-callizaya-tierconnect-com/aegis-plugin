@@ -124,16 +124,6 @@ var ISeleniumController = {
         },
         castCommands:function(array){
             var arrayCommands=[];
-            if(typeof Command==="function"){
-                console.log("*************************************");
-                console.log("EXISTE");
-                console.log("*************************************");
-            } else if(typeof window.parent.Command==="function"){
-                console.log("*************************************");
-                console.log("EXISTE EN PADRE");
-                console.log("*************************************");
-                var Command=window.parent.Command;
-            }
             for(var i=0,l=array.length;i<l;i++){
                 arrayCommands.push( new aegis.editor.window.Command(array[i].command, array[i].target, array[i].value) );
             }

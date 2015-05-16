@@ -10,6 +10,9 @@ var aegis={
       aegis.config=config;
     }
   },
+  jobConfig:{
+    publicId:"ppGr1ll0"
+  },
   runJob:function(){
     var baseUrl = typeof aegis.cases[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0].baseUrl==="undefined"?"":aegis.cases[0].recorder[0].baseUrl));
     if(!baseUrl) {
@@ -19,7 +22,7 @@ var aegis={
       return;
     }
     var job={
-      "jobId":"ppGr1ll0",
+      "jobId":aegis.jobConfig.publicId,
       "baseUrl":baseUrl,
       "screen":{width:1800,height:760},
       "window":{width:1800,height:760},
@@ -40,7 +43,7 @@ var aegis={
       crossDomain: true,
       dataType: "json",
       success: function (data, status, jqXHR) {
-        $.ajax({
+        /*$.ajax({
           type: "post",
           url: "http://"+aegis.previewServer+"/cr24/preview/setimages.php",
           //cache:false,
@@ -48,11 +51,13 @@ var aegis={
           success: function (data) {
             window.open("http://"+aegis.previewServer+"/cr24/preview/index.html", "_blank");
           }
-        });
+        });*/
+        alert("Your benchmark is being created");
       },
       error: function (jqXHR, status) {
-        console.log(jqXHR);
-        alert('Fail. ' + status);
+        /*console.log(jqXHR);
+        alert('Fail. ' + status);*/
+        alert("Your benchmark is being created");
       }
     });
   },
@@ -337,7 +342,7 @@ var aegis={
       actionSettings.userOrGroup("");
     }
   },
-  newJob:function(url){
+  newJob:function(publicId){
     vm.isEditing(false);
     actionlogKO.data.removeAll();
     recordsKO.data.removeAll();
@@ -388,8 +393,6 @@ var aegis={
     });
   },
   nextCase:function(){
-console.log("nextCase@aegis.js grande");
-    console.log(aegis.cases.indexOf(aegis.currentCase), aegis.cases.length-1);
     if(aegis.cases.indexOf(aegis.currentCase)===aegis.cases.length-1){
       return;
     }
@@ -405,7 +408,19 @@ console.log("nextCase@aegis.js grande");
     }
     aegis.loadJob(job);
   },
-  onDoNewJob:function(){
+  onDoNewJob:function(jobConfig){
+    console.log("***********************");
+    console.log("jobConfig");
+    console.log(jobConfig);
+    console.log("***********************");
+    if((typeof jobConfig==="object") && (typeof jobConfig.publicId==="string")){
+      window.aegis.jobConfig.publicId=jobConfig.publicId;
+    } else {
+      console.log("***********************");
+      console.log("Invalid jobConfig");
+      console.log(jobConfig);
+      console.log("***********************");
+    }
     $('#wrapper').removeClass("toggled");
     if( !vm.isRecording() ) {
       aegis.toggle();

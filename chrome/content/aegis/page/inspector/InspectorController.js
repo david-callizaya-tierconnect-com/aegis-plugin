@@ -72,14 +72,18 @@ window.AEGIS.InspectorController={
             window.AEGIS.InspectorController,
             "onWaitForNoAjax",
             function(data){
-                console.log("REGISTERED FOR NO AJAX @ InspectorController:75 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", data);
                 AEGIS.utils.ajaxListener.waitForNoAjax(function(){
-                    console.log("YEAH NO AJAX @ InspectorController:77 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     Interface.notify("onNoAjax", {});
                 });
             }
         );
-        console.log("SE REGISTRARON TODOS LOS EVENTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Interface.addEventListener(
+            window.AEGIS.InspectorController,
+            "onRun",
+            function(data){
+                eval(data.script);
+            }
+        );
     },
     selectAll:function(){
         var allDivs=AEGIS.Selector.findNodes(document.body, []);

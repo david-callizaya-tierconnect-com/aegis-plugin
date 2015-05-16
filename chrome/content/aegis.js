@@ -14,22 +14,27 @@ var aegis={
              * Plugin web resources
              * @type String
              */
-            plugin:aegisSettings.prefHasUserValue("pluginServer")?aegisSettings.getCharPref("pluginServer"):"52.6.171.25",
+            plugin:aegisSettings.prefHasUserValue("pluginServer")?aegisSettings.getCharPref("pluginServer"):"52.5.244.67",
             /**
              * Front end
              * @type String
              */
-            frontend:aegisSettings.prefHasUserValue("frontendServer")?aegisSettings.getCharPref("frontendServer"):"localhost:8080",
+            frontend:aegisSettings.prefHasUserValue("frontendServer")?aegisSettings.getCharPref("frontendServer"):"52.5.244.67",
             /**
              * Selenium WebDriver Server
              * @type String
              */
-            selenium:aegisSettings.prefHasUserValue("backendServer")?aegisSettings.getCharPref("backendServer"):"52.6.171.25:8080",
+            selenium:aegisSettings.prefHasUserValue("backendServer")?aegisSettings.getCharPref("backendServer"):"52.5.244.67:8080",
             /**
              * chrome://aegis plugin resources
              * @type String
              */
-            aegis:"aegis"
+            aegis:"aegis",
+            develop8080:"localhost:8080",
+            develop:"localhost",
+            ariel:"10.100.1.200:8080",
+            david:"10.100.1.9:8080",
+            david1:"10.100.1.9:8081"
         },
         mode:"recording",
         editor:null,
@@ -41,6 +46,19 @@ var aegis={
              * between the window and the plugin.
              * only for tabs
              */
+            console.log("*******************************************");
+            console.log(contentWindow.location);
+            console.log("*******************************************");
+            try{
+                if(contentWindow.location.href==="about:blank"){
+                    return false;
+                }
+                if(contentWindow.location.href==="about:startpage"){
+                    return false;
+                }
+            } catch(ee) {
+                return false;
+            }
             if(contentWindow.location.protocol==="chrome:"){
                 return false;
             }

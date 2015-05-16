@@ -20,5 +20,8 @@ aegis.editor={
     playCurrentTestCase:function(){
         console.log("[playCurrentTestCase]", arguments);
         aegis.onPlayDone(this.currentTestCase, {});
+    },
+    window:{
+        Command:function(){}
     }
 };
