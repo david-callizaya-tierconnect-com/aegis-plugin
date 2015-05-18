@@ -983,6 +983,15 @@
                         if(target.className.indexOf("aegis-selector-mark")>=0){
                             return;
                         }
+                        if(target.nodeName==="BODY"){
+                            return;
+                        }
+                        if(target.nodeName==="INPUT"){
+                            if(target.type.toLowerCase()==="submit" || target.type.toLowerCase()==="button"){
+                            } else {
+                                return;
+                            }
+                        }
                         
 			if (target.className.indexOf('adi-menu-lookup') !== -1) {
 				// enable/disable interactive lookup
@@ -1001,7 +1010,13 @@
 					addEventDelegate(document.body, 'click', handleLookup, false, '*', true, 'adi-wrapper');
                                         window.AEGIS.utils.addClass(document.body, "aegis-disabled-for-inspection");
 				}
+                                return ;
 			} else {
+                        if(true || window.AEGIS.Selector.isSelectable(target)){
+                                /*var parentS=window.AEGIS.Selector.itsParentsAreSelectable(target, true);
+                                if(parentS){
+                                    target=parentS;
+                                }*/
 				// handle lookup events
 				if (e.type === 'mouseover') {
 					styleBackup = target.getAttribute('style') || '';
@@ -1065,7 +1080,9 @@
                                             };
                                         })(target, outlinedStyle, styleBackup), 100 );
 				}
+                            //return;
 			}
+                    }
 		}
 
 		// Event registration

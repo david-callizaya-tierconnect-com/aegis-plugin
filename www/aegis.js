@@ -43,21 +43,14 @@ var aegis={
       crossDomain: true,
       dataType: "json",
       success: function (data, status, jqXHR) {
-        /*$.ajax({
-          type: "post",
-          url: "http://"+aegis.previewServer+"/cr24/preview/setimages.php",
-          //cache:false,
-          data: {"data":JSON.stringify(data)},
-          success: function (data) {
-            window.open("http://"+aegis.previewServer+"/cr24/preview/index.html", "_blank");
-          }
-        });*/
-        alert("Your benchmark is being created");
+        AEGIS.IController.notify("onPublish",job);
+        AEGIS.IController.runScript("window.close()");
+        //alert("Your benchmark is being created");
       },
       error: function (jqXHR, status) {
-        /*console.log(jqXHR);
-        alert('Fail. ' + status);*/
-        alert("Your benchmark is being created");
+        AEGIS.IController.notify("onPublish",job);
+        AEGIS.IController.runScript("window.close()");
+        //alert("Your benchmark is being created");
       }
     });
   },
@@ -426,6 +419,9 @@ var aegis={
       aegis.toggle();
     }
     aegis.newJob("");
+  },
+  close:function(){
+    AEGIS.IController.runScript("window.close()");
   }
 };
 

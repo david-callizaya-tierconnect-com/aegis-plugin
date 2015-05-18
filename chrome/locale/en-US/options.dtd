@@ -33,4 +33,5 @@
 
 <!ENTITY options.aegis.apikey "Apikey">
 <!ENTITY options.aegis.pluginServer "Plugin Server">
+<!ENTITY options.aegis.frontendServer "Frontend Server">
 <!ENTITY options.aegis.backendServer "Selenium Backend Server">

@@ -81,6 +81,7 @@ window.AEGIS.InspectorController={
             window.AEGIS.InspectorController,
             "onRun",
             function(data){
+                console.log(data.script);
                 eval(data.script);
             }
         );

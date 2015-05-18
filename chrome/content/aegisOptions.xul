@@ -57,6 +57,11 @@ limitations under the License.
           <textbox id="backendServer" multiline="false" oninput="validate()" size="33" maxlength="255"/>
           <label id="backendServerError" value="" class="error"/>
         </hbox>
+        <description>&options.aegis.frontendServer;</description>
+        <hbox align="center">
+          <textbox id="frontendServer" multiline="false" oninput="validate()" size="33" maxlength="255"/>
+          <label id="frontendServerError" value="" class="error"/>
+        </hbox>
       </tabpanel>
     </tabpanels>
   </tabbox>

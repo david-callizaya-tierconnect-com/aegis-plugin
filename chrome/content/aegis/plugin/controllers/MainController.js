@@ -21,6 +21,9 @@ var MainController = {
         nextCase:function(callback){
             return this.nextCase(callback);
         },
+        runScript:function(script){
+            this.runScript(script);
+        },
         notify:function(event,data){
             this.notify(event,data);
         },
@@ -126,9 +129,19 @@ var MainController = {
             }
         });
     },
+    /**
+     * 
+     * @param {type} script
+     * @returns {undefined}
+     */
+    runScript:function(script){
+        IInspectorController.runScript(script);
+    },
     //observer pattern
     listeners:[],
     addEventListener:function(obj,event,fn){
+        console.log("addEventListener@MainController");
+        console.log(obj,event,fn);
         this.listeners.push({obj:obj,event:event,fn:fn});
     },
     removeEventListener:function(obj,event){
@@ -141,6 +154,8 @@ var MainController = {
         );
     },
     notify:function(event, data){
+        console.log("notify@MainController");
+        console.log(event, data);
         for(var i=0,l=this.listeners.length;i<l;i++){
             var item=this.listeners[i];
             if(item.event===event){

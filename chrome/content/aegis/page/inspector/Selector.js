@@ -15,9 +15,6 @@ window.AEGIS.Selector={
             return false;
         }
 	return !(style.display=="none" || style.visibility=="hidden" || style.position=="fixed");
-//this disable also elements with position=fixed in chrome
-//	return elem.offsetParent != null;
-//	return !(elem.offsetWidth === 0 && elem.offsetHeight === 0) /*&& (elem.offsetWidth > 8 && elem.offsetHeight > 8)*/;
     },
     isBigEnough:function(elem){
 	return (elem.offsetWidth > 8 && elem.offsetHeight > 8);
@@ -27,6 +24,23 @@ window.AEGIS.Selector={
     },
     isEmpty:function(node){
 	return node.childNodes.length==0;
+    },
+    isSelectable:function(node, noDebug){
+        if(!noDebug){
+            console.log( node, this.isUnitary(node) , this.isSimple(node) , this.isBigEnough(node) );
+        }
+        return (this.isUnitary(node) || this.isSimple(node)) && this.isBigEnough(node);
+    },
+    itsParentsAreSelectable:function(node){
+        while(node instanceof Element && node!==document.body && node.parentNode!==document.body) {
+            if(this.isSelectable(node.parentNode, true)) {
+                console.log("parent:", node.parentNode);
+                return node.parentNode;
+            } else {
+                return this.itsParentsAreSelectable(node.parentNode);
+            }
+        }
+        return false;
     },
     isSimple:function(node){
 	if(this.isUnitary(node)) return false;
@@ -74,14 +88,6 @@ window.AEGIS.Selector={
 	aa.style.top=pp.top+"px";
 	aa.style.width=pp1.clientWidth+"px";
 	aa.style.height=pp1.clientHeight+"px";
-        /*
-	//aa.style.border="4px solid red";
-	//aa.style.boxShadow="0px 0px 0px 1000px rgba(0,0,0,0.02)";
-	aa.style.zIndex="10000";
-	aa.style.boxShadow="0px 0px 4px blue inset";
-	aa.style.outline="4px solid blue";
-	aa.style.backgroundColor="rgba(0,0,255,0.2)";
-        */
     },
     mark:function(pp1, selectionType){
 	var aa=document.createElement("span");

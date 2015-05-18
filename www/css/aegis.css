@@ -260,3 +260,13 @@ tr{
   margin-right: 0!important;
 }
 }
+.recording-inspecting-label{
+    float:left;
+    margin-top:8px;
+    margin-right:16px;
+    color:#466BAF;
+}
+.recording-inspecting-button{
+    margin-left:0px!important;
+    width:39px;
+}

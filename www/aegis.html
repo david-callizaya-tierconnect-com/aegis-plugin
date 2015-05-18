@@ -386,8 +386,8 @@ function listCommands(){
           </ul>
 <form class="navbar-form navbar-left">
 <div class="btn-group">
-<button type="button" class="btn btn-danger" data-bind="css:{'red-bright': isRecording(), disabledButton:!isRecording()}, visible: !isEditing()" onclick="aegis.toggle()">Recording Active <i class="fa fa-dot-circle-o pull-right"></i></button>
-<button type="button" class="btn btn-info" data-bind="css: {'yellow-bright': !isRecording(), disabledButton:isRecording()}, visible: !isEditing()" onclick="aegis.toggle()">Inspecting Active <i class="fa fa-search pull-right"></i></button>
+<span class="recording-inspecting-label" data-bind="text:isRecording()?'Recording Active':'Inspecting Active'"></span> <button type="button" class="btn btn-danger recording-inspecting-button" data-bind="css:{'red-bright': isRecording(), disabledButton:!isRecording()}, visible: !isEditing()" onclick="aegis.toggle()"><i class="fa fa-dot-circle-o pull-right"></i></button>
+<button type="button" class="btn btn-info recording-inspecting-button" data-bind="css: {'yellow-bright': !isRecording(), disabledButton:isRecording()}, visible: !isEditing()" onclick="aegis.toggle()"><i class="fa fa-search pull-right"></i></button>
 
 </div>
 </form>
@@ -397,6 +397,7 @@ function listCommands(){
 <button type="button" class="btn btn-success" data-bind="visible: !isEditing()" onclick="aegis.runJob()">Publish <i class="fa fa-check-circle-o pull-right"></i></button>
 <button type="button" class="btn btn-primary" data-bind="css:{disabled:isRecording()}, visible: !isEditing()" onclick="aegis.selectAll()">Select All <i class="fa fa-check-square-o pull-right"></i></button>
 <button type="button" class="btn btn-warning" data-bind="visible: isEditing()" onclick="aegis.nextCase()">Next Inspection</button>
+<button type="button" class="btn btn-primary" data-bind="" onclick="aegis.close()">Cancel <i class="fa fa-times pull-right"></i></button>
 
 </div>
 </form>

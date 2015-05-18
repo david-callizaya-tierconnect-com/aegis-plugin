@@ -78,21 +78,19 @@ var IInspectorController={
     waitAjaxQueue:[],
     waitForNoAjax:function(fn){
         if(typeof fn==="function"){
-            console.log("WAITING FOR NO AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            console.log("notifing to: "+this.listeners.length);
-            console.log(this.listeners);
             IInspectorController.waitAjaxQueue.push(fn);
             console.log(IInspectorController.waitAjaxQueue);
             this.notify("onWaitForNoAjax", {fn:fn.toString()});
         }
     },
     onNoAjax:function(){
-        console.log("COOL NO AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        console.log(IInspectorController.waitAjaxQueue);
         for(var i=0,l=IInspectorController.waitAjaxQueue.length;i<l;i++){
             IInspectorController.waitAjaxQueue[i]();
         }
         IInspectorController.waitAjaxQueue.length=0;
+    },
+    runScript:function(script){
+        this.notify("onRun", {script:script});
     },
     //OBSERVER PATTERN
     listeners:[],

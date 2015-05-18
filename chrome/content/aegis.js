@@ -19,7 +19,7 @@ var aegis={
              * Front end
              * @type String
              */
-            frontend:aegisSettings.prefHasUserValue("frontendServer")?aegisSettings.getCharPref("frontendServer"):"52.5.244.67",
+            frontend:aegisSettings.prefHasUserValue("frontendServer")?aegisSettings.getCharPref("frontendServer"):"www.tierconnect.com",
             /**
              * Selenium WebDriver Server
              * @type String
