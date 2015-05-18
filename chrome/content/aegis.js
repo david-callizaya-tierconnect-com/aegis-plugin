@@ -14,17 +14,17 @@ var aegis={
              * Plugin web resources
              * @type String
              */
-            plugin:aegisSettings.prefHasUserValue("pluginServer")?aegisSettings.getCharPref("pluginServer"):"52.5.244.67",
+            plugin:aegisSettings.prefHasUserValue("pluginServer")?aegisSettings.getCharPref("pluginServer"):"52.6.214.99",
             /**
              * Front end
              * @type String
              */
-            frontend:aegisSettings.prefHasUserValue("frontendServer")?aegisSettings.getCharPref("frontendServer"):"www.tierconnect.com",
+            frontend:aegisSettings.prefHasUserValue("frontendServer")?aegisSettings.getCharPref("frontendServer"):"52.6.214.99:8087",
             /**
              * Selenium WebDriver Server
              * @type String
              */
-            selenium:aegisSettings.prefHasUserValue("backendServer")?aegisSettings.getCharPref("backendServer"):"52.5.244.67:8080",
+            selenium:aegisSettings.prefHasUserValue("backendServer")?aegisSettings.getCharPref("backendServer"):"52.6.214.99:8080",
             /**
              * chrome://aegis plugin resources
              * @type String
