@@ -16,6 +16,17 @@ window.AEGIS.Selector={
         }
 	return !(style.display=="none" || style.visibility=="hidden" || style.position=="fixed");
     },
+    isFixed:function(elem){
+	if(!(elem instanceof Element)){
+		return false;
+	}
+	var style=getComputedStyle(elem);
+        if(!style) {
+            //elements like script
+            return false;
+        }
+	return (style.position=="fixed") || this.isFixed(elem.parentNode);
+    },
     isBigEnough:function(elem){
 	return (elem.offsetWidth > 8 && elem.offsetHeight > 8);
     },

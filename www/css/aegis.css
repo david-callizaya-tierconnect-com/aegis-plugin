@@ -271,3 +271,64 @@ tr{
     margin-left:0px!important;
     width:39px;
 }
+/**/
+@-webkit-keyframes greenBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #72AF46,
+                   0 0 70px #72AF46,
+                   0 0 80px #72AF46,
+                   0 0 100px #72AF46,
+                   0 0 150px #72AF46;
+  }
+}
+@-moz-keyframes greenBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #72AF46,
+                   0 0 70px #72AF46,
+                   0 0 80px #72AF46,
+                   0 0 100px #72AF46,
+                   0 0 150px #72AF46;
+  }
+}
+@-o-keyframes greenBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #72AF46,
+                   0 0 70px #72AF46,
+                   0 0 80px #72AF46,
+                   0 0 100px #72AF46,
+                   0 0 150px #72AF46;
+  }
+}
+@keyframes greenBright {
+  0%   { text-shadow:none; }
+  100% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #72AF46,
+                   0 0 70px #72AF46,
+                   0 0 80px #72AF46,
+                   0 0 100px #72AF46,
+                   0 0 150px #72AF46;
+  }
+}
+
+.green-bright {
+  box-shadow: 0px 0px 16px #72AF46 !important;
+  -webkit-animation: 0.5s ease 0s alternate infinite running greenBright; /* Safari 4+ */
+  -moz-animation:    0.5s ease 0s alternate infinite running greenBright; /* Fx 5+ */
+  -o-animation:      0.5s ease 0s alternate infinite running greenBright; /* Opera 12+ */
+  animation:         0.5s ease 0s alternate infinite running greenBright; /* IE 10+, Fx 29+ */
+}

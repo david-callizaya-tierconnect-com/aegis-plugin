@@ -1012,7 +1012,7 @@
 				}
                                 return ;
 			} else {
-                        if(true || window.AEGIS.Selector.isSelectable(target)){
+                        if(!window.AEGIS.Selector.isFixed(target) /*|| window.AEGIS.Selector.isSelectable(target)*/){
                                 /*var parentS=window.AEGIS.Selector.itsParentsAreSelectable(target, true);
                                 if(parentS){
                                     target=parentS;

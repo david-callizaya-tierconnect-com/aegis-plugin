@@ -14,11 +14,16 @@ var aegis={
     publicId:"ppGr1ll0"
   },
   runJob:function(){
+    $("#publish-button").addClass("green-bright");
+    if(aegis.cases.length===0){
+      aegis.cases.push(aegis.currentCase);
+    }
     var baseUrl = typeof aegis.cases[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0]==="undefined"?"":(typeof aegis.cases[0].recorder[0].baseUrl==="undefined"?"":aegis.cases[0].recorder[0].baseUrl));
     if(!baseUrl) {
       baseUrl = typeof aegis.cases[0]==="undefined"?"":(typeof aegis.cases[0].inspector[0]==="undefined"?"":(typeof aegis.cases[0].inspector[0].baseUrl==="undefined"?"":aegis.cases[0].inspector[0].baseUrl));
     }
     if(!baseUrl) {
+      $("#publish-button").removeClass("green-bright");
       return;
     }
     var job={
@@ -34,23 +39,19 @@ var aegis={
       type: "POST",
       url: "http://"+aegis.seleniumServer+"/aegis24-1.0-POC/api/aegis/services",
       cache:false,
-      /*beforeSend: function (request)
-      {
-          request.setRequestHeader("apikey", aegis.apikey);
-      },*/
       data: JSON.stringify(job),
       contentType: "text/plain",
       crossDomain: true,
       dataType: "json",
       success: function (data, status, jqXHR) {
+        $("#publish-button").removeClass("green-bright");
         AEGIS.IController.notify("onPublish",job);
         AEGIS.IController.runScript("window.close()");
-        //alert("Your benchmark is being created");
       },
       error: function (jqXHR, status) {
+        $("#publish-button").removeClass("green-bright");
         AEGIS.IController.notify("onPublish",job);
         AEGIS.IController.runScript("window.close()");
-        //alert("Your benchmark is being created");
       }
     });
   },
@@ -287,8 +288,8 @@ var aegis={
           command: data.command,
           target: data.target[data.target.length-1],
           value: data.value,
-          user:"",
-          userName:"",
+          user:"1",
+          userName:"admin",
           timestamp:new Date().getTime()
         };
         if(data.baseUrl!=aegis.lastUrl){
