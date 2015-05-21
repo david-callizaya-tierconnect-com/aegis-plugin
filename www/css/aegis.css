@@ -13,6 +13,11 @@ body {
 }
 
 /*Tabs*/
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    text-decoration: underline;
+}
+
 .nav-tabs>li>a {
   color: #575757;
   margin-right: 0;
@@ -26,7 +31,6 @@ body {
   border: 1px solid #fff;
   background-color: #fff;
   border-bottom-color: transparent;
-  text-decoration: underline;
   cursor: default;
     -moz-transition: background-color 300ms linear;
     -webkit-transition: background-color 300ms linear;
