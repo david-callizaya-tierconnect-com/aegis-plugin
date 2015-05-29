@@ -41,27 +41,34 @@ limitations under the License.
       <tab label="&options.general.label;"/>
     </tabs>
     <tabpanels id="general" flex="1">
-      <tabpanel id="generalTab" orient="vertical">
-        <description>&options.aegis.apikey;</description>
-        <hbox align="center">
-          <textbox id="apikey" multiline="false" oninput="validate()" size="33" maxlength="32"/>
-          <label id="apikeyError" value="" class="error"/>
-        </hbox>
-        <description>&options.aegis.pluginServer;</description>
-        <hbox align="center">
-          <textbox id="pluginServer" multiline="false" oninput="validate()" size="33" maxlength="255"/>
-          <label id="pluginServerError" value="" class="error"/>
-        </hbox>
-        <description>&options.aegis.backendServer;</description>
-        <hbox align="center">
-          <textbox id="backendServer" multiline="false" oninput="validate()" size="33" maxlength="255"/>
-          <label id="backendServerError" value="" class="error"/>
-        </hbox>
-        <description>&options.aegis.frontendServer;</description>
-        <hbox align="center">
-          <textbox id="frontendServer" multiline="false" oninput="validate()" size="33" maxlength="255"/>
-          <label id="frontendServerError" value="" class="error"/>
-        </hbox>
+      <tabpanel id="generalTab" orient="horizontal">
+        <vbox>
+            <!-- description>&options.aegis.apikey;</description>
+            <hbox align="center">
+              <textbox id="apikey" multiline="false" oninput="validate()" size="33" maxlength="32"/>
+              <label id="apikeyError" value="" class="error"/>
+            </hbox -->
+            <description>&options.aegis.frontendServer;</description>
+            <hbox align="center">
+              <textbox id="frontendServer" multiline="false" oninput="validate()" size="33" maxlength="255"/>
+              <label id="frontendServerError" value="" class="error"/>
+            </hbox>
+            <description>&options.aegis.backendServer;</description>
+            <hbox align="center">
+              <textbox id="backendServer" multiline="false" oninput="validate()" size="33" maxlength="255"/>
+              <label id="backendServerError" value="" class="error"/>
+            </hbox>
+            <description>&options.aegis.pluginServer;</description>
+            <hbox align="center">
+              <textbox id="pluginServer" multiline="false" oninput="validate()" size="33" maxlength="255"/>
+              <label id="pluginServerError" value="" class="error"/>
+            </hbox>
+        </vbox>
+        <vbox>
+            <div style="font-weight:bold;"><b>Frontend Server</b>:</div><div> IP and port of the Frontend Server</div><div> (Ex. 52.25.105.146:8080)</div>
+            <div style="font-weight:bold;"><b>Variance Server</b>:</div><div> IP and port of the Variance Server</div><div> (Ex. 52.25.24.10:8080)</div>
+            <div style="font-weight:bold;"><b>Plugin Server</b>:</div><div> IP and port of the Plugin Server</div><div> (Ex. 52.25.24.10)</div>
+        </vbox>
       </tabpanel>
     </tabpanels>
   </tabbox>

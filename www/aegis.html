@@ -9,6 +9,7 @@
 <script src="jquery-1.10.2.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="knockout-3.3.0.js"></script>
+<script src="typeahead.bundle.js"></script>
 <style>
 @-webkit-keyframes redBright {
   0%   { text-shadow:none; }
@@ -196,9 +197,7 @@
       </ul>
       <select id="userOrGroup" class="form-control" placeholder="User -or- Group" data-bind="value: userOrGroup">
         <option value="">User -or- Group</option>
-        <option value="1">Hugo</option>
-        <option value="2">Iggy</option>
-        <option value="3">Luis</option>
+        <option value="1">Admin</option>
       </select>
     </div>
   </div>
@@ -217,7 +216,8 @@ $(function(){
     title: ko.observable(""),
     notification: ko.observable("none"),
     action: ko.observable("watch"),
-    userOrGroup: ko.observable("")
+    userOrGroup: ko.observable(""),
+    userOrGroupTitle: ko.observable("")
   };
   ko.applyBindings(vm, document.getElementById("actionSettings"));
   window.actionSettings=vm;

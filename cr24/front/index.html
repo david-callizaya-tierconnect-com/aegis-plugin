@@ -1,0 +1,466 @@
+<html>
+<head>
+    <link rel="stylesheet" href="../bootstrap/theme/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/simple-sidebar.css">
+    <link rel="stylesheet" href="../bootstrap/css/font-awesome.min.css">
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../knockout-3.3.0.js"></script>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+<div class="panel panel-default" style="bottom: 0px; position: absolute; margin-bottom: 0px; width: 100%; top: 61px;">
+
+  <div class="panel-body">
+<form id="actionSettings">
+<div class="row">
+  <div class=".col-xs-12 .col-md-12">
+    <input name="title" type="text" class="form-control" placeholder="Enter title"data-bind="value: title">
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="form-group">
+      <label class="control-label">Notifications:</label>
+      <div class="col-lg-10">
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="none" data-bind="checked: notification">
+            None
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="daily" data-bind="checked: notification">
+            Daily
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="weekly" data-bind="checked: notification">
+            Weekly
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" value="instant" data-bind="checked: notification">
+            Instant
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="form-group">
+      <label class="control-label">Action:</label>
+      <ul class="nav nav-pills nav-stacked">
+        <li data-bind="css:{active: action()==='watch'}"><a href="#" onclick="actionSettings.action('watch')">&lt;o&gt; Watch</a></li>
+        <li data-bind="css:{active: action()==='ignore'}"><a href="#" onclick="actionSettings.action('ignore')">&lt;/&gt; Ignore</a></li>
+      </ul>
+      <select id="userOrGroup" class="form-control" placeholder="User -or- Group" data-bind="value: userOrGroup">
+        <option value="">User -or- Group</option>
+        <option value="1">Hugo</option>
+        <option value="2">Iggy</option>
+        <option value="3">Luis</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-lg-10 col-lg-offset-2">
+    <button id="confirmAction" type="button" class="btn btn-primary">Save</button>
+    <button id="cancelAction" type="button" class="btn btn-default">Cancel</button>
+  </div>
+</div>
+</form>
+<script type="text/javascript">
+$(function(){
+  var vm = {
+    title: ko.observable(""),
+    notification: ko.observable("none"),
+    action: ko.observable("watch"),
+    userOrGroup: ko.observable("")
+  };
+  ko.applyBindings(vm, document.getElementById("actionSettings"));
+  window.actionSettings=vm;
+});
+</script>
+  </div>
+</div>
+
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+          <div class="container b-side">
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="javascript:void(0)" class="navbar-brand">AEGIS</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav ">
+
+          </ul>
+<form class="navbar-form navbar-right">
+<div class="btn-group">
+
+</div><div class="btn-group">
+<a href="https://www.youtube.com/watch?v=zE5hS0kqBQ4" type="button" class="btn btn-primary" target="_blank">Extra</a>
+
+</div>
+</form>
+
+        </div>
+
+      </div>
+    </div>
+<br /><br /><br /><style>
+#page-content-wrapper {
+  padding: 0px;
+}
+.splash{
+  padding: 9em 0 2em;
+  background-color: #141d27;
+  background-image: url(background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  color: #fff;
+  text-align: center;
+  background-size: 100% auto;
+  min-height:450px;
+}
+.section-tout {
+  padding: 4em 0 3em;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  background-color: #eaf1f1;
+  color:black;
+}
+.section-tout .fa {
+  margin-right: .5em;
+}
+</style>
+    <div class="splash">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>AEGIS DEMO</h1>
+            <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="pageSettings" class="section-tout">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6 col-sm-6">
+            <h3><i class="fa fa-file-o"></i>Create Job</h3>
+            <p>Test the Aegis plugin to save a Job.</p>
+            <p data-bind="visible:!isAegisEnabled()" style="color:red;">Aegis plugin is required to save a job.</p>
+            <a class="btn btn-default" data-bind="css:{disabled:!isAegisEnabled()}" onclick="newJob()" target="_blank" href="https://www.bankofamerica.com">Go</a>
+          </div>
+          <div class="col-lg-6 col-sm-6">
+            <h3><i class="fa fa-folder-open-o"></i>Load Job</h3>
+            <p>Load a predefined Job.</p>
+            <p data-bind="visible:!isAegisEnabled()" style="color:red;">Aegis plugin is required to save a job.</p>
+            <a class="btn btn-default" data-bind="css:{disabled:!isAegisEnabled()}" onclick="loadJob1()" target="_blank" href="loadJob.html">Go</a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-sm-6">
+            <h3><i class="fa fa-cogs"></i>Aegis Plugin</h3>
+            <p>Install the Aegis plugin.</p>
+            <a class="btn btn-default" href="/cr24/plugins/aegis.0.0.6.xpi">Install</a>
+          </div>
+          <div class="col-lg-6 col-sm-6">
+            <h3><i class="fa fa-github"></i>Job Preview</h3>
+            <p>View last job's execution.</p>
+            <a class="btn btn-default" target="_blank" href="http://52.6.171.25/cr24/preview/index.html">View</a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-sm-6">
+            <h3><i class="fa fa-cogs"></i>Unit Tests</h3>
+            <p>Run the Unit Tests.</p>
+            <p data-bind="visible:!isAegisEnabled()" style="color:red;">Aegis plugin is required to run the unit tests.</p>
+            <p>For security reasons, please copy and paste the link to the url bar to execute the test.</p>
+            <a href="chrome://aegis/content/aegis/test.html" target="_blank">chrome://aegis/content/aegis/test.html</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<script type="text/javascript" src="/cr24/aegis.connector.js"></script>
+<script type="text/javascript">
+/**
+ * AEGIS CONFIG
+ */
+aegis.init({
+  onboot:function(){
+    window.pageSettings.isAegisEnabled(true);
+  }
+});
+function newJob(){
+  aegis.newJob();
+}
+function loadJob1(){
+  aegis.loadJob({
+    "baseUrl": "https://www.bankofamerica.com/",
+    "screen": {
+        "width": "1800",
+        "height": "760"
+    },
+    "window": {
+        "width": "1800",
+        "height": "760"
+    },
+    "cases": [
+        {
+            "recorder": [],
+            "inspector": [
+                {
+                    "baseUrl": "https://www.bankofamerica.com/",
+                    "extra": {
+                        "title": "",
+                        "notification": "none",
+                        "userOrGroup": "",
+                        "userOrGroupTitle": "",
+                        "action": "watch"
+                    },
+                    "type": "watch",
+                    "xpath": "//*[@id=\"hp-section-4\"]/div/div[2]/div/div/div[2]/p",
+                    "outerHTML": "<p>If you're a homeowner struggling with your loan payments, you may want to learn about our home loan assistance programs. Bank of America is committed to helping homeowners and is a participant in the national mortgage settlement agreement.</p>",
+                    "outerHTMLWithStyle": "<p style=\"outline: 4px solid green; opacity : 0.7; \">If you're a homeowner struggling with your loan payments, you may want to learn about our home loan assistance programs. Bank of America is committed to helping homeowners and is a participant in the national mortgage settlement agreement.</p>",
+                    "computedStyle": null
+                },
+                {
+                    "baseUrl": "https://www.bankofamerica.com/",
+                    "extra": {
+                        "title": "",
+                        "notification": "none",
+                        "userOrGroup": "",
+                        "userOrGroupTitle": "",
+                        "action": "ignore"
+                    },
+                    "type": "ignore",
+                    "xpath": "//*[@id=\"hp-section-4\"]/div/div[2]/div/div/div[3]/ul/li[2]",
+                    "outerHTML": "<li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_DOJSettlement\" href=\"http://homeloanhelp.bankofamerica.com/en/doj-settlement.html\" class=\"style-link guillemet-right\">Learn about the Department of Justice settlement&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li>",
+                    "outerHTMLWithStyle": "<li style=\"outline: 4px solid green; opacity : 0.7; \">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_DOJSettlement\" href=\"http://homeloanhelp.bankofamerica.com/en/doj-settlement.html\" class=\"style-link guillemet-right\">Learn about the Department of Justice settlement&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li>",
+                    "computedStyle": null
+                },
+                {
+                    "baseUrl": "https://www.bankofamerica.com/",
+                    "extra": {
+                        "title": "",
+                        "notification": "none",
+                        "userOrGroup": "",
+                        "userOrGroupTitle": "",
+                        "action": "watch"
+                    },
+                    "type": "watch",
+                    "xpath": "//*[@id=\"hp-section-4\"]/div/div[2]/div/div",
+                    "outerHTML": "<div class=\"flex-content-section\"> \n         \t\t\t\n         \t\t\t\n         \t\t\t\t\t \n         \t\t\t\t\t\t\n\t             \t\t\t\t\t<div class=\"header-row\">\n\t\t\t\t\t\t\t\t\t\t <h2>Need help with your home loan payments?</h2>\n\t\t\t\t\t\t\t\t\t\t <div class=\"clearboth\"></div>\n\t\t\t\t\t\t\t\t\t</div>\n               \t\t\t\t\t\n               \t\t\t\t\t\t<div class=\"paragraph-row\">                     \n                  \t\t\t\t\t\t<p style=\"\">If you're a homeowner struggling with your loan payments, you may want to learn about our home loan assistance programs. Bank of America is committed to helping homeowners and is a participant in the national mortgage settlement agreement.</p>\n                  \t\t\t\t\t\t<div class=\"clearboth\"></div>\n               \t\t\t\t\t\t</div>\n       \t\t\t\t\t\n       \t\t\t\t\t             \t\t\t\t\t\t               \t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"list-row\">\t\t\t\t\t\t\t\t\t\t\t           \n\t\t\t\t\t\t\t\t\t<ul>                \n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_homeLoanAssistance\" href=\"http://homeloanhelp.bankofamerica.com/en/index.html?cm_sp=Cre-LoanModification-_-Home%20Loan%20Assistance%20Q4%202012-_-MI14LT0001_Dialogue%20Zone%202_LearnMoreLAH\" class=\"style-link guillemet-right\">Learn more about home loan assistance&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li> \t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<li style=\"\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_DOJSettlement\" href=\"http://homeloanhelp.bankofamerica.com/en/doj-settlement.html\" class=\"style-link guillemet-right\">Learn about the Department of Justice settlement&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li> \t\n\t\t\t\t\t\t\t\t\t</ul>                            \n\t\t\t\t\t\t\t</div>\n    \t\t\t\t</div>",
+                    "outerHTMLWithStyle": "<div style=\"outline: 4px solid green; opacity : 0.7; \" class=\"flex-content-section\"> \n         \t\t\t\n         \t\t\t\n         \t\t\t\t\t \n         \t\t\t\t\t\t\n\t             \t\t\t\t\t<div class=\"header-row\">\n\t\t\t\t\t\t\t\t\t\t <h2>Need help with your home loan payments?</h2>\n\t\t\t\t\t\t\t\t\t\t <div class=\"clearboth\"></div>\n\t\t\t\t\t\t\t\t\t</div>\n               \t\t\t\t\t\n               \t\t\t\t\t\t<div class=\"paragraph-row\">                     \n                  \t\t\t\t\t\t<p style=\"\">If you're a homeowner struggling with your loan payments, you may want to learn about our home loan assistance programs. Bank of America is committed to helping homeowners and is a participant in the national mortgage settlement agreement.</p>\n                  \t\t\t\t\t\t<div class=\"clearboth\"></div>\n               \t\t\t\t\t\t</div>\n       \t\t\t\t\t\n       \t\t\t\t\t             \t\t\t\t\t\t               \t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"list-row\">\t\t\t\t\t\t\t\t\t\t\t           \n\t\t\t\t\t\t\t\t\t<ul>                \n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_homeLoanAssistance\" href=\"http://homeloanhelp.bankofamerica.com/en/index.html?cm_sp=Cre-LoanModification-_-Home%20Loan%20Assistance%20Q4%202012-_-MI14LT0001_Dialogue%20Zone%202_LearnMoreLAH\" class=\"style-link guillemet-right\">Learn more about home loan assistance&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li> \t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t<li style=\"\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a name=\"dz2_DOJSettlement\" href=\"http://homeloanhelp.bankofamerica.com/en/doj-settlement.html\" class=\"style-link guillemet-right\">Learn about the Department of Justice settlement&nbsp;<span class=\"guillemet ls-n1 guillement-set\">››</span></a> <span class=\"clearboth\"></span>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</li> \t\n\t\t\t\t\t\t\t\t\t</ul>                            \n\t\t\t\t\t\t\t</div>\n    \t\t\t\t</div>",
+                    "computedStyle": null
+                },
+                {
+                    "baseUrl": "https://www.bankofamerica.com/",
+                    "extra": {
+                        "title": "",
+                        "notification": "none",
+                        "userOrGroup": "",
+                        "userOrGroupTitle": "",
+                        "action": "ignore"
+                    },
+                    "type": "ignore",
+                    "xpath": "//*[@id=\"hp-section-4\"]/div/div/div/div/div[2]/p",
+                    "outerHTML": "<p>Earn cash back with the BankAmericard Cash Rewards credit card – 1% on purchases, 2% at grocery stores and 3% on gas (up to $1500 in grocery/gas quarterly spend) with No Annual Fee and No Changing Categories.</p>",
+                    "outerHTMLWithStyle": "<p style=\"outline: 4px solid green; opacity : 0.7; \">Earn cash back with the BankAmericard Cash Rewards credit card – 1% on purchases, 2% at grocery stores and 3% on gas (up to $1500 in grocery/gas quarterly spend) with No Annual Fee and No Changing Categories.</p>",
+                    "computedStyle": null
+                }
+            ]
+        },
+        {
+            "recorder": [
+                {
+                    "baseUrl": "https://www.bankofamerica.com/",
+                    "command": "click",
+                    "target": {
+                        "id": null,
+                        "name": null,
+                        "css": "css=a.first.select",
+                        "link": "link=Banking menu. Press Enter to access submenu. To move through items press up or down arrow.",
+                        "dom:name": null,
+                        "xpath:attributes": null,
+                        "xpath:idRelative": "//div[@id='hp-section-2']/form/ul/li/a",
+                        "dom:index": null,
+                        "xpath:position": "//form/ul/li/a",
+                        "xpath:link": null,
+                        "xpath:href": "xpath=(//a[contains(@href, 'javascript:void(0);')])[3]",
+                        "xpath:img": null
+                    },
+                    "extra": {
+                        "user": "",
+                        "notification": "userName",
+                        "": "",
+                        "timestamp": "1430426050169"
+                    },
+                    "value": ""
+                }
+            ],
+            "inspector": []
+        },
+        {
+            "recorder": [
+                {
+                    "baseUrl": "https://www.bankofamerica.com/",
+                    "command": "click",
+                    "target": {
+                        "id": null,
+                        "name": "name=online_banking",
+                        "css": "css=a[name=\"online_banking\"]",
+                        "link": "link=Online Banking",
+                        "dom:name": null,
+                        "xpath:attributes": "//a[@name='online_banking']",
+                        "xpath:idRelative": "//div[@id='pm-submenu-first']/div/a[5]",
+                        "dom:index": null,
+                        "xpath:position": "//a[5]",
+                        "xpath:link": "//a[contains(text(),'Online Banking')]",
+                        "xpath:href": "//a[contains(@href, '/onlinebanking/online-banking.go')]",
+                        "xpath:img": null
+                    },
+                    "extra": {
+                        "user": "",
+                        "notification": "userName",
+                        "": "",
+                        "timestamp": "1430426050169"
+                    },
+                    "value": ""
+                }
+            ],
+            "inspector": [
+                {
+                    "baseUrl": "https://www.bankofamerica.com/onlinebanking/online-banking.go",
+                    "extra": {
+                        "title": "",
+                        "notification": "none",
+                        "userOrGroup": "",
+                        "userOrGroupTitle": "",
+                        "action": "ignore"
+                    },
+                    "type": "ignore",
+                    "xpath": "/html/body/div/div/div/div[8]/div[2]/div[7]/div[2]/img",
+                    "outerHTML": "<img src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/OLB/mobile-banking-2.png\" alt=\"Mobile Banking\">",
+                    "outerHTMLWithStyle": "<img style=\"outline: 4px solid green; opacity : 0.7; \" src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/OLB/mobile-banking-2.png\" alt=\"Mobile Banking\">",
+                    "computedStyle": null
+                },
+                {
+                    "baseUrl": "https://www.bankofamerica.com/onlinebanking/online-banking.go",
+                    "extra": {
+                        "title": "",
+                        "notification": "none",
+                        "userOrGroup": "",
+                        "userOrGroupTitle": "",
+                        "action": "ignore"
+                    },
+                    "type": "ignore",
+                    "xpath": "/html/body/div/div/div/div[8]/div[2]/div[7]/div/div/p",
+                    "outerHTML": "<p>Access your Bank of America accounts straight from your mobile device. Check your balance, deposit checks<a name=\"fnote4\" href=\"#footnote4\"><span class=\"ada-hidden\">Footnote </span><sup>4</sup></a>, pay bills, transfer money<a name=\"fnote2\" href=\"#footnote2\"><span class=\"ada-hidden\">Footnote </span><sup>2</sup></a> and get cash-back deals<a name=\"fnote5\" href=\"#footnote5\"><span class=\"ada-hidden\">Footnote </span><sup>5</sup></a> whether you’re at home or on the go. Bank on your schedule with <a title=\"Mobile Banking\" name=\"mobile\" href=\"/online-banking/mobile.go\" target=\"_self\">Mobile Banking</a><a name=\"fnote6\" href=\"#footnote6\"><span class=\"ada-hidden\">Footnote </span><sup>6</sup></a> and get the convenience and security of Online Banking from almost anywhere.</p>",
+                    "outerHTMLWithStyle": "<p style=\"outline: 4px solid green; opacity : 0.7; \">Access your Bank of America accounts straight from your mobile device. Check your balance, deposit checks<a name=\"fnote4\" href=\"#footnote4\"><span class=\"ada-hidden\">Footnote </span><sup>4</sup></a>, pay bills, transfer money<a name=\"fnote2\" href=\"#footnote2\"><span class=\"ada-hidden\">Footnote </span><sup>2</sup></a> and get cash-back deals<a name=\"fnote5\" href=\"#footnote5\"><span class=\"ada-hidden\">Footnote </span><sup>5</sup></a> whether you’re at home or on the go. Bank on your schedule with <a title=\"Mobile Banking\" name=\"mobile\" href=\"/online-banking/mobile.go\" target=\"_self\">Mobile Banking</a><a name=\"fnote6\" href=\"#footnote6\"><span class=\"ada-hidden\">Footnote </span><sup>6</sup></a> and get the convenience and security of Online Banking from almost anywhere.</p>",
+                    "computedStyle": null
+                },
+                {
+                    "baseUrl": "https://www.bankofamerica.com/onlinebanking/online-banking.go",
+                    "extra": {
+                        "title": "",
+                        "notification": "none",
+                        "userOrGroup": "",
+                        "userOrGroupTitle": "",
+                        "action": "ignore"
+                    },
+                    "type": "ignore",
+                    "xpath": "/html/body/div/div/div/div[8]/div[2]/div[5]/div",
+                    "outerHTML": "<div class=\"ipc-col ipc-left-col\">\n           \t\t\t \t<img src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/financial-planning-tools1.png\" alt=\"Online Financial Planning Tools\">\n       \t\t </div>",
+                    "outerHTMLWithStyle": "<div style=\"outline: 4px solid green; opacity : 0.7; \" class=\"ipc-col ipc-left-col\">\n           \t\t\t \t<img src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/financial-planning-tools1.png\" alt=\"Online Financial Planning Tools\">\n       \t\t </div>",
+                    "computedStyle": null
+                },
+                {
+                    "baseUrl": "https://www.bankofamerica.com/onlinebanking/online-banking.go",
+                    "extra": {
+                        "title": "",
+                        "notification": "none",
+                        "userOrGroup": "",
+                        "userOrGroupTitle": "",
+                        "action": "ignore"
+                    },
+                    "type": "ignore",
+                    "xpath": "/html/body/div/div/div/div[8]/div[2]/div[7]",
+                    "outerHTML": "<div class=\"ipc-section ipc-alt-section extra-shadow-below\">\n\t\t\t<div class=\"ipc-col ipc-left-col\">\n        \t\t\t\t<div class=\"ipc-main-content\">\n               \t\t\t\t<div class=\"ipc-header h-100\">\n                 \t\t\t\t<div class=\"ipc-icon ipc-mobile_banking ipc-inactive\"></div>\n                 \t\t\t\t<h2 class=\"cnx-light\" data-font=\"#!\" id=\"mobile-banking\"><span>Mobile Banking</span></h2>\n                  \t\t\t\t<div class=\"clearboth\"></div>\n               \t\t\t\t</div>\n              \t\t\t\t<p style=\"\">Access your Bank of America accounts straight from your mobile device. Check your balance, deposit checks<a name=\"fnote4\" href=\"#footnote4\"><span class=\"ada-hidden\">Footnote </span><sup>4</sup></a>, pay bills, transfer money<a name=\"fnote2\" href=\"#footnote2\"><span class=\"ada-hidden\">Footnote </span><sup>2</sup></a> and get cash-back deals<a name=\"fnote5\" href=\"#footnote5\"><span class=\"ada-hidden\">Footnote </span><sup>5</sup></a> whether you’re at home or on the go. Bank on your schedule with <a title=\"Mobile Banking\" name=\"mobile\" href=\"/online-banking/mobile.go\" target=\"_self\">Mobile Banking</a><a name=\"fnote6\" href=\"#footnote6\"><span class=\"ada-hidden\">Footnote </span><sup>6</sup></a> and get the convenience and security of Online Banking from almost anywhere.</p>\n            \t\t\t</div>\n       \t\t </div>\n        \t<div class=\"ipc-col\">\n\t\t\t\t\t<img style=\"\" src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/OLB/mobile-banking-2.png\" alt=\"Mobile Banking\">\n\t\t\t\t   \n        \t</div>\n            <div class=\"clearboth\"></div>\n    \t</div>",
+                    "outerHTMLWithStyle": "<div style=\"outline: 4px solid green; opacity : 0.7; \" class=\"ipc-section ipc-alt-section extra-shadow-below\">\n\t\t\t<div class=\"ipc-col ipc-left-col\">\n        \t\t\t\t<div class=\"ipc-main-content\">\n               \t\t\t\t<div class=\"ipc-header h-100\">\n                 \t\t\t\t<div class=\"ipc-icon ipc-mobile_banking ipc-inactive\"></div>\n                 \t\t\t\t<h2 class=\"cnx-light\" data-font=\"#!\" id=\"mobile-banking\"><span>Mobile Banking</span></h2>\n                  \t\t\t\t<div class=\"clearboth\"></div>\n               \t\t\t\t</div>\n              \t\t\t\t<p style=\"\">Access your Bank of America accounts straight from your mobile device. Check your balance, deposit checks<a name=\"fnote4\" href=\"#footnote4\"><span class=\"ada-hidden\">Footnote </span><sup>4</sup></a>, pay bills, transfer money<a name=\"fnote2\" href=\"#footnote2\"><span class=\"ada-hidden\">Footnote </span><sup>2</sup></a> and get cash-back deals<a name=\"fnote5\" href=\"#footnote5\"><span class=\"ada-hidden\">Footnote </span><sup>5</sup></a> whether you’re at home or on the go. Bank on your schedule with <a title=\"Mobile Banking\" name=\"mobile\" href=\"/online-banking/mobile.go\" target=\"_self\">Mobile Banking</a><a name=\"fnote6\" href=\"#footnote6\"><span class=\"ada-hidden\">Footnote </span><sup>6</sup></a> and get the convenience and security of Online Banking from almost anywhere.</p>\n            \t\t\t</div>\n       \t\t </div>\n        \t<div class=\"ipc-col\">\n\t\t\t\t\t<img style=\"\" src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/OLB/mobile-banking-2.png\" alt=\"Mobile Banking\">\n\t\t\t\t   \n        \t</div>\n            <div class=\"clearboth\"></div>\n    \t</div>",
+                    "computedStyle": null
+                },
+                {
+                    "baseUrl": "https://www.bankofamerica.com/onlinebanking/online-banking.go",
+                    "extra": {
+                        "title": "",
+                        "notification": "none",
+                        "userOrGroup": "",
+                        "userOrGroupTitle": "",
+                        "action": "watch"
+                    },
+                    "type": "watch",
+                    "xpath": "/html/body/div/div/div/div[8]/div[2]/div[5]",
+                    "outerHTML": "<div class=\"ipc-section ipc-alt-section\">\n\t\t\t<div style=\"\" class=\"ipc-col ipc-left-col\">\n           \t\t\t \t<img src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/financial-planning-tools1.png\" alt=\"Online Financial Planning Tools\">\n       \t\t </div>\n        \t<div class=\"ipc-col\">\n\t        \t\t<div class=\"ipc-main-content\">\n               \t\t\t<div class=\"ipc-header h-100\">\n                  \t\t\t<div class=\"ipc-icon ipc-budget_and_track ipc-inactive\"></div>\n                 \t\t\t<h2 class=\"cnx-light\" data-font=\"#!\" id=\"budget-and-track\"><span>Budget and track</span></h2>\n                 \t\t\t<div class=\"clearboth\"></div>\n               \t\t\t</div>\n              \t\t\t<p>From a single site, you can set up budgets, get organized for tax season and track spending in all your accounts, even at other financial institutions<a name=\"fnote3\" href=\"#footnote3\"><span class=\"ada-hidden\">Footnote </span><sup>3</sup></a>. Sign into your <a title=\"Financial Management Tools\" name=\"financial-management-tools\" href=\"/onlinebanking/financial-management-tools.go\" target=\"_self\">all accounts dashboard</a> for easy accounts access and comparison so you never have to hop from site to site again.</p>\n           \t\t\t </div>        \n        \t</div>\n            <div class=\"clearboth\"></div>\n    \t</div>",
+                    "outerHTMLWithStyle": "<div style=\"outline: 4px solid green; opacity : 0.7; \" class=\"ipc-section ipc-alt-section\">\n\t\t\t<div style=\"\" class=\"ipc-col ipc-left-col\">\n           \t\t\t \t<img src=\"/content/images/ContextualSiteGraphics/Instructional/en_US/financial-planning-tools1.png\" alt=\"Online Financial Planning Tools\">\n       \t\t </div>\n        \t<div class=\"ipc-col\">\n\t        \t\t<div class=\"ipc-main-content\">\n               \t\t\t<div class=\"ipc-header h-100\">\n                  \t\t\t<div class=\"ipc-icon ipc-budget_and_track ipc-inactive\"></div>\n                 \t\t\t<h2 class=\"cnx-light\" data-font=\"#!\" id=\"budget-and-track\"><span>Budget and track</span></h2>\n                 \t\t\t<div class=\"clearboth\"></div>\n               \t\t\t</div>\n              \t\t\t<p>From a single site, you can set up budgets, get organized for tax season and track spending in all your accounts, even at other financial institutions<a name=\"fnote3\" href=\"#footnote3\"><span class=\"ada-hidden\">Footnote </span><sup>3</sup></a>. Sign into your <a title=\"Financial Management Tools\" name=\"financial-management-tools\" href=\"/onlinebanking/financial-management-tools.go\" target=\"_self\">all accounts dashboard</a> for easy accounts access and comparison so you never have to hop from site to site again.</p>\n           \t\t\t </div>        \n        \t</div>\n            <div class=\"clearboth\"></div>\n    \t</div>",
+                    "computedStyle": null
+                }
+            ]
+        }
+    ]
+  });
+}
+</script>
+<script type="text/javascript">
+$(function(){
+  var vm = {
+    isAegisEnabled: ko.observable(false)
+  };
+  ko.applyBindings(vm, document.getElementById("pageSettings"));
+  window.pageSettings=vm;
+});
+</script>
+          </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+
+    </div>
+
+
+<script type="text/javascript">
+/** navbar control **/
+var vm = {
+
+};
+ko.applyBindings(vm, document.getElementById("navbar-main"));
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+
+Generacion del tar.gz:
+
+1. Descargar del git https://github.com/david-callizaya-tierconnect-com/aegis-plugin.git
+2. Comprimir la carpeta www en un tar.gz
+
+Instalacion del plugin:
+
+1. Publicar el tar.gz del plugin dentro de una carpeta publica cr24 (la que era www en el source code aca sera cr24)

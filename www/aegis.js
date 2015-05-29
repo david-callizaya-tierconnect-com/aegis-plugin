@@ -1,5 +1,4 @@
 var aegis={
-//  previewServer:"localhost:8081",
   cases:[
   ],
   newCase:false,
@@ -29,8 +28,8 @@ var aegis={
     var job={
       "jobId":aegis.jobConfig.publicId,
       "baseUrl":baseUrl,
-      "screen":{width:1800,height:760},
-      "window":{width:1800,height:760},
+      "screen":{width:window.screen.width, height:window.screen.height},
+      "window":{width:window.outerWidth, height:window.outerHeight},
       cases:aegis.cases
     };
     document.getElementById("log").value=JSON.stringify(job);
@@ -91,11 +90,11 @@ var aegis={
     }
   },
   openEditAction:function(fromSelectAll, callback, cancelCallback){
-    /*autoSetInspectionValues*/
+    /** autoSetInspectionValues **/
     if(fromSelectAll){
       try{
         aegis.autoSetInspectionValues.doit();
-        var userOrGroupTitle="";//$("#userOrGroup option:selected").text();
+        var userOrGroupTitle="";
         callback({
           title:actionSettings.title(),
           notification:actionSettings.notification(),
@@ -382,7 +381,6 @@ var aegis={
       aegis.toggle();
     }
     AEGIS.IController.loadJob(job, function(currentCase){
-      //console.log("TERMINO DE CARGAR JOB");
       aegis.currentCase=aegis.cases[currentCase];
     });
   },
@@ -403,10 +401,6 @@ var aegis={
     aegis.loadJob(job);
   },
   onDoNewJob:function(jobConfig){
-    console.log("***********************");
-    console.log("jobConfig");
-    console.log(jobConfig);
-    console.log("***********************");
     if((typeof jobConfig==="object") && (typeof jobConfig.publicId==="string")){
       window.aegis.jobConfig.publicId=jobConfig.publicId;
     } else {

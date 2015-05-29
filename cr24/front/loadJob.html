@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <style>
+      body{background-image: url("ajax-loader.gif");
+      background-repeat: no-repeat;
+      background-position: center center;
+      height: 100%;
+      background-color: black;}
+    </style>
+    <script>
+      window.addEventListener("message", function(event){
+        try{
+        } catch(e){
+        }
+      }, false);
+      window.opener.postMessage("onLoadJobOpen", "*");
+    </script>
+  </head>
+</html>
