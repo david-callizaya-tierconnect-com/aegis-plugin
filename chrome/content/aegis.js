@@ -8,23 +8,23 @@ var aegis={
         name:"AEGIS",
         version:"0.0.8",
         settings:aegisSettings,
-        apikey:aegisSettings.prefHasUserValue("apikey")?aegisSettings.getCharPref("apikey"):"9222668072e3fbe70026460d9470dad6",
+        apikey:aegisSettings.prefHasUserValue("apikey")?aegisSettings.getCharPref("apikey"):default_config.apikey,
         servers:{
             /**
              * Plugin web resources
              * @type String
              */
-            plugin:aegisSettings.prefHasUserValue("pluginServer")?aegisSettings.getCharPref("pluginServer"):"52.0.82.192",
+            plugin:aegisSettings.prefHasUserValue("pluginServer")?aegisSettings.getCharPref("pluginServer"):default_config.pluginServer,
             /**
              * Front end
              * @type String
              */
-            frontend:aegisSettings.prefHasUserValue("frontendServer")?aegisSettings.getCharPref("frontendServer"):"52.0.82.192:8080",
+            frontend:aegisSettings.prefHasUserValue("frontendServer")?aegisSettings.getCharPref("frontendServer"):default_config.frontendServer,
             /**
              * Selenium WebDriver Server
              * @type String
              */
-            selenium:aegisSettings.prefHasUserValue("backendServer")?aegisSettings.getCharPref("backendServer"):"52.0.82.192:8080",
+            selenium:aegisSettings.prefHasUserValue("backendServer")?aegisSettings.getCharPref("backendServer"):default_config.backendServer,
             /**
              * chrome://aegis plugin resources
              * @type String
