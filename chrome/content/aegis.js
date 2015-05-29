@@ -6,7 +6,7 @@
 var aegisSettings=Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.aegis.");
 var aegis={
         name:"AEGIS",
-        version:"0.0.1",
+        version:"0.0.8",
         settings:aegisSettings,
         apikey:aegisSettings.prefHasUserValue("apikey")?aegisSettings.getCharPref("apikey"):"9222668072e3fbe70026460d9470dad6",
         servers:{
@@ -32,9 +32,6 @@ var aegis={
             aegis:"aegis",
             develop8080:"localhost:8080",
             develop:"localhost",
-            ariel:"10.100.1.200:8080",
-            david:"10.100.1.9:8080",
-            david1:"10.100.1.9:8081"
         },
         mode:"recording",
         editor:null,
