@@ -184,9 +184,8 @@ SeleniumIDE.Preferences.DEFAULT_OPTIONS = {
   lastSavedTestSuite: "",
   
   //aegis
-  apikey: default_config.apikey,
-  pluginServer: default_config.pluginServer,
-  frontendServer: default_config.frontendServer,
-  backendServer: default_config.backendServer
+  apikey: "9222668072e3fbe70026460d9470dad6",
+  pluginServer: "52.25.24.10",
+  frontendServer: "52.25.105.146:8080",
+  backendServer: "52.25.24.10:8080"
 };
-
