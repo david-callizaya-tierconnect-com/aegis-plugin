@@ -55,6 +55,7 @@ var aegis={
     });
   },
   startCase:function(){
+console.log("check startCase flow:", aegis.currentCase);
     if(typeof aegis.currentCase!=="undefined" && 
         aegis.currentCase.recorder.length===0 &&
         aegis.currentCase.inspector.length===0 ){
@@ -298,10 +299,10 @@ var aegis={
         if(typeof last!=="undefined") {var s=last.first;last.first=null;}
         if(aegis.newCase || (JSON.stringify(last.baseUrl+last.command+last.target+last.value)!==JSON.stringify(next.baseUrl+next.command+next.target+next.value))){
           next.first=aegis.newCase;
-          if(aegis.currentCase.inspector.length>0) {
-            aegis.startCase();
-          }
-            aegis.startCase();
+//          if(aegis.currentCase.inspector.length>0) {
+//            aegis.startCase();
+//          }
+          aegis.startCase();
           recordsKO.data.push(next);
           aegis.newCase=false;
           aegis.currentCase.recorder.push({
@@ -340,6 +341,7 @@ var aegis={
     actionlogKO.data.removeAll();
     recordsKO.data.removeAll();
     aegis.cases=[];
+    aegis.currentCase=undefined;
     aegis.startCase();
   },
   loadJob:function(job){
