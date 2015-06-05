@@ -55,7 +55,7 @@ var aegis={
     });
   },
   startCase:function(){
-console.log("check startCase flow:", aegis.currentCase);
+    //console.log("check startCase flow:", aegis.currentCase);
     if(typeof aegis.currentCase!=="undefined" && 
         aegis.currentCase.recorder.length===0 &&
         aegis.currentCase.inspector.length===0 ){
@@ -109,9 +109,12 @@ console.log("check startCase flow:", aegis.currentCase);
       actionSettings.title("");
       actionSettings.notification("none");
       actionSettings.action("watch");
-      actionSettings.userOrGroup("");
+      actionSettings.userOrGroup("0");
       $('#wrapper').addClass("toggled");
       $('#confirmAction').unbind("click").click(function(){
+        if(!validateInspection()){
+          return;
+        }
         var userOrGroupTitle=$("#userOrGroup option:selected").text();
         callback({
           title:actionSettings.title(),
@@ -132,6 +135,9 @@ console.log("check startCase flow:", aegis.currentCase);
     actionSettings.userOrGroup(extraData.userOrGroup);
     $('#wrapper').addClass("toggled");
     $('#confirmAction').unbind("click").click(function(){
+      if(!validateInspection()){
+        return;
+      }
       var userOrGroupTitle=$("#userOrGroup option:selected").text();
       actionlogKO.currentSelectedRow(null);
       callback({
@@ -282,6 +288,7 @@ console.log("check startCase flow:", aegis.currentCase);
     try{
         document.getElementById("log").value+="\n"+JSON.stringify(data);
         var last = recordsKO.data()[recordsKO.data().length-1];
+        var ts = new Date().getTime();
         var next = {
           first: null,
           baseUrl: data.baseUrl,
@@ -290,7 +297,8 @@ console.log("check startCase flow:", aegis.currentCase);
           value: data.value,
           user:"1",
           userName:"admin",
-          timestamp:new Date().getTime()
+          timestamp: ts,
+          timestampFormated: dateformat("Y-m-d H:i:s",ts/1000)
         };
         if(data.baseUrl!=aegis.lastUrl){
           aegis.lastUrl=data.baseUrl;
@@ -299,9 +307,6 @@ console.log("check startCase flow:", aegis.currentCase);
         if(typeof last!=="undefined") {var s=last.first;last.first=null;}
         if(aegis.newCase || (JSON.stringify(last.baseUrl+last.command+last.target+last.value)!==JSON.stringify(next.baseUrl+next.command+next.target+next.value))){
           next.first=aegis.newCase;
-//          if(aegis.currentCase.inspector.length>0) {
-//            aegis.startCase();
-//          }
           aegis.startCase();
           recordsKO.data.push(next);
           aegis.newCase=false;

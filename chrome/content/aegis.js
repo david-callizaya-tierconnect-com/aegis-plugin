@@ -44,7 +44,7 @@ var aegis={
              * only for tabs
              */
             console.log("*******************************************");
-            console.log(contentWindow.location);
+            console.log(contentWindow.location.href);
             console.log("*******************************************");
             try{
                 if(contentWindow.location.href==="about:blank"){
