@@ -7,6 +7,7 @@ var aegisSettings=Components.classes["@mozilla.org/preferences-service;1"].getSe
 var aegis={
         name:"AEGIS",
         version:"0.0.8",
+        enabled:false,
         settings:aegisSettings,
         apikey:aegisSettings.prefHasUserValue("apikey")?aegisSettings.getCharPref("apikey"):SeleniumIDE.Preferences.DEFAULT_OPTIONS.apikey,
         servers:{
@@ -102,6 +103,10 @@ var aegis={
             this.waitPlayDoneFn=fn;
         },
         showPanel:function(){
+            if(!aegis.enabled){
+                aegis.hidePanel();
+                return;
+            }
             var height=this.getContainerHeight();
             if(height===null){
             } else {

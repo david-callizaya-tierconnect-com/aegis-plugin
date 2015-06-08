@@ -15,6 +15,12 @@ var MainController = {
         getPluginServer:function(){
             return this.getPluginServer();
         },
+        newJob:function(){
+            return this.newJob();
+        },
+        closeJob:function(){
+            return this.closeJob();
+        },
         loadJob:function(job, callback){
             return this.loadJob(job, callback);
         },
@@ -92,6 +98,14 @@ var MainController = {
      */
     getApikey:function(){
         return aegis.apikey;
+    },
+    newJob:function(){
+        aegis.enabled=true;
+        aegis.showPanel();
+    },
+    closeJob:function(){
+        aegis.enabled=false;
+        aegis.hidePanel();
     },
     /**
      * Load a Job Object

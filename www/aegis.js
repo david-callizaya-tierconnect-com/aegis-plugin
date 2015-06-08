@@ -34,6 +34,10 @@ var aegis={
     };
     document.getElementById("log").value=JSON.stringify(job);
     aegis.apikey=AEGIS.IController.getApikey();
+    AEGIS.IController.closeJob();
+    if( !vm.isRecording() ) {
+      aegis.toggle();
+    }
     $.ajax({
       type: "POST",
       url: "http://"+aegis.seleniumServer+"/aegis24-1.0-POC/api/aegis/services",
@@ -55,7 +59,6 @@ var aegis={
     });
   },
   startCase:function(){
-    //console.log("check startCase flow:", aegis.currentCase);
     if(typeof aegis.currentCase!=="undefined" && 
         aegis.currentCase.recorder.length===0 &&
         aegis.currentCase.inspector.length===0 ){
@@ -116,6 +119,9 @@ var aegis={
           return;
         }
         var userOrGroupTitle=$("#userOrGroup option:selected").text();
+        if(actionSettings.userOrGroup()=="0"){
+          userOrGroupTitle="None";
+        }
         callback({
           title:actionSettings.title(),
           notification:actionSettings.notification(),
@@ -348,6 +354,7 @@ var aegis={
     aegis.cases=[];
     aegis.currentCase=undefined;
     aegis.startCase();
+    AEGIS.IController.newJob();
   },
   loadJob:function(job){
     vm.isEditing(true);
@@ -423,6 +430,7 @@ var aegis={
     aegis.newJob("");
   },
   close:function(){
+    AEGIS.IController.closeJob();
     AEGIS.IController.runScript("window.close()");
   }
 };
@@ -456,5 +464,5 @@ function bootAegis(){
   aegis.seleniumServer=AEGIS.IController.getSeleniumServer();
   aegis.previewServer=AEGIS.IController.getPluginServer();
   aegis.apikey=AEGIS.IController.getApikey();
-  aegis.newJob("");
+  //aegis.newJob("");
 }

@@ -159,7 +159,6 @@ window.AEGIS.utils={
         queue:[],
         waitForNoAjax:function(fn){
             if(typeof fn==="function"){
-                console.log("REGISTERED WAITING FOR NO AJAX @utils!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", fn.toString());
                 this.queue.push(fn);
             }
             this.checkNoAjax();
@@ -168,7 +167,6 @@ window.AEGIS.utils={
             if(this.calls===0){
                 setTimeout(function(){
                     if(AEGIS.utils.ajaxListener.calls===0){
-                        console.log("FUCK YEAH NO AJAX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",AEGIS.utils.ajaxListener.queue);
                         for(var i=0,l=AEGIS.utils.ajaxListener.queue.length;i<l;i++){
                             AEGIS.utils.ajaxListener.queue[i]();
                         }

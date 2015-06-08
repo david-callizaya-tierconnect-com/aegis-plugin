@@ -13,7 +13,6 @@ var aegis={
   onLoadJobOpen:function(){},
   loadJob:function(job){
     aegis.onLoadJobOpen=function(){
-console.log(job);
       AEGIS.IController.notify('loadjob', job);
     }
   }

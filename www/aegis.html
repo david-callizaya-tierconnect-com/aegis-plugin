@@ -13,133 +13,17 @@
 <script src="dateformat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min.js"></script>
 <style>
-@-webkit-keyframes redBright {
-  0%   { text-shadow:none; }
-  100% {
-      text-shadow: 0 0 10px #fff,
-                   0 0 20px #fff,
-                   0 0 30px #fff,
-                   0 0 40px #ff00de,
-                   0 0 70px #ff00de,
-                   0 0 80px #ff00de,
-                   0 0 100px #ff00de,
-                   0 0 150px #ff00de;
-  }
-}
-@-moz-keyframes redBright {
-  0%   { text-shadow:none; }
-  100% {
-      text-shadow: 0 0 10px #fff,
-                   0 0 20px #fff,
-                   0 0 30px #fff,
-                   0 0 40px #ff00de,
-                   0 0 70px #ff00de,
-                   0 0 80px #ff00de,
-                   0 0 100px #ff00de,
-                   0 0 150px #ff00de;
-  }
-}
-@-o-keyframes redBright {
-  0%   { text-shadow:none; }
-  100% {
-      text-shadow: 0 0 10px #fff,
-                   0 0 20px #fff,
-                   0 0 30px #fff,
-                   0 0 40px #ff00de,
-                   0 0 70px #ff00de,
-                   0 0 80px #ff00de,
-                   0 0 100px #ff00de,
-                   0 0 150px #ff00de;
-  }
-}
-@keyframes redBright {
-  0%   { text-shadow:none; }
-  100% {
-      text-shadow: 0 0 10px #fff,
-                   0 0 20px #fff,
-                   0 0 30px #fff,
-                   0 0 40px #ff00de,
-                   0 0 70px #ff00de,
-                   0 0 80px #ff00de,
-                   0 0 100px #ff00de,
-                   0 0 150px #ff00de;
-  }
-}
-
 .red-bright {
   box-shadow: 0px 0px 16px rgb(255, 120, 120) !important;
-  -webkit-animation: 0.5s ease 0s alternate infinite running redBright; /* Safari 4+ */
-  -moz-animation:    0.5s ease 0s alternate infinite running redBright; /* Fx 5+ */
-  -o-animation:      0.5s ease 0s alternate infinite running redBright; /* Opera 12+ */
-  animation:         0.5s ease 0s alternate infinite running redBright; /* IE 10+, Fx 29+ */
-}
-
-@-webkit-keyframes yellowBright {
-  0%   { text-shadow:none; }
-  100% {
-      text-shadow: 0 0 10px #fff,
-                   0 0 20px #fff,
-                   0 0 30px #fff,
-                   0 0 40px #ff00de,
-                   0 0 70px #ff00de,
-                   0 0 80px #ff00de,
-                   0 0 100px #ff00de,
-                   0 0 150px #ff00de;
-  }
-}
-@-moz-keyframes yellowBright {
-  0%   { text-shadow:none; }
-  100% {
-      text-shadow: 0 0 10px #fff,
-                   0 0 20px #fff,
-                   0 0 30px #fff,
-                   0 0 40px #ff00de,
-                   0 0 70px #ff00de,
-                   0 0 80px #ff00de,
-                   0 0 100px #ff00de,
-                   0 0 150px #ff00de;
-  }
-}
-@-o-keyframes yellowBright {
-  0%   { text-shadow:none; }
-  100% {
-      text-shadow: 0 0 10px #fff,
-                   0 0 20px #fff,
-                   0 0 30px #fff,
-                   0 0 40px #ff00de,
-                   0 0 70px #ff00de,
-                   0 0 80px #ff00de,
-                   0 0 100px #ff00de,
-                   0 0 150px #ff00de;
-  }
-}
-@keyframes blueBright {
-  0%   { text-shadow:none; }
-  100% {
-      text-shadow: 0 0 10px #fff,
-                   0 0 20px #fff,
-                   0 0 30px #fff,
-                   0 0 40px #ff00de,
-                   0 0 70px #ff00de,
-                   0 0 80px #ff00de,
-                   0 0 100px #ff00de,
-                   0 0 150px #ff00de;
-  }
 }
 
 .yellow-bright {
   box-shadow: 0px 0px 16px #F39C12 !important;
-  -webkit-animation: 0.5s ease 0s alternate infinite running yellowBright; /* Safari 4+ */
-  -moz-animation:    0.5s ease 0s alternate infinite running yellowBright; /* Fx 5+ */
-  -o-animation:      0.5s ease 0s alternate infinite running yellowBright; /* Opera 12+ */
-  animation:         0.5s ease 0s alternate infinite running yellowBright; /* IE 10+, Fx 29+ */
 }
 
 .disabledButton{
   opacity:0.7;
 }
-
-
 </style>
 
     <div id="wrapper">
@@ -214,11 +98,25 @@
 </form>
 <script type="text/javascript">
 $(function(){
+  ko.validation.rules['userIsRequired'] = {
+      validator: function (val, otherVal) {
+          if(window.actionSettings instanceof Element){
+            return true;
+          }
+          if(window.actionSettings.notification()=="none"){
+            return true;
+          } else {
+            return window.actionSettings.userOrGroup()!=="0";
+          }
+      },
+      message: 'This field is required.'
+  };
+  ko.validation.registerExtenders();
   var vm = {
-    title: ko.observable("").extend({required:true, minLength: 5}),
+    title: ko.observable(" ").extend({required:true, minLength: 5}),
     notification: ko.observable("none"),
     action: ko.observable("watch"),
-    userOrGroup: ko.observable("0"),
+    userOrGroup: ko.observable("").extend({userIsRequired:true, minLength: 1}),
     userOrGroupTitle: ko.observable("")
   };
   vm.notification.subscribe(function(newValue){
@@ -229,9 +127,17 @@ $(function(){
   ko.applyBindings(vm, document.getElementById("actionSettings"));
   window.actionSettings=vm;
 });
-function validateInspection(){
-  actionSettings.title(actionSettings.title());
+ko.validation.registerExtenders();function validateInspection(){
+  var a=actionSettings.title();
+  actionSettings.title("");
+  actionSettings.title(a);
+  a=actionSettings.userOrGroup();
+  actionSettings.userOrGroup("");
+  actionSettings.userOrGroup(a);
   if(!actionSettings.title.isValid()){
+    return false;
+  }
+  if(!actionSettings.userOrGroup.isValid()){
     return false;
   }
   return true;
