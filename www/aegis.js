@@ -139,6 +139,7 @@ var aegis={
     actionSettings.notification(extraData.notification);
     actionSettings.action(extraData.action);
     actionSettings.userOrGroup(extraData.userOrGroup);
+    actionSettings.canBeIgnore(extraData.action=="ignore");
     $('#wrapper').addClass("toggled");
     $('#confirmAction').unbind("click").click(function(){
       if(!validateInspection()){
@@ -203,7 +204,6 @@ var aegis={
       rowInspection.inspection.type=extraData.action;
       rowInspection.inspection.extra=extraData;
 
-      //actionlogKO.data.valueHasMutated();
       var rowI=actionlogKO.data.indexOf(rowInspection);
       actionlogKO.data.splice(rowI,1);
       actionlogKO.data.splice(rowI,0, rowInspection);
@@ -252,6 +252,8 @@ var aegis={
       if(data.baseUrl!=aegis.lastUrl){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
       if(typeof last!=="undefined") {var s=last.first;last.first=null;}
       if(aegis.newCase || (typeof last==="undefined") || (JSON.stringify(last.target)!==JSON.stringify(next.target))){
+console.log("data.isChild: ",data.isChild);
+        actionSettings.canBeIgnore(data.isChild);
         aegis.openEditAction(data.fromSelectAll, function(extraData){
           var inspection={
             baseUrl: data.baseUrl,

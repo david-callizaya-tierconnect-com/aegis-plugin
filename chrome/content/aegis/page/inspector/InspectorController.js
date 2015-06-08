@@ -13,7 +13,6 @@ window.AEGIS.InspectorController={
                 data.target.setAttribute('style', data.outlinedStyle);
                 var outerHTMLWithStyle = data.target.outerHTML;
                 data.target.setAttribute('style', data.styleBackup);
-                //window.AEGIS.Selector.mark(data.target);
                 var offset=window.AEGIS.Selector.getOffset(data.target);
                 Interface.notify("select", {
                     baseUrl:data.target.ownerDocument.location.href,
@@ -24,6 +23,7 @@ window.AEGIS.InspectorController={
                         width:data.target.clientWidth,
                         height:data.target.clientHeight
                     },
+                    isChild:window.AEGIS.Selector.isChildOfAnotherSelection(data.target),
                     outerHTML: outerHTML,
                     outerHTMLWithStyle: outerHTMLWithStyle,
                     fromSelectAll:(typeof data.fromSelectAll!=="undefined" ? data.fromSelectAll : false)
@@ -34,7 +34,6 @@ window.AEGIS.InspectorController={
             window.AEGIS.InspectorController,
             "onToggleInspect",
             function(){
-                //console.log("[InspectorController@page] onToggleInspect!!");
                 window.AEGIS.Selector.clearMarks();
                 ADI.toggleLookup();
             }
@@ -81,7 +80,6 @@ window.AEGIS.InspectorController={
             window.AEGIS.InspectorController,
             "onRun",
             function(data){
-                console.log(data.script);
                 eval(data.script);
             }
         );
@@ -112,7 +110,6 @@ window.AEGIS.InspectorController={
                 if(dom) {
                     window.AEGIS.Selector.mark(dom, inspection.type);
                 } else {
-                    console.log("selected element not found: ", inspection.xpath);
                     //Wait 1s and try again
                     setTimeout((function(dom, type){
                         return function(){window.AEGIS.Selector.mark(dom, type);};

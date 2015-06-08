@@ -1,6 +1,7 @@
 window.AEGIS.Selector={
     composed:["div"],
     focusDiv:null,
+    currentSelection:[],
     isVisible:function(elem){
 	if(!(elem instanceof Element)){
 		//Requisito: que la visibilidad del nodo padre sea verificada y sea true
@@ -107,6 +108,7 @@ window.AEGIS.Selector={
                     selectionType) ? (" aegis-selector-mark-"+selectionType) : ""
                 );
 	document.body.appendChild(aa);
+        this.currentSelection.push(pp1);
 	this.moveDiv(aa, pp1);
     },
     focus:function(pp1){
@@ -135,9 +137,21 @@ window.AEGIS.Selector={
     },
     clearMarks:function(){
         var marks=document.getElementsByClassName("aegis-selector-mark");
+        this.currentSelection.length=0;
         this.focusDiv=null;
         while(marks.length>0){
             marks[0].remove();
         }
+    },
+    isChildOfAnotherSelection:function(pp1){
+        var p=pp1;
+        while(p=p.parentNode){
+            for(var i=0,l=this.currentSelection.length;i<l;i++){
+                if(p===this.currentSelection[i]){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 };

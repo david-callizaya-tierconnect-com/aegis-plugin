@@ -49,25 +49,25 @@
       <div class="col-lg-10">
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" value="none" data-bind="checked: notification">
+            <input type="radio" name="optionsRadios" value="none" data-bind="checked: notification, disable: action()=='ignore'">
             None
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" value="daily" data-bind="checked: notification">
+            <input type="radio" name="optionsRadios" value="daily" data-bind="checked: notification, disable: action()=='ignore'">
             Daily
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" value="weekly" data-bind="checked: notification">
+            <input type="radio" name="optionsRadios" value="weekly" data-bind="checked: notification, disable: action()=='ignore'">
             Weekly
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" value="instant" data-bind="checked: notification">
+            <input type="radio" name="optionsRadios" value="instant" data-bind="checked: notification, disable: action()=='ignore'">
             Instant
           </label>
         </div>
@@ -79,9 +79,16 @@
       <label class="control-label">Action:</label>
       <ul class="nav nav-pills nav-stacked">
         <li data-bind="css:{active: action()==='watch'}"><a href="#" onClick="actionSettings.action('watch')"><i class="fa fa-eye"></i> Watch</a></li>
-        <li data-bind="css:{active: action()==='ignore'}"><a href="#" onClick="actionSettings.action('ignore')"><i class="fa fa-eye-slash"></i> Ignore</a></li>
+        <li data-bind="css:{active: action()==='ignore'}">
+        <!-- ko if: canBeIgnore() -->
+        <a data-bind="css:{disable:true}" href="#" onClick="actionSettings.action('ignore')"><i class="fa fa-eye-slash"></i> Ignore</a>
+        <!-- /ko -->
+        <!-- ko if: !canBeIgnore() -->
+        <a style="cursor:not-allowed;"><i class="fa fa-eye-slash"></i> Ignore</a>
+        <!-- /ko -->
+        </li>
       </ul>
-      <select id="userOrGroup" class="form-control" placeholder="User -or- Group" data-bind="value: userOrGroup, disable: notification()=='none'">
+      <select id="userOrGroup" class="form-control" placeholder="User -or- Group" data-bind="value: userOrGroup, disable: (notification()=='none' || action()=='ignore')">
         <option value="0">User -or- Group</option>
         <option value="1">Admin</option>
       </select>
@@ -103,7 +110,7 @@ $(function(){
           if(window.actionSettings instanceof Element){
             return true;
           }
-          if(window.actionSettings.notification()=="none"){
+          if(window.actionSettings.notification()=="none" || window.actionSettings.action()=="ignore"){
             return true;
           } else {
             return window.actionSettings.userOrGroup()!=="0";
@@ -117,7 +124,8 @@ $(function(){
     notification: ko.observable("none"),
     action: ko.observable("watch"),
     userOrGroup: ko.observable("").extend({userIsRequired:true, minLength: 1}),
-    userOrGroupTitle: ko.observable("")
+    userOrGroupTitle: ko.observable(""),
+    canBeIgnore:ko.observable(true)
   };
   vm.notification.subscribe(function(newValue){
     if(newValue=="none"){
@@ -134,6 +142,10 @@ ko.validation.registerExtenders();function validateInspection(){
   a=actionSettings.userOrGroup();
   actionSettings.userOrGroup("");
   actionSettings.userOrGroup(a);
+  if(actionSettings.action()=="ignore"){
+    actionSettings.notification("none");
+    actionSettings.userOrGroup("0");
+  }
   if(!actionSettings.title.isValid()){
     return false;
   }
