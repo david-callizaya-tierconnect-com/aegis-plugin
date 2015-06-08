@@ -68,13 +68,13 @@ var DOMInjector = {
             if(httpRequest.readyState===4){
                 if(httpRequest.status===200){
                     var html='<'+'script type="text/javascript">'+httpRequest.responseText+'<'+'/script>';
-                    DOMInjector.injectHtmlTo(contentWindow, html, function(window, document, nodes) {
+                    DOMInjector.injectHtmlTo(contentWindow, html, function(chromeWindow, document, nodes) {
                         try{
                             var i=0;
                             var refNodes=[];
                             while(nodes.length>i){
                                 try{
-                                    window.eval(nodes[i].textContent);
+                                    chromeWindow.eval(nodes[i].textContent);
                                 } catch(exp) {
                                     console.log("["+link+"] "+exp);
                                     console.log(exp.stack);
@@ -89,7 +89,7 @@ var DOMInjector = {
                                 }
                             }
                             if(typeof callback==="function") {
-                                callback(window, document, refNodes);
+                                callback(chromeWindow, document, refNodes);
                             }
                         } catch(e) {
                             console.log(e);
