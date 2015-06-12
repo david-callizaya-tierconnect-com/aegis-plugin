@@ -4,7 +4,7 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>aegisplugin@aegis.com</em:id>
         <em:name>Aegis Plugin</em:name>
-        <em:version>0.0.10</em:version>
+        <em:version>0.0.11</em:version>
         <em:creator>D.C.</em:creator>
         <em:developer>CodeRoad</em:developer>
         <em:description>Record and Inspect</em:description>
