@@ -90,7 +90,7 @@
       </ul>
       <select id="userOrGroup" class="form-control" placeholder="User -or- Group" data-bind="value: userOrGroup, disable: (notification()=='none' || action()=='ignore')">
         <option value="0">User -or- Group</option>
-        <option value="1">Admin</option>
+        <option value="1">Tony Tancredi</option>
       </select>
     </div>
   </div>
@@ -326,7 +326,7 @@ function listCommands(){
 <form class="navbar-form navbar-right">
 <div class="btn-group">
 <button type="button" class="btn btn-warning" data-bind="visible: false" onclick="justDoIt()">Load Job</button>
-<button type="button" class="btn btn-success" data-bind="visible: !isEditing()" onclick="aegis.runJob()" id="publish-button">Publish <i class="fa fa-check-circle-o pull-right"></i></button>
+<button type="button" class="btn btn-success" data-bind="visible: !isEditing()" onclick="aegis.runJob()" id="publish-button">Create Job <i class="fa fa-check-circle-o pull-right"></i></button>
 <button type="button" class="btn btn-primary" data-bind="css:{disabled:isRecording()}, visible: !isEditing()" onclick="aegis.selectAll()">Select All <i class="fa fa-check-square-o pull-right"></i></button>
 <button type="button" class="btn btn-warning" data-bind="visible: isEditing()" onclick="aegis.nextCase()">Next Inspection</button>
 <button type="button" class="btn btn-primary" data-bind="" onclick="aegis.close()">Cancel <i class="fa fa-times pull-right"></i></button>

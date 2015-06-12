@@ -433,6 +433,9 @@ console.log("data.isChild: ",data.isChild);
   },
   close:function(){
     AEGIS.IController.closeJob();
+    if( !vm.isRecording() ) {
+      aegis.toggle();
+    }
     AEGIS.IController.runScript("window.close()");
   }
 };
