@@ -12,6 +12,21 @@ var aegis={
   jobConfig:{
     publicId:"ppGr1ll0"
   },
+  /**
+   * Maximize and minimize the plugin panel.
+   */
+  maximized:ko.observable(true),
+  maximizePlugin:function(){
+    this.maximized(true);
+    AEGIS.IController.maximizePlugin();
+  },
+  minimizePlugin:function(){
+    this.maximized(false);
+    AEGIS.IController.minimizePlugin();
+  },
+  /**
+   * Publish the job to the variance server
+   */
   runJob:function(){
     $("#publish-button").addClass("green-bright");
     if(aegis.cases.length===0){
@@ -217,6 +232,8 @@ var aegis={
   },
   onselect:function(data){
     try{
+      //req: open the plugin when user does a selection
+      aegis.maximizePlugin();
       /* Find selection in current case*/
       for(var i=0,l=aegis.currentCase.inspector.length;i<l;i++){
         if( (aegis.currentCase.inspector[i].baseUrl===data.baseUrl) &&

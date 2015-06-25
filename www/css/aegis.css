@@ -7,6 +7,7 @@ body {
   font-family: "Open Sans",sans-serif;
   font-size: 13px;
   background-color: #717171;
+  overflow:hidden;
 }
 .navbar-default {
   background-color: #D6D6D6;
@@ -219,7 +220,7 @@ tr{
     background: rgba(0,0,0,0.8);
     height: 100%;
     margin-right: -372px;
-    overflow-y: auto;
+    overflow-y: hidden;
     position: fixed;
     right: 372px;
     transition: all 0.5s ease 0s;

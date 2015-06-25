@@ -30,6 +30,12 @@ var MainController = {
         runScript:function(script){
             this.runScript(script);
         },
+		minimizePlugin:function(){
+			this.minimizePlugin();
+		},
+		maximizePlugin:function(){
+			this.maximizePlugin();
+		},
         notify:function(event,data){
             this.notify(event,data);
         },
@@ -151,6 +157,21 @@ var MainController = {
     runScript:function(script){
         IInspectorController.runScript(script);
     },
+	/**
+	 * Minimizes the plugin like a status bar
+	 * @returns {undefined}
+	 */
+	minimizePlugin:function(){
+		aegis.setContainerHeight(51);
+	},
+	/**
+	 * Maximizes the plugin to the default height
+	 * @returns {undefined}
+	 */
+	maximizePlugin:function(){
+		//@see also: aegis.lastPanelHeight
+		aegis.setContainerHeight(390);
+	},
     //observer pattern
     listeners:[],
     addEventListener:function(obj,event,fn){

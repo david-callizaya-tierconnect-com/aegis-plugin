@@ -37,7 +37,7 @@ var aegis={
         mode:"recording",
         editor:null,
         editors:[],
-        lastPanelHeight:420,
+        lastPanelHeight:390,
         onContentLoaded:function(contentWindow, isRootDocument){
             /**
              * Injects the dom element to do as a bridge
