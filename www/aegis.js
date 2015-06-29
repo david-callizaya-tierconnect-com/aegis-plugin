@@ -16,6 +16,7 @@ var aegis={
    * Maximize and minimize the plugin panel.
    */
   maximized:ko.observable(true),
+  minimizeAtTheEnd: false,
   maximizePlugin:function(){
     this.maximized(true);
     AEGIS.IController.maximizePlugin();
@@ -225,15 +226,20 @@ var aegis={
 
       AEGIS.IInspector.loadSelection( aegis.currentCase.inspector );
       aegis.closeEditAction();
+      if(aegis.minimizeAtTheEnd) {
+        aegis.minimizePlugin();
+      }
     }, 
     function(){
       aegis.closeEditAction();
+      if(aegis.minimizeAtTheEnd) {
+        aegis.minimizePlugin();
+      }
     });
   },
   onselect:function(data){
     try{
       //req: open the plugin when user does a selection
-      aegis.maximizePlugin();
       /* Find selection in current case*/
       for(var i=0,l=aegis.currentCase.inspector.length;i<l;i++){
         if( (aegis.currentCase.inspector[i].baseUrl===data.baseUrl) &&
@@ -245,6 +251,7 @@ var aegis={
             if( array[j].inspection===aegis.currentCase.inspector[i] ) {
               setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
               if(!data.fromSelectAll){
+                aegis.maximizePlugin();
                 aegis.onselectInspectionRow( array[j] );
               }
               return;
@@ -269,7 +276,8 @@ var aegis={
       if(data.baseUrl!=aegis.lastUrl){aegis.lastUrl=data.baseUrl; aegis.newCase=true;}
       if(typeof last!=="undefined") {var s=last.first;last.first=null;}
       if(aegis.newCase || (typeof last==="undefined") || (JSON.stringify(last.target)!==JSON.stringify(next.target))){
-console.log("data.isChild: ",data.isChild);
+//console.log("data.isChild: ",data.isChild);
+        aegis.maximizePlugin();
         actionSettings.canBeIgnore(data.isChild);
         aegis.openEditAction(data.fromSelectAll, function(extraData){
           var inspection={
@@ -294,9 +302,15 @@ console.log("data.isChild: ",data.isChild);
           aegis.currentCase.inspector.push(inspection);
           AEGIS.IInspector.loadSelection( aegis.currentCase.inspector );
           aegis.closeEditAction();
+          if(aegis.minimizeAtTheEnd) {
+            aegis.minimizePlugin();
+          }
         }, function(){
           aegis.closeEditAction();
           setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);
+          if(aegis.minimizeAtTheEnd) {
+            aegis.minimizePlugin();
+          }
         });
       } else {
           setTimeout(function(){ AEGIS.IInspector.activateInspect(); }, 0);

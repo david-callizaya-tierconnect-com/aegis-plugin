@@ -343,9 +343,11 @@ $(function(){
   ko.applyBindings({
     maximized:aegis.maximized,
     maximize:function(){
+      aegis.minimizeAtTheEnd=false;
       aegis.maximizePlugin();
     },
     minimize:function(){
+      aegis.minimizeAtTheEnd=true;
       aegis.minimizePlugin();
     },
   }, document.getElementById("maximizeMinimize"));
